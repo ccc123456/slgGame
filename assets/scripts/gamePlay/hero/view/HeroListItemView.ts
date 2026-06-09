@@ -1,15 +1,16 @@
 import { _decorator, instantiate, Label, Node } from 'cc';
+import ViewController from '../../../frameWork/controller/ViewController';
 import BaseUI from '../../../frameWork/ui/BaseUI';
-import { HeroViewController } from '../controller/HeroViewController';
+import { BagModel } from '../../bag/mode/BagModel';
+import IconFactory from '../../base/IconFactory';
 import Hero, { heroActivateItem } from '../model/Hero';
 import { HeroModel } from '../model/HeroModel';
-import IconFactory from '../../base/IconFactory';
-import { BagModel } from '../../bag/mode/BagModel';
+import { HeroViewController } from '../controller/HeroViewController';
 const { ccclass, property } = _decorator;
 
 @ccclass('HeroListItem')
 export class HeroListItemView extends BaseUI {
-    delegate: HeroViewController
+    delegate: ViewController
 
     @property(Node)
     icon: Node = null;
@@ -41,7 +42,7 @@ export class HeroListItemView extends BaseUI {
     @property(Node)
     activateBtn: Node = null;
 
-    initView(_delegate) {
+    initView(_delegate: ViewController) {
         this.delegate = _delegate
     }
 
@@ -91,7 +92,8 @@ export class HeroListItemView extends BaseUI {
             _item.active = true
         }
         this.registbuttonClick(this.activateBtn, () => {
-            this.delegate.activateHandler(heroId)
+            let heroDe: HeroViewController = <HeroViewController>this.delegate
+            heroDe.activateHandler(heroId)
         })
     }
 }

@@ -14,13 +14,13 @@ import UIView from '../../../frameWork/ui/UIView';
 import { SHOWTIPS } from '../../../GameConfig';
 import { BagViewController } from '../../bag/controller/BagViewController';
 import { CityBattleViewController } from '../../cityBattle/controller/CityBattleViewController';
+import { CityBattleMode } from '../../cityBattle/mode/CityBattleMode';
 import { HeroViewController } from '../../hero/controller/HeroViewController';
 import { LegionAddViewController } from '../../legion/controller/LegionAddViewController';
 import { LegionViewController } from '../../legion/controller/LegionViewController';
 import { LegionModel } from '../../legion/model/LegionModel';
 import PlayerModel from '../mode/PlayerModel';
 import { HomeView } from '../view/HomeView';
-import { CityBattleMode } from '../../cityBattle/mode/CityBattleMode';
 const { ccclass, property } = _decorator;
 
 @ccclass('HomeViewController')

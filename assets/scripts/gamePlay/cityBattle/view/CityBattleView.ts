@@ -71,7 +71,7 @@ export class CityBattleView extends UIView {
             //攻城
             let _unlocksiege = _unlock.getChildByName("siege");
             this.registbuttonClick(_unlocksiege, () => {
-
+                this.delegate.siegeHandler()
             })
             //政务
             let _unlockGovernment = _unlock.getChildByName("government");

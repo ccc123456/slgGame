@@ -115,6 +115,17 @@ export class HeroModel extends Model {
         })
     }
 
+    public getHeros(): Hero[] {
+        let heros: Hero[] = [];
+        for (const key in this._heroes) {
+            heros.push(this._heroes[key])
+        }
+        heros.sort((a: Hero, b: Hero) => {
+            return a.getPower() - b.getPower()
+        })
+        return heros
+    }
+
     public getHero(heroId): Hero {
         return this._heroes[heroId]
     }

@@ -75,6 +75,70 @@ export interface ScCityBattleDetail {
   detail?: CityBattleDetail | undefined;
 }
 
+/**
+ * 都城宣战
+ * @Id(1509)
+ */
+export interface CsDeclareCapital {
+  cityId: number;
+}
+
+/**
+ * 都城宣战
+ * @Id(1510)
+ */
+export interface ScDeclareCapital {
+}
+
+/**
+ * 派遣部队
+ * @Id(1511)
+ */
+export interface CsDispatchTroops {
+  cityId: number;
+  side: number;
+  heroIds: number[];
+}
+
+/**
+ * 派遣部队
+ * @Id(1512)
+ */
+export interface ScDispatchTroops {
+}
+
+/**
+ * 撤回防守部队
+ * @Id(1513)
+ */
+export interface CsWithdrawDefendingTroops {
+  cityId: number;
+  dispatchId: number;
+}
+
+/**
+ * 撤回防守部队
+ * @Id(1514)
+ */
+export interface ScWithdrawDefendingTroops {
+}
+
+/**
+ * 治疗重伤武将
+ * @Id(1515)
+ */
+export interface CsHealInjuredHeroes {
+  cityId: number;
+  heroIds: number[];
+}
+
+/**
+ * 治疗重伤武将
+ * @Id(1516)
+ */
+export interface ScHealInjuredHeroes {
+}
+
 function createBaseCsGetCityList(): CsGetCityList {
   return {};
 }
@@ -549,6 +613,504 @@ export const ScCityBattleDetail: MessageFns<ScCityBattleDetail> = {
   },
 };
 
+function createBaseCsDeclareCapital(): CsDeclareCapital {
+  return { cityId: 0 };
+}
+
+export const CsDeclareCapital: MessageFns<CsDeclareCapital> = {
+  encode(message: CsDeclareCapital, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityId !== 0) {
+      writer.uint32(8).int32(message.cityId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsDeclareCapital {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsDeclareCapital();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CsDeclareCapital {
+    return { cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0 };
+  },
+
+  toJSON(message: CsDeclareCapital): unknown {
+    const obj: any = {};
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsDeclareCapital>, I>>(base?: I): CsDeclareCapital {
+    return CsDeclareCapital.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsDeclareCapital>, I>>(object: I): CsDeclareCapital {
+    const message = createBaseCsDeclareCapital();
+    message.cityId = object.cityId ?? 0;
+    return message;
+  },
+};
+
+function createBaseScDeclareCapital(): ScDeclareCapital {
+  return {};
+}
+
+export const ScDeclareCapital: MessageFns<ScDeclareCapital> = {
+  encode(_: ScDeclareCapital, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScDeclareCapital {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScDeclareCapital();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ScDeclareCapital {
+    return {};
+  },
+
+  toJSON(_: ScDeclareCapital): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScDeclareCapital>, I>>(base?: I): ScDeclareCapital {
+    return ScDeclareCapital.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScDeclareCapital>, I>>(_: I): ScDeclareCapital {
+    const message = createBaseScDeclareCapital();
+    return message;
+  },
+};
+
+function createBaseCsDispatchTroops(): CsDispatchTroops {
+  return { cityId: 0, side: 0, heroIds: [] };
+}
+
+export const CsDispatchTroops: MessageFns<CsDispatchTroops> = {
+  encode(message: CsDispatchTroops, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityId !== 0) {
+      writer.uint32(8).int32(message.cityId);
+    }
+    if (message.side !== 0) {
+      writer.uint32(16).int32(message.side);
+    }
+    writer.uint32(26).fork();
+    for (const v of message.heroIds) {
+      writer.int32(v);
+    }
+    writer.join();
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsDispatchTroops {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsDispatchTroops();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.side = reader.int32();
+          continue;
+        }
+        case 3: {
+          if (tag === 24) {
+            message.heroIds.push(reader.int32());
+
+            continue;
+          }
+
+          if (tag === 26) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.heroIds.push(reader.int32());
+            }
+
+            continue;
+          }
+
+          break;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CsDispatchTroops {
+    return {
+      cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0,
+      side: isSet(object.side) ? globalThis.Number(object.side) : 0,
+      heroIds: globalThis.Array.isArray(object?.heroIds) ? object.heroIds.map((e: any) => globalThis.Number(e)) : [],
+    };
+  },
+
+  toJSON(message: CsDispatchTroops): unknown {
+    const obj: any = {};
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    if (message.side !== 0) {
+      obj.side = Math.round(message.side);
+    }
+    if (message.heroIds?.length) {
+      obj.heroIds = message.heroIds.map((e) => Math.round(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsDispatchTroops>, I>>(base?: I): CsDispatchTroops {
+    return CsDispatchTroops.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsDispatchTroops>, I>>(object: I): CsDispatchTroops {
+    const message = createBaseCsDispatchTroops();
+    message.cityId = object.cityId ?? 0;
+    message.side = object.side ?? 0;
+    message.heroIds = object.heroIds?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBaseScDispatchTroops(): ScDispatchTroops {
+  return {};
+}
+
+export const ScDispatchTroops: MessageFns<ScDispatchTroops> = {
+  encode(_: ScDispatchTroops, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScDispatchTroops {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScDispatchTroops();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ScDispatchTroops {
+    return {};
+  },
+
+  toJSON(_: ScDispatchTroops): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScDispatchTroops>, I>>(base?: I): ScDispatchTroops {
+    return ScDispatchTroops.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScDispatchTroops>, I>>(_: I): ScDispatchTroops {
+    const message = createBaseScDispatchTroops();
+    return message;
+  },
+};
+
+function createBaseCsWithdrawDefendingTroops(): CsWithdrawDefendingTroops {
+  return { cityId: 0, dispatchId: 0 };
+}
+
+export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = {
+  encode(message: CsWithdrawDefendingTroops, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityId !== 0) {
+      writer.uint32(8).int32(message.cityId);
+    }
+    if (message.dispatchId !== 0) {
+      writer.uint32(16).int32(message.dispatchId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsWithdrawDefendingTroops {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsWithdrawDefendingTroops();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.dispatchId = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CsWithdrawDefendingTroops {
+    return {
+      cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0,
+      dispatchId: isSet(object.dispatchId) ? globalThis.Number(object.dispatchId) : 0,
+    };
+  },
+
+  toJSON(message: CsWithdrawDefendingTroops): unknown {
+    const obj: any = {};
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    if (message.dispatchId !== 0) {
+      obj.dispatchId = Math.round(message.dispatchId);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsWithdrawDefendingTroops>, I>>(base?: I): CsWithdrawDefendingTroops {
+    return CsWithdrawDefendingTroops.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsWithdrawDefendingTroops>, I>>(object: I): CsWithdrawDefendingTroops {
+    const message = createBaseCsWithdrawDefendingTroops();
+    message.cityId = object.cityId ?? 0;
+    message.dispatchId = object.dispatchId ?? 0;
+    return message;
+  },
+};
+
+function createBaseScWithdrawDefendingTroops(): ScWithdrawDefendingTroops {
+  return {};
+}
+
+export const ScWithdrawDefendingTroops: MessageFns<ScWithdrawDefendingTroops> = {
+  encode(_: ScWithdrawDefendingTroops, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScWithdrawDefendingTroops {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScWithdrawDefendingTroops();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ScWithdrawDefendingTroops {
+    return {};
+  },
+
+  toJSON(_: ScWithdrawDefendingTroops): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScWithdrawDefendingTroops>, I>>(base?: I): ScWithdrawDefendingTroops {
+    return ScWithdrawDefendingTroops.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScWithdrawDefendingTroops>, I>>(_: I): ScWithdrawDefendingTroops {
+    const message = createBaseScWithdrawDefendingTroops();
+    return message;
+  },
+};
+
+function createBaseCsHealInjuredHeroes(): CsHealInjuredHeroes {
+  return { cityId: 0, heroIds: [] };
+}
+
+export const CsHealInjuredHeroes: MessageFns<CsHealInjuredHeroes> = {
+  encode(message: CsHealInjuredHeroes, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityId !== 0) {
+      writer.uint32(8).int32(message.cityId);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.heroIds) {
+      writer.int32(v);
+    }
+    writer.join();
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsHealInjuredHeroes {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsHealInjuredHeroes();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag === 16) {
+            message.heroIds.push(reader.int32());
+
+            continue;
+          }
+
+          if (tag === 18) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.heroIds.push(reader.int32());
+            }
+
+            continue;
+          }
+
+          break;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CsHealInjuredHeroes {
+    return {
+      cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0,
+      heroIds: globalThis.Array.isArray(object?.heroIds) ? object.heroIds.map((e: any) => globalThis.Number(e)) : [],
+    };
+  },
+
+  toJSON(message: CsHealInjuredHeroes): unknown {
+    const obj: any = {};
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    if (message.heroIds?.length) {
+      obj.heroIds = message.heroIds.map((e) => Math.round(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsHealInjuredHeroes>, I>>(base?: I): CsHealInjuredHeroes {
+    return CsHealInjuredHeroes.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsHealInjuredHeroes>, I>>(object: I): CsHealInjuredHeroes {
+    const message = createBaseCsHealInjuredHeroes();
+    message.cityId = object.cityId ?? 0;
+    message.heroIds = object.heroIds?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBaseScHealInjuredHeroes(): ScHealInjuredHeroes {
+  return {};
+}
+
+export const ScHealInjuredHeroes: MessageFns<ScHealInjuredHeroes> = {
+  encode(_: ScHealInjuredHeroes, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScHealInjuredHeroes {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScHealInjuredHeroes();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ScHealInjuredHeroes {
+    return {};
+  },
+
+  toJSON(_: ScHealInjuredHeroes): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScHealInjuredHeroes>, I>>(base?: I): ScHealInjuredHeroes {
+    return ScHealInjuredHeroes.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScHealInjuredHeroes>, I>>(_: I): ScHealInjuredHeroes {
+    const message = createBaseScHealInjuredHeroes();
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -582,3 +1144,11 @@ export const csPlayerCityInfoId: number = 1505;
 export const scPlayerCityInfoId: number = 1506;
 export const csCityBattleDetailId: number = 1507;
 export const scCityBattleDetailId: number = 1508;
+export const csDeclareCapitalId: number = 1509;
+export const scDeclareCapitalId: number = 1510;
+export const csDispatchTroopsId: number = 1511;
+export const scDispatchTroopsId: number = 1512;
+export const csWithdrawDefendingTroopsId: number = 1513;
+export const scWithdrawDefendingTroopsId: number = 1514;
+export const csHealInjuredHeroesId: number = 1515;
+export const scHealInjuredHeroesId: number = 1516;

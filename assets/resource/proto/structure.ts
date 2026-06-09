@@ -22,6 +22,7 @@ export interface HeroInfo {
   skillInfo: HeroSkillInfo[];
   power: string;
   attributes: Attribute[];
+  dispatchToCityId: number;
 }
 
 export interface Attribute {
@@ -105,6 +106,7 @@ export interface CityInfo {
 }
 
 export interface BattleInfo {
+  battleIndex: number;
   attack?: BattleUnit | undefined;
   defend?: BattleUnit | undefined;
 }
@@ -125,6 +127,7 @@ export interface BattleUnit {
   legionName: string;
   totalPower: string;
   isGarrison: boolean;
+  dispatchId: string;
 }
 
 export interface CityBattleDetail {
@@ -149,6 +152,7 @@ function createBaseHeroInfo(): HeroInfo {
     skillInfo: [],
     power: "",
     attributes: [],
+    dispatchToCityId: 0,
   };
 }
 
@@ -186,6 +190,9 @@ export const HeroInfo: MessageFns<HeroInfo> = {
     }
     for (const v of message.attributes) {
       Attribute.encode(v!, writer.uint32(90).fork()).join();
+    }
+    if (message.dispatchToCityId !== 0) {
+      writer.uint32(96).int32(message.dispatchToCityId);
     }
     return writer;
   },
@@ -285,6 +292,14 @@ export const HeroInfo: MessageFns<HeroInfo> = {
           message.attributes.push(Attribute.decode(reader, reader.uint32()));
           continue;
         }
+        case 12: {
+          if (tag !== 96) {
+            break;
+          }
+
+          message.dispatchToCityId = reader.int32();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -311,6 +326,7 @@ export const HeroInfo: MessageFns<HeroInfo> = {
       attributes: globalThis.Array.isArray(object?.attributes)
         ? object.attributes.map((e: any) => Attribute.fromJSON(e))
         : [],
+      dispatchToCityId: isSet(object.dispatchToCityId) ? globalThis.Number(object.dispatchToCityId) : 0,
     };
   },
 
@@ -349,6 +365,9 @@ export const HeroInfo: MessageFns<HeroInfo> = {
     if (message.attributes?.length) {
       obj.attributes = message.attributes.map((e) => Attribute.toJSON(e));
     }
+    if (message.dispatchToCityId !== 0) {
+      obj.dispatchToCityId = Math.round(message.dispatchToCityId);
+    }
     return obj;
   },
 
@@ -368,6 +387,7 @@ export const HeroInfo: MessageFns<HeroInfo> = {
     message.skillInfo = object.skillInfo?.map((e) => HeroSkillInfo.fromPartial(e)) || [];
     message.power = object.power ?? "";
     message.attributes = object.attributes?.map((e) => Attribute.fromPartial(e)) || [];
+    message.dispatchToCityId = object.dispatchToCityId ?? 0;
     return message;
   },
 };
@@ -1673,16 +1693,19 @@ export const CityInfo: MessageFns<CityInfo> = {
 };
 
 function createBaseBattleInfo(): BattleInfo {
-  return { attack: undefined, defend: undefined };
+  return { battleIndex: 0, attack: undefined, defend: undefined };
 }
 
 export const BattleInfo: MessageFns<BattleInfo> = {
   encode(message: BattleInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.battleIndex !== 0) {
+      writer.uint32(8).int32(message.battleIndex);
+    }
     if (message.attack !== undefined) {
-      BattleUnit.encode(message.attack, writer.uint32(10).fork()).join();
+      BattleUnit.encode(message.attack, writer.uint32(18).fork()).join();
     }
     if (message.defend !== undefined) {
-      BattleUnit.encode(message.defend, writer.uint32(18).fork()).join();
+      BattleUnit.encode(message.defend, writer.uint32(26).fork()).join();
     }
     return writer;
   },
@@ -1695,15 +1718,23 @@ export const BattleInfo: MessageFns<BattleInfo> = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1: {
-          if (tag !== 10) {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.battleIndex = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
             break;
           }
 
           message.attack = BattleUnit.decode(reader, reader.uint32());
           continue;
         }
-        case 2: {
-          if (tag !== 18) {
+        case 3: {
+          if (tag !== 26) {
             break;
           }
 
@@ -1721,6 +1752,7 @@ export const BattleInfo: MessageFns<BattleInfo> = {
 
   fromJSON(object: any): BattleInfo {
     return {
+      battleIndex: isSet(object.battleIndex) ? globalThis.Number(object.battleIndex) : 0,
       attack: isSet(object.attack) ? BattleUnit.fromJSON(object.attack) : undefined,
       defend: isSet(object.defend) ? BattleUnit.fromJSON(object.defend) : undefined,
     };
@@ -1728,6 +1760,9 @@ export const BattleInfo: MessageFns<BattleInfo> = {
 
   toJSON(message: BattleInfo): unknown {
     const obj: any = {};
+    if (message.battleIndex !== 0) {
+      obj.battleIndex = Math.round(message.battleIndex);
+    }
     if (message.attack !== undefined) {
       obj.attack = BattleUnit.toJSON(message.attack);
     }
@@ -1742,6 +1777,7 @@ export const BattleInfo: MessageFns<BattleInfo> = {
   },
   fromPartial<I extends Exact<DeepPartial<BattleInfo>, I>>(object: I): BattleInfo {
     const message = createBaseBattleInfo();
+    message.battleIndex = object.battleIndex ?? 0;
     message.attack = (object.attack !== undefined && object.attack !== null)
       ? BattleUnit.fromPartial(object.attack)
       : undefined;
@@ -1877,7 +1913,16 @@ export const HeroState: MessageFns<HeroState> = {
 };
 
 function createBaseBattleUnit(): BattleUnit {
-  return { hero: [], playerId: "", playerName: "", legionId: "", legionName: "", totalPower: "", isGarrison: false };
+  return {
+    hero: [],
+    playerId: "",
+    playerName: "",
+    legionId: "",
+    legionName: "",
+    totalPower: "",
+    isGarrison: false,
+    dispatchId: "",
+  };
 }
 
 export const BattleUnit: MessageFns<BattleUnit> = {
@@ -1902,6 +1947,9 @@ export const BattleUnit: MessageFns<BattleUnit> = {
     }
     if (message.isGarrison !== false) {
       writer.uint32(56).bool(message.isGarrison);
+    }
+    if (message.dispatchId !== "") {
+      writer.uint32(66).string(message.dispatchId);
     }
     return writer;
   },
@@ -1969,6 +2017,14 @@ export const BattleUnit: MessageFns<BattleUnit> = {
           message.isGarrison = reader.bool();
           continue;
         }
+        case 8: {
+          if (tag !== 66) {
+            break;
+          }
+
+          message.dispatchId = reader.string();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -1987,6 +2043,7 @@ export const BattleUnit: MessageFns<BattleUnit> = {
       legionName: isSet(object.legionName) ? globalThis.String(object.legionName) : "",
       totalPower: isSet(object.totalPower) ? globalThis.String(object.totalPower) : "",
       isGarrison: isSet(object.isGarrison) ? globalThis.Boolean(object.isGarrison) : false,
+      dispatchId: isSet(object.dispatchId) ? globalThis.String(object.dispatchId) : "",
     };
   },
 
@@ -2013,6 +2070,9 @@ export const BattleUnit: MessageFns<BattleUnit> = {
     if (message.isGarrison !== false) {
       obj.isGarrison = message.isGarrison;
     }
+    if (message.dispatchId !== "") {
+      obj.dispatchId = message.dispatchId;
+    }
     return obj;
   },
 
@@ -2028,6 +2088,7 @@ export const BattleUnit: MessageFns<BattleUnit> = {
     message.legionName = object.legionName ?? "";
     message.totalPower = object.totalPower ?? "";
     message.isGarrison = object.isGarrison ?? false;
+    message.dispatchId = object.dispatchId ?? "";
     return message;
   },
 };

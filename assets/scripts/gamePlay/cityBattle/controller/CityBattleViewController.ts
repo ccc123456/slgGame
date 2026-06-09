@@ -7,6 +7,8 @@ import { CsGetCityDetail, csGetCityDetailId, ScGetCityDetail } from 'db://assets
 import { CityInfo } from 'db://assets/resource/proto/structure';
 import { CityInfoViewController } from './CityInfoViewController';
 import City from '../mode/City';
+import { TeamViewController } from '../../team/controller/TeamViewController';
+import { TeamBtnState } from '../../team/model/TeamModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleViewController')
@@ -39,6 +41,10 @@ export class CityBattleViewController extends ViewController {
                 cityVo: _cityVo
             })
         })
+    }
+
+    siegeHandler() {
+        this.pushController(TeamViewController, { btnState: TeamBtnState.citySiege })
     }
 }
 
