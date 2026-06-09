@@ -101,7 +101,7 @@ export interface CityInfo {
   statusChangeTime: string;
   isUnlock: boolean;
   battleInfo: BattleInfo[];
-  battleRemainningTime: number;
+  battleRemainingTime: number;
 }
 
 export interface BattleInfo {
@@ -132,7 +132,7 @@ export interface CityBattleDetail {
   attackQueue: BattleUnit[];
   defendQueue: BattleUnit[];
   garrisonQueue: BattleUnit[];
-  lastBattleTime: string;
+  battleRemainingTime: number;
   cityId: number;
 }
 
@@ -1460,7 +1460,7 @@ function createBaseCityInfo(): CityInfo {
     statusChangeTime: "",
     isUnlock: false,
     battleInfo: [],
-    battleRemainningTime: 0,
+    battleRemainingTime: 0,
   };
 }
 
@@ -1493,8 +1493,8 @@ export const CityInfo: MessageFns<CityInfo> = {
     for (const v of message.battleInfo) {
       BattleInfo.encode(v!, writer.uint32(74).fork()).join();
     }
-    if (message.battleRemainningTime !== 0) {
-      writer.uint32(80).int32(message.battleRemainningTime);
+    if (message.battleRemainingTime !== 0) {
+      writer.uint32(80).int32(message.battleRemainingTime);
     }
     return writer;
   },
@@ -1583,7 +1583,7 @@ export const CityInfo: MessageFns<CityInfo> = {
             break;
           }
 
-          message.battleRemainningTime = reader.int32();
+          message.battleRemainingTime = reader.int32();
           continue;
         }
       }
@@ -1610,7 +1610,7 @@ export const CityInfo: MessageFns<CityInfo> = {
       battleInfo: globalThis.Array.isArray(object?.battleInfo)
         ? object.battleInfo.map((e: any) => BattleInfo.fromJSON(e))
         : [],
-      battleRemainningTime: isSet(object.battleRemainningTime) ? globalThis.Number(object.battleRemainningTime) : 0,
+      battleRemainingTime: isSet(object.battleRemainingTime) ? globalThis.Number(object.battleRemainingTime) : 0,
     };
   },
 
@@ -1643,8 +1643,8 @@ export const CityInfo: MessageFns<CityInfo> = {
     if (message.battleInfo?.length) {
       obj.battleInfo = message.battleInfo.map((e) => BattleInfo.toJSON(e));
     }
-    if (message.battleRemainningTime !== 0) {
-      obj.battleRemainningTime = Math.round(message.battleRemainningTime);
+    if (message.battleRemainingTime !== 0) {
+      obj.battleRemainingTime = Math.round(message.battleRemainingTime);
     }
     return obj;
   },
@@ -1667,7 +1667,7 @@ export const CityInfo: MessageFns<CityInfo> = {
     message.statusChangeTime = object.statusChangeTime ?? "";
     message.isUnlock = object.isUnlock ?? false;
     message.battleInfo = object.battleInfo?.map((e) => BattleInfo.fromPartial(e)) || [];
-    message.battleRemainningTime = object.battleRemainningTime ?? 0;
+    message.battleRemainingTime = object.battleRemainingTime ?? 0;
     return message;
   },
 };
@@ -2033,7 +2033,7 @@ export const BattleUnit: MessageFns<BattleUnit> = {
 };
 
 function createBaseCityBattleDetail(): CityBattleDetail {
-  return { battleInfo: [], attackQueue: [], defendQueue: [], garrisonQueue: [], lastBattleTime: "", cityId: 0 };
+  return { battleInfo: [], attackQueue: [], defendQueue: [], garrisonQueue: [], battleRemainingTime: 0, cityId: 0 };
 }
 
 export const CityBattleDetail: MessageFns<CityBattleDetail> = {
@@ -2050,8 +2050,8 @@ export const CityBattleDetail: MessageFns<CityBattleDetail> = {
     for (const v of message.garrisonQueue) {
       BattleUnit.encode(v!, writer.uint32(34).fork()).join();
     }
-    if (message.lastBattleTime !== "") {
-      writer.uint32(42).string(message.lastBattleTime);
+    if (message.battleRemainingTime !== 0) {
+      writer.uint32(40).int32(message.battleRemainingTime);
     }
     if (message.cityId !== 0) {
       writer.uint32(48).int32(message.cityId);
@@ -2099,11 +2099,11 @@ export const CityBattleDetail: MessageFns<CityBattleDetail> = {
           continue;
         }
         case 5: {
-          if (tag !== 42) {
+          if (tag !== 40) {
             break;
           }
 
-          message.lastBattleTime = reader.string();
+          message.battleRemainingTime = reader.int32();
           continue;
         }
         case 6: {
@@ -2137,7 +2137,7 @@ export const CityBattleDetail: MessageFns<CityBattleDetail> = {
       garrisonQueue: globalThis.Array.isArray(object?.garrisonQueue)
         ? object.garrisonQueue.map((e: any) => BattleUnit.fromJSON(e))
         : [],
-      lastBattleTime: isSet(object.lastBattleTime) ? globalThis.String(object.lastBattleTime) : "",
+      battleRemainingTime: isSet(object.battleRemainingTime) ? globalThis.Number(object.battleRemainingTime) : 0,
       cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0,
     };
   },
@@ -2156,8 +2156,8 @@ export const CityBattleDetail: MessageFns<CityBattleDetail> = {
     if (message.garrisonQueue?.length) {
       obj.garrisonQueue = message.garrisonQueue.map((e) => BattleUnit.toJSON(e));
     }
-    if (message.lastBattleTime !== "") {
-      obj.lastBattleTime = message.lastBattleTime;
+    if (message.battleRemainingTime !== 0) {
+      obj.battleRemainingTime = Math.round(message.battleRemainingTime);
     }
     if (message.cityId !== 0) {
       obj.cityId = Math.round(message.cityId);
@@ -2174,7 +2174,7 @@ export const CityBattleDetail: MessageFns<CityBattleDetail> = {
     message.attackQueue = object.attackQueue?.map((e) => BattleUnit.fromPartial(e)) || [];
     message.defendQueue = object.defendQueue?.map((e) => BattleUnit.fromPartial(e)) || [];
     message.garrisonQueue = object.garrisonQueue?.map((e) => BattleUnit.fromPartial(e)) || [];
-    message.lastBattleTime = object.lastBattleTime ?? "";
+    message.battleRemainingTime = object.battleRemainingTime ?? 0;
     message.cityId = object.cityId ?? 0;
     return message;
   },

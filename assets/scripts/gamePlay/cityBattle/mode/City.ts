@@ -158,7 +158,7 @@ export default class City {
     }
 
     getLastBattleTime() {
-        return this.cityServer ? this.cityServer.lastBattleTime : 10
+        return this.cityServer ? this.cityServer.battleRemainingTime : 10
     }
 }
 
