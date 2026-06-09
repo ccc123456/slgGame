@@ -32,6 +32,7 @@ class IconFactory {
     * @param node 目标 node
     * @param controller node 所在的 ViewController，主要用于资源管理
     * @param sizemodeType sizemode类型
+    * LegionBaseInfo.flagId, LegionBaseInfo.banner
     */
     public createLegionIcon(legionFlag: number, flagName: string, controller: ViewController | BaseUI) {
         let node = new Node();

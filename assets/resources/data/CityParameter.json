@@ -1,0 +1,10 @@
+{
+  "excel": "世界城池.xlsx",
+  "elements": {
+    "1": {
+      "id": 1,
+      "key": "OneCityDefenseArmyTime",
+      "value": "60"
+    }
+  }
+}

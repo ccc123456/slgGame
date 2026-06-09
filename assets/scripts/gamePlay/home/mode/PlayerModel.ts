@@ -42,6 +42,13 @@ export default class PlayerModel extends Model {
         return this.playerInfo ? this.playerInfo.legionId : ''
     }
 
+    getLevel() {
+        return this.playerInfo ? this.playerInfo.lv : 1
+    }
+
+    getWorldLevel() {
+        return this.playerInfo ? this.playerInfo.worldLv : 1
+    }
 }
 
 

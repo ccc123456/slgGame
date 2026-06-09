@@ -20,6 +20,7 @@ import { LegionViewController } from '../../legion/controller/LegionViewControll
 import { LegionModel } from '../../legion/model/LegionModel';
 import PlayerModel from '../mode/PlayerModel';
 import { HomeView } from '../view/HomeView';
+import { CityBattleMode } from '../../cityBattle/mode/CityBattleMode';
 const { ccclass, property } = _decorator;
 
 @ccclass('HomeViewController')
@@ -30,6 +31,7 @@ export class HomeViewController extends ViewController {
 
     playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance()
     legionModel: LegionModel = <LegionModel>LegionModel.getInstance()
+    cityBattleModel: CityBattleMode = <CityBattleMode>CityBattleMode.getInstance()
 
     viewDidLoad(): void {
         this.viewDoAction("initView")
@@ -68,7 +70,9 @@ export class HomeViewController extends ViewController {
         }
     }
     clickCityHandler() {
-        this.pushController(CityBattleViewController)
+        this.cityBattleModel.getCityList(() => {
+            this.pushController(CityBattleViewController)
+        })
     }
 
 }

@@ -2,6 +2,7 @@ import { _decorator, Label, Node } from 'cc';
 import UIView from '../../../frameWork/ui/UIView';
 import { CityInfoViewController } from '../controller/CityInfoViewController';
 import IconFactory from '../../base/IconFactory';
+import { LegionBaseInfo } from 'db://assets/resource/proto/structure';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityInfoView')
@@ -58,22 +59,22 @@ export class CityInfoView extends UIView {
         let typeStr = this.delegate.cityVo.getTypeName()
         this._cityType.getComponent(Label).string = typeStr
         //club
-        let _clubId = this.delegate.cityVo.getClubId()
-        let _isHasClub = _clubId ? true : false
+        let legionInfo: LegionBaseInfo = this.delegate.cityVo.getLegionBaseInfo()
+        let _isHasClub = legionInfo ? true : false
         this._noClub.active = !_isHasClub
         this._club.active = _isHasClub;
         if (_isHasClub) {
             //clubIcon
-            let iconPath = this.delegate.cityVo.getCityIcon()
-            IconFactory.decorateNodeWithSpriteFrame(iconPath, this._clubIcon, this)
+            this._clubIcon.destroyAllChildren();
+            let _icon = IconFactory.createLegionIcon(legionInfo.flagId, legionInfo.banner, this.delegate)
+            this._clubIcon.addChild(_icon)
             //clubName
-            this._clubName.getComponent(Label).string = this.delegate.cityVo.getClubName()
-
+            this._clubName.getComponent(Label).string = legionInfo.name
         }
         //_cityState
         this._cityState.getComponent(Label).string = this.delegate.cityVo.getCityStateName();
         //_cityCount
-        this._cityCount.getComponent(Label).string = `${this.delegate.cityVo.getCityCount()}`;
+        this._cityCount.getComponent(Label).string = `${this.delegate.cityVo.getCityCountStr()}`;
         //_cityLevel
         this._cityLevel.getComponent(Label).string = `${this.delegate.cityVo.getCityLevel()}`;
     }

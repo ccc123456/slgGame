@@ -100,6 +100,40 @@ export interface CityInfo {
   declaringLegionInfo?: LegionBaseInfo | undefined;
   statusChangeTime: string;
   isUnlock: boolean;
+  battleInfo: BattleInfo[];
+  battleRemainningTime: number;
+}
+
+export interface BattleInfo {
+  attack?: BattleUnit | undefined;
+  defend?: BattleUnit | undefined;
+}
+
+export interface HeroState {
+  heroId: number;
+  maxHp: string;
+  currentHp: string;
+  debuffStacks: number;
+  garrisonType: number;
+}
+
+export interface BattleUnit {
+  hero: HeroState[];
+  playerId: string;
+  playerName: string;
+  legionId: string;
+  legionName: string;
+  totalPower: string;
+  isGarrison: boolean;
+}
+
+export interface CityBattleDetail {
+  battleInfo: BattleInfo[];
+  attackQueue: BattleUnit[];
+  defendQueue: BattleUnit[];
+  garrisonQueue: BattleUnit[];
+  lastBattleTime: string;
+  cityId: number;
 }
 
 function createBaseHeroInfo(): HeroInfo {
@@ -1425,6 +1459,8 @@ function createBaseCityInfo(): CityInfo {
     declaringLegionInfo: undefined,
     statusChangeTime: "",
     isUnlock: false,
+    battleInfo: [],
+    battleRemainningTime: 0,
   };
 }
 
@@ -1453,6 +1489,12 @@ export const CityInfo: MessageFns<CityInfo> = {
     }
     if (message.isUnlock !== false) {
       writer.uint32(64).bool(message.isUnlock);
+    }
+    for (const v of message.battleInfo) {
+      BattleInfo.encode(v!, writer.uint32(74).fork()).join();
+    }
+    if (message.battleRemainningTime !== 0) {
+      writer.uint32(80).int32(message.battleRemainningTime);
     }
     return writer;
   },
@@ -1528,6 +1570,22 @@ export const CityInfo: MessageFns<CityInfo> = {
           message.isUnlock = reader.bool();
           continue;
         }
+        case 9: {
+          if (tag !== 74) {
+            break;
+          }
+
+          message.battleInfo.push(BattleInfo.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 10: {
+          if (tag !== 80) {
+            break;
+          }
+
+          message.battleRemainningTime = reader.int32();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -1549,6 +1607,10 @@ export const CityInfo: MessageFns<CityInfo> = {
         : undefined,
       statusChangeTime: isSet(object.statusChangeTime) ? globalThis.String(object.statusChangeTime) : "",
       isUnlock: isSet(object.isUnlock) ? globalThis.Boolean(object.isUnlock) : false,
+      battleInfo: globalThis.Array.isArray(object?.battleInfo)
+        ? object.battleInfo.map((e: any) => BattleInfo.fromJSON(e))
+        : [],
+      battleRemainningTime: isSet(object.battleRemainningTime) ? globalThis.Number(object.battleRemainningTime) : 0,
     };
   },
 
@@ -1578,6 +1640,12 @@ export const CityInfo: MessageFns<CityInfo> = {
     if (message.isUnlock !== false) {
       obj.isUnlock = message.isUnlock;
     }
+    if (message.battleInfo?.length) {
+      obj.battleInfo = message.battleInfo.map((e) => BattleInfo.toJSON(e));
+    }
+    if (message.battleRemainningTime !== 0) {
+      obj.battleRemainningTime = Math.round(message.battleRemainningTime);
+    }
     return obj;
   },
 
@@ -1598,6 +1666,516 @@ export const CityInfo: MessageFns<CityInfo> = {
       : undefined;
     message.statusChangeTime = object.statusChangeTime ?? "";
     message.isUnlock = object.isUnlock ?? false;
+    message.battleInfo = object.battleInfo?.map((e) => BattleInfo.fromPartial(e)) || [];
+    message.battleRemainningTime = object.battleRemainningTime ?? 0;
+    return message;
+  },
+};
+
+function createBaseBattleInfo(): BattleInfo {
+  return { attack: undefined, defend: undefined };
+}
+
+export const BattleInfo: MessageFns<BattleInfo> = {
+  encode(message: BattleInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.attack !== undefined) {
+      BattleUnit.encode(message.attack, writer.uint32(10).fork()).join();
+    }
+    if (message.defend !== undefined) {
+      BattleUnit.encode(message.defend, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): BattleInfo {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBattleInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.attack = BattleUnit.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.defend = BattleUnit.decode(reader, reader.uint32());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BattleInfo {
+    return {
+      attack: isSet(object.attack) ? BattleUnit.fromJSON(object.attack) : undefined,
+      defend: isSet(object.defend) ? BattleUnit.fromJSON(object.defend) : undefined,
+    };
+  },
+
+  toJSON(message: BattleInfo): unknown {
+    const obj: any = {};
+    if (message.attack !== undefined) {
+      obj.attack = BattleUnit.toJSON(message.attack);
+    }
+    if (message.defend !== undefined) {
+      obj.defend = BattleUnit.toJSON(message.defend);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<BattleInfo>, I>>(base?: I): BattleInfo {
+    return BattleInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<BattleInfo>, I>>(object: I): BattleInfo {
+    const message = createBaseBattleInfo();
+    message.attack = (object.attack !== undefined && object.attack !== null)
+      ? BattleUnit.fromPartial(object.attack)
+      : undefined;
+    message.defend = (object.defend !== undefined && object.defend !== null)
+      ? BattleUnit.fromPartial(object.defend)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseHeroState(): HeroState {
+  return { heroId: 0, maxHp: "", currentHp: "", debuffStacks: 0, garrisonType: 0 };
+}
+
+export const HeroState: MessageFns<HeroState> = {
+  encode(message: HeroState, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.heroId !== 0) {
+      writer.uint32(8).int32(message.heroId);
+    }
+    if (message.maxHp !== "") {
+      writer.uint32(18).string(message.maxHp);
+    }
+    if (message.currentHp !== "") {
+      writer.uint32(26).string(message.currentHp);
+    }
+    if (message.debuffStacks !== 0) {
+      writer.uint32(32).int32(message.debuffStacks);
+    }
+    if (message.garrisonType !== 0) {
+      writer.uint32(40).int32(message.garrisonType);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): HeroState {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseHeroState();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.heroId = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.maxHp = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.currentHp = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.debuffStacks = reader.int32();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
+            break;
+          }
+
+          message.garrisonType = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): HeroState {
+    return {
+      heroId: isSet(object.heroId) ? globalThis.Number(object.heroId) : 0,
+      maxHp: isSet(object.maxHp) ? globalThis.String(object.maxHp) : "",
+      currentHp: isSet(object.currentHp) ? globalThis.String(object.currentHp) : "",
+      debuffStacks: isSet(object.debuffStacks) ? globalThis.Number(object.debuffStacks) : 0,
+      garrisonType: isSet(object.garrisonType) ? globalThis.Number(object.garrisonType) : 0,
+    };
+  },
+
+  toJSON(message: HeroState): unknown {
+    const obj: any = {};
+    if (message.heroId !== 0) {
+      obj.heroId = Math.round(message.heroId);
+    }
+    if (message.maxHp !== "") {
+      obj.maxHp = message.maxHp;
+    }
+    if (message.currentHp !== "") {
+      obj.currentHp = message.currentHp;
+    }
+    if (message.debuffStacks !== 0) {
+      obj.debuffStacks = Math.round(message.debuffStacks);
+    }
+    if (message.garrisonType !== 0) {
+      obj.garrisonType = Math.round(message.garrisonType);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<HeroState>, I>>(base?: I): HeroState {
+    return HeroState.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<HeroState>, I>>(object: I): HeroState {
+    const message = createBaseHeroState();
+    message.heroId = object.heroId ?? 0;
+    message.maxHp = object.maxHp ?? "";
+    message.currentHp = object.currentHp ?? "";
+    message.debuffStacks = object.debuffStacks ?? 0;
+    message.garrisonType = object.garrisonType ?? 0;
+    return message;
+  },
+};
+
+function createBaseBattleUnit(): BattleUnit {
+  return { hero: [], playerId: "", playerName: "", legionId: "", legionName: "", totalPower: "", isGarrison: false };
+}
+
+export const BattleUnit: MessageFns<BattleUnit> = {
+  encode(message: BattleUnit, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    for (const v of message.hero) {
+      HeroState.encode(v!, writer.uint32(10).fork()).join();
+    }
+    if (message.playerId !== "") {
+      writer.uint32(18).string(message.playerId);
+    }
+    if (message.playerName !== "") {
+      writer.uint32(26).string(message.playerName);
+    }
+    if (message.legionId !== "") {
+      writer.uint32(34).string(message.legionId);
+    }
+    if (message.legionName !== "") {
+      writer.uint32(42).string(message.legionName);
+    }
+    if (message.totalPower !== "") {
+      writer.uint32(50).string(message.totalPower);
+    }
+    if (message.isGarrison !== false) {
+      writer.uint32(56).bool(message.isGarrison);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): BattleUnit {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBattleUnit();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.hero.push(HeroState.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.playerId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.playerName = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.legionId = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.legionName = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.totalPower = reader.string();
+          continue;
+        }
+        case 7: {
+          if (tag !== 56) {
+            break;
+          }
+
+          message.isGarrison = reader.bool();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BattleUnit {
+    return {
+      hero: globalThis.Array.isArray(object?.hero) ? object.hero.map((e: any) => HeroState.fromJSON(e)) : [],
+      playerId: isSet(object.playerId) ? globalThis.String(object.playerId) : "",
+      playerName: isSet(object.playerName) ? globalThis.String(object.playerName) : "",
+      legionId: isSet(object.legionId) ? globalThis.String(object.legionId) : "",
+      legionName: isSet(object.legionName) ? globalThis.String(object.legionName) : "",
+      totalPower: isSet(object.totalPower) ? globalThis.String(object.totalPower) : "",
+      isGarrison: isSet(object.isGarrison) ? globalThis.Boolean(object.isGarrison) : false,
+    };
+  },
+
+  toJSON(message: BattleUnit): unknown {
+    const obj: any = {};
+    if (message.hero?.length) {
+      obj.hero = message.hero.map((e) => HeroState.toJSON(e));
+    }
+    if (message.playerId !== "") {
+      obj.playerId = message.playerId;
+    }
+    if (message.playerName !== "") {
+      obj.playerName = message.playerName;
+    }
+    if (message.legionId !== "") {
+      obj.legionId = message.legionId;
+    }
+    if (message.legionName !== "") {
+      obj.legionName = message.legionName;
+    }
+    if (message.totalPower !== "") {
+      obj.totalPower = message.totalPower;
+    }
+    if (message.isGarrison !== false) {
+      obj.isGarrison = message.isGarrison;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<BattleUnit>, I>>(base?: I): BattleUnit {
+    return BattleUnit.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<BattleUnit>, I>>(object: I): BattleUnit {
+    const message = createBaseBattleUnit();
+    message.hero = object.hero?.map((e) => HeroState.fromPartial(e)) || [];
+    message.playerId = object.playerId ?? "";
+    message.playerName = object.playerName ?? "";
+    message.legionId = object.legionId ?? "";
+    message.legionName = object.legionName ?? "";
+    message.totalPower = object.totalPower ?? "";
+    message.isGarrison = object.isGarrison ?? false;
+    return message;
+  },
+};
+
+function createBaseCityBattleDetail(): CityBattleDetail {
+  return { battleInfo: [], attackQueue: [], defendQueue: [], garrisonQueue: [], lastBattleTime: "", cityId: 0 };
+}
+
+export const CityBattleDetail: MessageFns<CityBattleDetail> = {
+  encode(message: CityBattleDetail, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    for (const v of message.battleInfo) {
+      BattleInfo.encode(v!, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.attackQueue) {
+      BattleUnit.encode(v!, writer.uint32(18).fork()).join();
+    }
+    for (const v of message.defendQueue) {
+      BattleUnit.encode(v!, writer.uint32(26).fork()).join();
+    }
+    for (const v of message.garrisonQueue) {
+      BattleUnit.encode(v!, writer.uint32(34).fork()).join();
+    }
+    if (message.lastBattleTime !== "") {
+      writer.uint32(42).string(message.lastBattleTime);
+    }
+    if (message.cityId !== 0) {
+      writer.uint32(48).int32(message.cityId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CityBattleDetail {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCityBattleDetail();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.battleInfo.push(BattleInfo.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.attackQueue.push(BattleUnit.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.defendQueue.push(BattleUnit.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.garrisonQueue.push(BattleUnit.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.lastBattleTime = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 48) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CityBattleDetail {
+    return {
+      battleInfo: globalThis.Array.isArray(object?.battleInfo)
+        ? object.battleInfo.map((e: any) => BattleInfo.fromJSON(e))
+        : [],
+      attackQueue: globalThis.Array.isArray(object?.attackQueue)
+        ? object.attackQueue.map((e: any) => BattleUnit.fromJSON(e))
+        : [],
+      defendQueue: globalThis.Array.isArray(object?.defendQueue)
+        ? object.defendQueue.map((e: any) => BattleUnit.fromJSON(e))
+        : [],
+      garrisonQueue: globalThis.Array.isArray(object?.garrisonQueue)
+        ? object.garrisonQueue.map((e: any) => BattleUnit.fromJSON(e))
+        : [],
+      lastBattleTime: isSet(object.lastBattleTime) ? globalThis.String(object.lastBattleTime) : "",
+      cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0,
+    };
+  },
+
+  toJSON(message: CityBattleDetail): unknown {
+    const obj: any = {};
+    if (message.battleInfo?.length) {
+      obj.battleInfo = message.battleInfo.map((e) => BattleInfo.toJSON(e));
+    }
+    if (message.attackQueue?.length) {
+      obj.attackQueue = message.attackQueue.map((e) => BattleUnit.toJSON(e));
+    }
+    if (message.defendQueue?.length) {
+      obj.defendQueue = message.defendQueue.map((e) => BattleUnit.toJSON(e));
+    }
+    if (message.garrisonQueue?.length) {
+      obj.garrisonQueue = message.garrisonQueue.map((e) => BattleUnit.toJSON(e));
+    }
+    if (message.lastBattleTime !== "") {
+      obj.lastBattleTime = message.lastBattleTime;
+    }
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CityBattleDetail>, I>>(base?: I): CityBattleDetail {
+    return CityBattleDetail.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CityBattleDetail>, I>>(object: I): CityBattleDetail {
+    const message = createBaseCityBattleDetail();
+    message.battleInfo = object.battleInfo?.map((e) => BattleInfo.fromPartial(e)) || [];
+    message.attackQueue = object.attackQueue?.map((e) => BattleUnit.fromPartial(e)) || [];
+    message.defendQueue = object.defendQueue?.map((e) => BattleUnit.fromPartial(e)) || [];
+    message.garrisonQueue = object.garrisonQueue?.map((e) => BattleUnit.fromPartial(e)) || [];
+    message.lastBattleTime = object.lastBattleTime ?? "";
+    message.cityId = object.cityId ?? 0;
     return message;
   },
 };

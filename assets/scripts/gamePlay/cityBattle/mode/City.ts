@@ -1,6 +1,8 @@
 import { _decorator, Component, Node } from 'cc';
 import DataReader from '../../../frameWork/data/DataReader';
-import { CityInfo } from 'db://assets/resource/proto/structure';
+import { BattleInfo, BattleUnit, CityInfo, LegionBaseInfo } from 'db://assets/resource/proto/structure';
+import PlayerModel from '../../home/mode/PlayerModel';
+import TimeFactory from '../../base/TimeFactory';
 const { ccclass, property } = _decorator;
 
 
@@ -9,6 +11,19 @@ export const enum cityState {
     fighting = 1, //争夺
     immune = 3, //免战
     declaring = 2, //宣战
+}
+
+
+export const enum cityLockState {
+    lock = 1,   //锁定
+    unlocktab = 2, //可解锁
+    unlock = 3, //解锁
+}
+
+export interface teamListData {
+    atk?: BattleUnit,
+    def?: BattleUnit,
+    battle?: boolean
 }
 
 
@@ -69,16 +84,31 @@ export default class City {
         return ""
     }
 
-    getClubId() {
-        return ''
+    getLegionBaseInfo(): LegionBaseInfo {
+        return this.cityServer ? this.cityServer.ownerLegionInfo : null
     }
 
-    getClubIcon() {
-        return ''
+    getCityWordLv() {
+        return this.config.cityWordLv
     }
 
-    getClubName() {
-        return ""
+    //ture 解锁
+    getLockState() {
+        if (this.cityServer) {
+            if (this.cityServer.isUnlock) {
+                return cityLockState.unlock
+            } else {
+                let playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance()
+                let playerLv = playerModel.getLevel()
+                let cityWordLv = this.getCityWordLv()
+                if (playerLv >= cityWordLv) {
+                    return cityLockState.unlocktab
+                } else {
+                    return cityLockState.lock
+                }
+            }
+        }
+        return cityLockState.lock
     }
 
     getCityStateName() {
@@ -103,11 +133,32 @@ export default class City {
     }
 
     getCityCount() {
-        return 30
+        return this.cityServer ? this.cityServer.garrisonCurrentCount : 0
+    }
+
+    getCityCountStr() {
+        let cityParConfig = DataReader.requireRecordById("CityParameter", "1")
+        let time = cityParConfig.value
+        let timeStr = TimeFactory.getTimeMinute(time)
+        let cityCurrentCount = this.getCityCount()
+
+        return `${cityCurrentCount} (每${timeStr}分钟恢复1支)`
     }
 
     getCityLevel() {
-        return 30
+        let playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance();
+        let worldLv = playerModel.getWorldLevel()
+        let cityNpcLvConfig = DataReader.requireRecordById("cityNpcLevel", `${worldLv}`)
+        let cityType = this.getCityType();
+        return cityNpcLvConfig[`cityLv${cityType}`]
+    }
+
+    getBattleInfo(): BattleInfo[] {
+        return this.cityServer ? this.cityServer.battleInfo : []
+    }
+
+    getLastBattleTime() {
+        return this.cityServer ? this.cityServer.lastBattleTime : 10
     }
 }
 

@@ -25,6 +25,8 @@ export interface PlayerInfo {
   exploit: number;
   /** 军团 */
   legionId: string;
+  /** 世界等级 */
+  worldLv: number;
 }
 
 /**
@@ -57,6 +59,7 @@ function createBasePlayerInfo(): PlayerInfo {
     provisions: 0,
     exploit: 0,
     legionId: "",
+    worldLv: 0,
   };
 }
 
@@ -88,6 +91,9 @@ export const PlayerInfo: MessageFns<PlayerInfo> = {
     }
     if (message.legionId !== "") {
       writer.uint32(74).string(message.legionId);
+    }
+    if (message.worldLv !== 0) {
+      writer.uint32(80).int32(message.worldLv);
     }
     return writer;
   },
@@ -171,6 +177,14 @@ export const PlayerInfo: MessageFns<PlayerInfo> = {
           message.legionId = reader.string();
           continue;
         }
+        case 10: {
+          if (tag !== 80) {
+            break;
+          }
+
+          message.worldLv = reader.int32();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -191,6 +205,7 @@ export const PlayerInfo: MessageFns<PlayerInfo> = {
       provisions: isSet(object.provisions) ? globalThis.Number(object.provisions) : 0,
       exploit: isSet(object.exploit) ? globalThis.Number(object.exploit) : 0,
       legionId: isSet(object.legionId) ? globalThis.String(object.legionId) : "",
+      worldLv: isSet(object.worldLv) ? globalThis.Number(object.worldLv) : 0,
     };
   },
 
@@ -223,6 +238,9 @@ export const PlayerInfo: MessageFns<PlayerInfo> = {
     if (message.legionId !== "") {
       obj.legionId = message.legionId;
     }
+    if (message.worldLv !== 0) {
+      obj.worldLv = Math.round(message.worldLv);
+    }
     return obj;
   },
 
@@ -240,6 +258,7 @@ export const PlayerInfo: MessageFns<PlayerInfo> = {
     message.provisions = object.provisions ?? 0;
     message.exploit = object.exploit ?? 0;
     message.legionId = object.legionId ?? "";
+    message.worldLv = object.worldLv ?? 0;
     return message;
   },
 };

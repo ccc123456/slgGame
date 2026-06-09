@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CityInfo } from "./structure";
+import { CityBattleDetail, CityInfo } from "./structure";
 
 export const protobufPackage = "protobuf";
 
@@ -39,6 +39,40 @@ export interface CsGetCityDetail {
  */
 export interface ScGetCityDetail {
   cityInfo?: CityInfo | undefined;
+}
+
+/**
+ * 获取玩家城池的详情
+ * @Id(1505)
+ */
+export interface CsPlayerCityInfo {
+}
+
+/**
+ * 获取玩家城池的详情
+ * @Id(1506)
+ */
+export interface ScPlayerCityInfo {
+  /** 当前已经解锁的最大城池id */
+  unlockedCityMaxId: number;
+  /** 下一个城池需要的已经通关的副本 */
+  nextUnlockInstanceIds: number[];
+}
+
+/**
+ * 城战详细信息
+ * @Id(1507)
+ */
+export interface CsCityBattleDetail {
+  cityId: number;
+}
+
+/**
+ * 城战详细信息
+ * @Id(1508)
+ */
+export interface ScCityBattleDetail {
+  detail?: CityBattleDetail | undefined;
 }
 
 function createBaseCsGetCityList(): CsGetCityList {
@@ -264,6 +298,257 @@ export const ScGetCityDetail: MessageFns<ScGetCityDetail> = {
   },
 };
 
+function createBaseCsPlayerCityInfo(): CsPlayerCityInfo {
+  return {};
+}
+
+export const CsPlayerCityInfo: MessageFns<CsPlayerCityInfo> = {
+  encode(_: CsPlayerCityInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsPlayerCityInfo {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsPlayerCityInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): CsPlayerCityInfo {
+    return {};
+  },
+
+  toJSON(_: CsPlayerCityInfo): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsPlayerCityInfo>, I>>(base?: I): CsPlayerCityInfo {
+    return CsPlayerCityInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsPlayerCityInfo>, I>>(_: I): CsPlayerCityInfo {
+    const message = createBaseCsPlayerCityInfo();
+    return message;
+  },
+};
+
+function createBaseScPlayerCityInfo(): ScPlayerCityInfo {
+  return { unlockedCityMaxId: 0, nextUnlockInstanceIds: [] };
+}
+
+export const ScPlayerCityInfo: MessageFns<ScPlayerCityInfo> = {
+  encode(message: ScPlayerCityInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.unlockedCityMaxId !== 0) {
+      writer.uint32(8).int32(message.unlockedCityMaxId);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.nextUnlockInstanceIds) {
+      writer.int32(v);
+    }
+    writer.join();
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScPlayerCityInfo {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScPlayerCityInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.unlockedCityMaxId = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag === 16) {
+            message.nextUnlockInstanceIds.push(reader.int32());
+
+            continue;
+          }
+
+          if (tag === 18) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.nextUnlockInstanceIds.push(reader.int32());
+            }
+
+            continue;
+          }
+
+          break;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ScPlayerCityInfo {
+    return {
+      unlockedCityMaxId: isSet(object.unlockedCityMaxId) ? globalThis.Number(object.unlockedCityMaxId) : 0,
+      nextUnlockInstanceIds: globalThis.Array.isArray(object?.nextUnlockInstanceIds)
+        ? object.nextUnlockInstanceIds.map((e: any) => globalThis.Number(e))
+        : [],
+    };
+  },
+
+  toJSON(message: ScPlayerCityInfo): unknown {
+    const obj: any = {};
+    if (message.unlockedCityMaxId !== 0) {
+      obj.unlockedCityMaxId = Math.round(message.unlockedCityMaxId);
+    }
+    if (message.nextUnlockInstanceIds?.length) {
+      obj.nextUnlockInstanceIds = message.nextUnlockInstanceIds.map((e) => Math.round(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScPlayerCityInfo>, I>>(base?: I): ScPlayerCityInfo {
+    return ScPlayerCityInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScPlayerCityInfo>, I>>(object: I): ScPlayerCityInfo {
+    const message = createBaseScPlayerCityInfo();
+    message.unlockedCityMaxId = object.unlockedCityMaxId ?? 0;
+    message.nextUnlockInstanceIds = object.nextUnlockInstanceIds?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBaseCsCityBattleDetail(): CsCityBattleDetail {
+  return { cityId: 0 };
+}
+
+export const CsCityBattleDetail: MessageFns<CsCityBattleDetail> = {
+  encode(message: CsCityBattleDetail, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityId !== 0) {
+      writer.uint32(8).int32(message.cityId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsCityBattleDetail {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsCityBattleDetail();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CsCityBattleDetail {
+    return { cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0 };
+  },
+
+  toJSON(message: CsCityBattleDetail): unknown {
+    const obj: any = {};
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsCityBattleDetail>, I>>(base?: I): CsCityBattleDetail {
+    return CsCityBattleDetail.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsCityBattleDetail>, I>>(object: I): CsCityBattleDetail {
+    const message = createBaseCsCityBattleDetail();
+    message.cityId = object.cityId ?? 0;
+    return message;
+  },
+};
+
+function createBaseScCityBattleDetail(): ScCityBattleDetail {
+  return { detail: undefined };
+}
+
+export const ScCityBattleDetail: MessageFns<ScCityBattleDetail> = {
+  encode(message: ScCityBattleDetail, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.detail !== undefined) {
+      CityBattleDetail.encode(message.detail, writer.uint32(10).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScCityBattleDetail {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScCityBattleDetail();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.detail = CityBattleDetail.decode(reader, reader.uint32());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ScCityBattleDetail {
+    return { detail: isSet(object.detail) ? CityBattleDetail.fromJSON(object.detail) : undefined };
+  },
+
+  toJSON(message: ScCityBattleDetail): unknown {
+    const obj: any = {};
+    if (message.detail !== undefined) {
+      obj.detail = CityBattleDetail.toJSON(message.detail);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScCityBattleDetail>, I>>(base?: I): ScCityBattleDetail {
+    return ScCityBattleDetail.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScCityBattleDetail>, I>>(object: I): ScCityBattleDetail {
+    const message = createBaseScCityBattleDetail();
+    message.detail = (object.detail !== undefined && object.detail !== null)
+      ? CityBattleDetail.fromPartial(object.detail)
+      : undefined;
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -293,3 +578,7 @@ export const csGetCityListId: number = 1501;
 export const scGetCityListId: number = 1502;
 export const csGetCityDetailId: number = 1503;
 export const scGetCityDetailId: number = 1504;
+export const csPlayerCityInfoId: number = 1505;
+export const scPlayerCityInfoId: number = 1506;
+export const csCityBattleDetailId: number = 1507;
+export const scCityBattleDetailId: number = 1508;
