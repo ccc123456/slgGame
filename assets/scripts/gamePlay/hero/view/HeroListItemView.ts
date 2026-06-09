@@ -8,7 +8,7 @@ import { BagModel } from '../../bag/mode/BagModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('HeroListItem')
-export class HeroListItem extends BaseUI {
+export class HeroListItemView extends BaseUI {
     delegate: HeroViewController
 
     @property(Node)

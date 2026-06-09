@@ -1,9 +1,9 @@
-import { _decorator, Component, find, instantiate, Label, Node, Prefab, ScrollView, size, Toggle, UITransform } from 'cc';
+import { _decorator, Component, find, instantiate, Label, Layout, Node, Prefab, ScrollView, size, Toggle, UITransform } from 'cc';
 import UIView from '../../../frameWork/ui/UIView';
+import { TableView } from '../../../frameWork/utils/TableView';
 import { HeroViewController } from '../controller/HeroViewController';
 import { camps } from '../model/HeroModel';
-import { TableView } from '../../../frameWork/utils/TableView';
-import { HeroListItem } from './HeroListItem';
+import { HeroListItemView } from './HeroListItemView';
 const { ccclass, property } = _decorator;
 
 
@@ -76,13 +76,19 @@ export class HeroView extends UIView {
     cellAtIndex = (view: ScrollView, index: number) => {
         let cell = this.heroListScroll.dequeueCellByKey()
         if (!cell) {
-            cell = instantiate(this.herolistItemPre)
+            cell = new Node()
+            let cellUItr = cell.addComponent(UITransform)
+            cellUItr.anchorX = 0
+            cellUItr.anchorY = 0
+            let lay = cell.addComponent(Layout);
+            lay.type = Layout.Type.HORIZONTAL
+            lay.resizeMode = Layout.ResizeMode.CONTAINER;
+            lay.paddingLeft = 20;
+            lay.spacingX = 70
         }
         cell.active = true
-        let _content = cell.getChildByName("content");
-        let _heroItem = cell.getChildByName("heroItem");
-        _heroItem.active = false
-        _content.children.forEach((node) => {
+
+        cell.children.forEach((node) => {
             node.active = false
         })
 
@@ -90,11 +96,11 @@ export class HeroView extends UIView {
             let _index = this._row * index + i;
             let _heroId = this.delegate.heroModel.heroAllIds[_index]
             if (_heroId) {
-                let _item = _content.getChildByName(`item${i}`)
+                let _item = cell.getChildByName(`item${i}`)
                 if (!_item) {
-                    _item = instantiate(_heroItem)
+                    _item = instantiate(this.herolistItemPre)
                     _item.name = `item${i}`
-                    _content.addChild(_item)
+                    cell.addChild(_item)
                     _item.y = 0
                     this.registbuttonClick(_item, () => {
                         if (this.delegate.heroModel.getHero(_heroId)) {
@@ -103,7 +109,7 @@ export class HeroView extends UIView {
                     })
                 }
                 _item.active = true
-                let _herolistItem = _item.getComponent(HeroListItem);
+                let _herolistItem = _item.getComponent(HeroListItemView);
                 _herolistItem.initView(this.delegate)
                 _herolistItem.updateView(_heroId)
             }

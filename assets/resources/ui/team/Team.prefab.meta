@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "1f8880ee-3247-4e88-8b9c-66d230ddb6c1",
+  "uuid": "e27d5161-208e-411d-8c89-d37c48df9219",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "HeroListItem"
+    "syncNodeName": "Team"
   }
 }

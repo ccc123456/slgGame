@@ -1471,6 +1471,8 @@
       "__id__": 0
     },
     "fileId": "8abxou2CRN7LoQo084mM3b",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -1546,6 +1548,8 @@
       "__id__": 0
     },
     "fileId": "3fXEWAKepAWYo9WEI0evY9",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -3080,7 +3084,7 @@
       "__id__": 135
     },
     "herolistItemPre": {
-      "__uuid__": "1f8880ee-3247-4e88-8b9c-66d230ddb6c1",
+      "__uuid__": "e8e9b657-7480-49a9-8179-4eeecbc5898b",
       "__expectedType__": "cc.Prefab"
     },
     "_id": ""
