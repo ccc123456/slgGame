@@ -1,0 +1,14 @@
+{
+  /* Base configuration. Do not edit this field. */
+  "extends": "./temp/tsconfig.cocos.json",
+  /* Add your custom configuration here. */
+  "compilerOptions": {
+    "strict": false,
+    // 推荐设置为 NodeNext 或 Bundler (如果使用 Vite/Webpack)
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    // 或者如果你使用的是现代构建工具：
+    // "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true
+  }
+}

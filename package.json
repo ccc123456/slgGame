@@ -1,0 +1,18 @@
+{
+  "name": "slgGame",
+  "uuid": "f1a4734f-3115-4306-83ac-323d76dc6e85",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "scripts": {
+    "gen-proto": "npx protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=./src --ts_proto_opt=esModuleInterop=true ./proto/Message_0_1000_player.proto",
+    "build-proto": "pbjs -t static-module -w es6 -o assets/scripts/proto/proto_bundle.js proto/*.proto && pbts -o assets/scripts/proto/proto_bundle.d.ts assets/scripts/proto/proto_bundle.js"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.12.0",
+    "protobufjs": "^8.5.0"
+  },
+  "devDependencies": {
+    "protobufjs-cli": "^2.5.0"
+  }
+}

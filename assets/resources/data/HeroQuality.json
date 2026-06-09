@@ -1,0 +1,1175 @@
+{
+  "excel": "武将数据.xlsx",
+  "elements": {
+    "1": {
+      "id": 1,
+      "job": 1,
+      "rank": 1,
+      "quality": 1,
+      "policy": 1001,
+      "hasSkillNum": 1,
+      "QualityAttribute": "1_19,2_13,3_416"
+    },
+    "2": {
+      "id": 2,
+      "job": 1,
+      "rank": 2,
+      "quality": 2,
+      "policy": 1002,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_42,2_29,3_915"
+    },
+    "3": {
+      "id": 3,
+      "job": 1,
+      "rank": 3,
+      "quality": 2,
+      "policy": 1003,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_44,2_30,3_957"
+    },
+    "4": {
+      "id": 4,
+      "job": 1,
+      "rank": 4,
+      "quality": 2,
+      "policy": 1004,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_46,2_32,3_999"
+    },
+    "5": {
+      "id": 5,
+      "job": 1,
+      "rank": 5,
+      "quality": 3,
+      "policy": 1005,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_52,2_36,3_1124"
+    },
+    "6": {
+      "id": 6,
+      "job": 1,
+      "rank": 6,
+      "quality": 3,
+      "policy": 1006,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_54,2_37,3_1165"
+    },
+    "7": {
+      "id": 7,
+      "job": 1,
+      "rank": 7,
+      "quality": 3,
+      "policy": 1007,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_56,2_38,3_1207"
+    },
+    "8": {
+      "id": 8,
+      "job": 1,
+      "rank": 8,
+      "quality": 4,
+      "policy": 1008,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_62,2_42,3_1332"
+    },
+    "9": {
+      "id": 9,
+      "job": 1,
+      "rank": 9,
+      "quality": 4,
+      "policy": 1009,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_64,2_44,3_1373"
+    },
+    "10": {
+      "id": 10,
+      "job": 1,
+      "rank": 10,
+      "quality": 4,
+      "policy": 1010,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_66,2_45,3_1415"
+    },
+    "11": {
+      "id": 11,
+      "job": 1,
+      "rank": 11,
+      "quality": 4,
+      "policy": 1011,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_67,2_46,3_1456"
+    },
+    "12": {
+      "id": 12,
+      "job": 1,
+      "rank": 12,
+      "quality": 5,
+      "policy": 1012,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_73,2_50,3_1581"
+    },
+    "13": {
+      "id": 13,
+      "job": 1,
+      "rank": 13,
+      "quality": 5,
+      "policy": 1013,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_75,2_52,3_1623"
+    },
+    "14": {
+      "id": 14,
+      "job": 1,
+      "rank": 14,
+      "quality": 5,
+      "policy": 1014,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_77,2_53,3_1664"
+    },
+    "15": {
+      "id": 15,
+      "job": 1,
+      "rank": 15,
+      "quality": 5,
+      "policy": 1015,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_79,2_54,3_1706"
+    },
+    "16": {
+      "id": 16,
+      "job": 1,
+      "rank": 16,
+      "quality": 5,
+      "policy": 1016,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_81,2_56,3_1748"
+    },
+    "17": {
+      "id": 17,
+      "job": 1,
+      "rank": 17,
+      "quality": 6,
+      "policy": 1017,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_129,2_99,3_2736,101_3,102_3,103_3"
+    },
+    "18": {
+      "id": 18,
+      "job": 1,
+      "rank": 18,
+      "quality": 6,
+      "policy": 1018,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_151,2_115,3_3191,101_6,102_6,103_6"
+    },
+    "19": {
+      "id": 19,
+      "job": 1,
+      "rank": 19,
+      "quality": 6,
+      "policy": 1019,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_172,2_132,3_3647,101_9,102_9,103_9"
+    },
+    "20": {
+      "id": 20,
+      "job": 1,
+      "rank": 20,
+      "quality": 6,
+      "policy": 1020,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_194,2_148,3_4103,101_12,102_12,103_12"
+    },
+    "21": {
+      "id": 21,
+      "job": 1,
+      "rank": 21,
+      "quality": 6,
+      "policy": 1021,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_215,2_165,3_4559,101_15,102_15,103_15"
+    },
+    "22": {
+      "id": 22,
+      "job": 1,
+      "rank": 22,
+      "quality": 7,
+      "policy": 1022,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_323,2_231,3_6525,101_19,102_19,103_19"
+    },
+    "23": {
+      "id": 23,
+      "job": 1,
+      "rank": 23,
+      "quality": 7,
+      "policy": 1023,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_377,2_270,3_7613,101_23,102_23,103_23"
+    },
+    "24": {
+      "id": 24,
+      "job": 1,
+      "rank": 24,
+      "quality": 7,
+      "policy": 1024,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_430,2_308,3_8700,101_27,102_27,103_27"
+    },
+    "25": {
+      "id": 25,
+      "job": 1,
+      "rank": 25,
+      "quality": 7,
+      "policy": 1025,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_484,2_347,3_9788,101_31,102_31,103_31"
+    },
+    "26": {
+      "id": 26,
+      "job": 1,
+      "rank": 26,
+      "quality": 7,
+      "policy": 1026,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_538,2_385,3_10875,101_35,102_35,103_35"
+    },
+    "27": {
+      "id": 27,
+      "job": 2,
+      "rank": 1,
+      "quality": 1,
+      "policy": 2001,
+      "hasSkillNum": 1,
+      "QualityAttribute": "1_27,2_11,3_281"
+    },
+    "28": {
+      "id": 28,
+      "job": 2,
+      "rank": 2,
+      "quality": 2,
+      "policy": 2002,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_59,2_23,3_617"
+    },
+    "29": {
+      "id": 29,
+      "job": 2,
+      "rank": 3,
+      "quality": 2,
+      "policy": 2003,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_62,2_24,3_645"
+    },
+    "30": {
+      "id": 30,
+      "job": 2,
+      "rank": 4,
+      "quality": 2,
+      "policy": 2004,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_65,2_25,3_674"
+    },
+    "31": {
+      "id": 31,
+      "job": 2,
+      "rank": 5,
+      "quality": 3,
+      "policy": 2005,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_73,2_28,3_758"
+    },
+    "32": {
+      "id": 32,
+      "job": 2,
+      "rank": 6,
+      "quality": 3,
+      "policy": 2006,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_76,2_29,3_786"
+    },
+    "33": {
+      "id": 33,
+      "job": 2,
+      "rank": 7,
+      "quality": 3,
+      "policy": 2007,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_78,2_31,3_814"
+    },
+    "34": {
+      "id": 34,
+      "job": 2,
+      "rank": 8,
+      "quality": 4,
+      "policy": 2008,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_86,2_34,3_898"
+    },
+    "35": {
+      "id": 35,
+      "job": 2,
+      "rank": 9,
+      "quality": 4,
+      "policy": 2009,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_89,2_35,3_926"
+    },
+    "36": {
+      "id": 36,
+      "job": 2,
+      "rank": 10,
+      "quality": 4,
+      "policy": 2010,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_92,2_36,3_954"
+    },
+    "37": {
+      "id": 37,
+      "job": 2,
+      "rank": 11,
+      "quality": 4,
+      "policy": 2011,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_94,2_37,3_982"
+    },
+    "38": {
+      "id": 38,
+      "job": 2,
+      "rank": 12,
+      "quality": 5,
+      "policy": 2012,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_103,2_40,3_1066"
+    },
+    "39": {
+      "id": 39,
+      "job": 2,
+      "rank": 13,
+      "quality": 5,
+      "policy": 2013,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_105,2_41,3_1095"
+    },
+    "40": {
+      "id": 40,
+      "job": 2,
+      "rank": 14,
+      "quality": 5,
+      "policy": 2014,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_108,2_42,3_1123"
+    },
+    "41": {
+      "id": 41,
+      "job": 2,
+      "rank": 15,
+      "quality": 5,
+      "policy": 2015,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_111,2_43,3_1151"
+    },
+    "42": {
+      "id": 42,
+      "job": 2,
+      "rank": 16,
+      "quality": 5,
+      "policy": 2016,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_113,2_44,3_1179"
+    },
+    "43": {
+      "id": 43,
+      "job": 2,
+      "rank": 17,
+      "quality": 6,
+      "policy": 2017,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_185,2_76,3_1993,101_3,102_3,103_3"
+    },
+    "44": {
+      "id": 44,
+      "job": 2,
+      "rank": 18,
+      "quality": 6,
+      "policy": 2018,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_216,2_88,3_2325,101_6,102_6,103_6"
+    },
+    "45": {
+      "id": 45,
+      "job": 2,
+      "rank": 19,
+      "quality": 6,
+      "policy": 2019,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_247,2_101,3_2657,101_9,102_9,103_9"
+    },
+    "46": {
+      "id": 46,
+      "job": 2,
+      "rank": 20,
+      "quality": 6,
+      "policy": 2020,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_278,2_113,3_2989,101_12,102_12,103_12"
+    },
+    "47": {
+      "id": 47,
+      "job": 2,
+      "rank": 21,
+      "quality": 6,
+      "policy": 2021,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_309,2_126,3_3321,101_15,102_15,103_15"
+    },
+    "48": {
+      "id": 48,
+      "job": 2,
+      "rank": 22,
+      "quality": 7,
+      "policy": 2022,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_464,2_189,3_4990,101_19,102_19,103_19"
+    },
+    "49": {
+      "id": 49,
+      "job": 2,
+      "rank": 23,
+      "quality": 7,
+      "policy": 2023,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_541,2_221,3_5821,101_23,102_23,103_23"
+    },
+    "50": {
+      "id": 50,
+      "job": 2,
+      "rank": 24,
+      "quality": 7,
+      "policy": 2024,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_618,2_252,3_6653,101_27,102_27,103_27"
+    },
+    "51": {
+      "id": 51,
+      "job": 2,
+      "rank": 25,
+      "quality": 7,
+      "policy": 2025,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_696,2_284,3_7485,101_31,102_31,103_31"
+    },
+    "52": {
+      "id": 52,
+      "job": 2,
+      "rank": 26,
+      "quality": 7,
+      "policy": 2026,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_773,2_316,3_8316,101_35,102_35,103_35"
+    },
+    "53": {
+      "id": 53,
+      "job": 3,
+      "rank": 1,
+      "quality": 1,
+      "policy": 3001,
+      "hasSkillNum": 1,
+      "QualityAttribute": "1_26,2_12,3_330"
+    },
+    "54": {
+      "id": 54,
+      "job": 3,
+      "rank": 2,
+      "quality": 2,
+      "policy": 3002,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_56,2_26,3_727"
+    },
+    "55": {
+      "id": 55,
+      "job": 3,
+      "rank": 3,
+      "quality": 2,
+      "policy": 3003,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_59,2_27,3_760"
+    },
+    "56": {
+      "id": 56,
+      "job": 3,
+      "rank": 4,
+      "quality": 2,
+      "policy": 3004,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_62,2_28,3_793"
+    },
+    "57": {
+      "id": 57,
+      "job": 3,
+      "rank": 5,
+      "quality": 3,
+      "policy": 3005,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_69,2_32,3_892"
+    },
+    "58": {
+      "id": 58,
+      "job": 3,
+      "rank": 6,
+      "quality": 3,
+      "policy": 3006,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_72,2_33,3_925"
+    },
+    "59": {
+      "id": 59,
+      "job": 3,
+      "rank": 7,
+      "quality": 3,
+      "policy": 3007,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_74,2_34,3_958"
+    },
+    "60": {
+      "id": 60,
+      "job": 3,
+      "rank": 8,
+      "quality": 4,
+      "policy": 3008,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_82,2_38,3_1057"
+    },
+    "61": {
+      "id": 61,
+      "job": 3,
+      "rank": 9,
+      "quality": 4,
+      "policy": 3009,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_85,2_39,3_1090"
+    },
+    "62": {
+      "id": 62,
+      "job": 3,
+      "rank": 10,
+      "quality": 4,
+      "policy": 3010,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_87,2_40,3_1124"
+    },
+    "63": {
+      "id": 63,
+      "job": 3,
+      "rank": 11,
+      "quality": 4,
+      "policy": 3011,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_90,2_41,3_1157"
+    },
+    "64": {
+      "id": 64,
+      "job": 3,
+      "rank": 12,
+      "quality": 5,
+      "policy": 3012,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_97,2_45,3_1256"
+    },
+    "65": {
+      "id": 65,
+      "job": 3,
+      "rank": 13,
+      "quality": 5,
+      "policy": 3013,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_100,2_46,3_1289"
+    },
+    "66": {
+      "id": 66,
+      "job": 3,
+      "rank": 14,
+      "quality": 5,
+      "policy": 3014,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_103,2_47,3_1322"
+    },
+    "67": {
+      "id": 67,
+      "job": 3,
+      "rank": 15,
+      "quality": 5,
+      "policy": 3015,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_105,2_48,3_1355"
+    },
+    "68": {
+      "id": 68,
+      "job": 3,
+      "rank": 16,
+      "quality": 5,
+      "policy": 3016,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_108,2_50,3_1388"
+    },
+    "69": {
+      "id": 69,
+      "job": 3,
+      "rank": 17,
+      "quality": 6,
+      "policy": 3017,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_160,2_81,3_2274,101_3,102_3,103_3"
+    },
+    "70": {
+      "id": 70,
+      "job": 3,
+      "rank": 18,
+      "quality": 6,
+      "policy": 3018,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_186,2_95,3_2653,101_6,102_6,103_6"
+    },
+    "71": {
+      "id": 71,
+      "job": 3,
+      "rank": 19,
+      "quality": 6,
+      "policy": 3019,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_213,2_108,3_3032,101_9,102_9,103_9"
+    },
+    "72": {
+      "id": 72,
+      "job": 3,
+      "rank": 20,
+      "quality": 6,
+      "policy": 3020,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_240,2_122,3_3411,101_12,102_12,103_12"
+    },
+    "73": {
+      "id": 73,
+      "job": 3,
+      "rank": 21,
+      "quality": 6,
+      "policy": 3021,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_266,2_135,3_3790,101_15,102_15,103_15"
+    },
+    "74": {
+      "id": 74,
+      "job": 3,
+      "rank": 22,
+      "quality": 7,
+      "policy": 3022,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_400,2_188,3_5692,101_19,102_19,103_19"
+    },
+    "75": {
+      "id": 75,
+      "job": 3,
+      "rank": 23,
+      "quality": 7,
+      "policy": 3023,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_467,2_219,3_6641,101_23,102_23,103_23"
+    },
+    "76": {
+      "id": 76,
+      "job": 3,
+      "rank": 24,
+      "quality": 7,
+      "policy": 3024,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_534,2_250,3_7589,101_27,102_27,103_27"
+    },
+    "77": {
+      "id": 77,
+      "job": 3,
+      "rank": 25,
+      "quality": 7,
+      "policy": 3025,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_600,2_282,3_8538,101_31,102_31,103_31"
+    },
+    "78": {
+      "id": 78,
+      "job": 3,
+      "rank": 26,
+      "quality": 7,
+      "policy": 3026,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_667,2_313,3_9487,101_35,102_35,103_35"
+    },
+    "79": {
+      "id": 79,
+      "job": 4,
+      "rank": 1,
+      "quality": 1,
+      "policy": 4001,
+      "hasSkillNum": 1,
+      "QualityAttribute": "1_27,2_9,3_311"
+    },
+    "80": {
+      "id": 80,
+      "job": 4,
+      "rank": 2,
+      "quality": 2,
+      "policy": 4002,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_60,2_19,3_684"
+    },
+    "81": {
+      "id": 81,
+      "job": 4,
+      "rank": 3,
+      "quality": 2,
+      "policy": 4003,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_63,2_20,3_715"
+    },
+    "82": {
+      "id": 82,
+      "job": 4,
+      "rank": 4,
+      "quality": 2,
+      "policy": 4004,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_66,2_21,3_746"
+    },
+    "83": {
+      "id": 83,
+      "job": 4,
+      "rank": 5,
+      "quality": 3,
+      "policy": 4005,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_74,2_24,3_840"
+    },
+    "84": {
+      "id": 84,
+      "job": 4,
+      "rank": 6,
+      "quality": 3,
+      "policy": 4006,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_77,2_24,3_871"
+    },
+    "85": {
+      "id": 85,
+      "job": 4,
+      "rank": 7,
+      "quality": 3,
+      "policy": 4007,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_79,2_25,3_902"
+    },
+    "86": {
+      "id": 86,
+      "job": 4,
+      "rank": 8,
+      "quality": 4,
+      "policy": 4008,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_88,2_28,3_995"
+    },
+    "87": {
+      "id": 87,
+      "job": 4,
+      "rank": 9,
+      "quality": 4,
+      "policy": 4009,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_90,2_29,3_1026"
+    },
+    "88": {
+      "id": 88,
+      "job": 4,
+      "rank": 10,
+      "quality": 4,
+      "policy": 4010,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_93,2_30,3_1057"
+    },
+    "89": {
+      "id": 89,
+      "job": 4,
+      "rank": 11,
+      "quality": 4,
+      "policy": 4011,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_96,2_30,3_1089"
+    },
+    "90": {
+      "id": 90,
+      "job": 4,
+      "rank": 12,
+      "quality": 5,
+      "policy": 4012,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_104,2_33,3_1182"
+    },
+    "91": {
+      "id": 91,
+      "job": 4,
+      "rank": 13,
+      "quality": 5,
+      "policy": 4013,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_107,2_34,3_1213"
+    },
+    "92": {
+      "id": 92,
+      "job": 4,
+      "rank": 14,
+      "quality": 5,
+      "policy": 4014,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_110,2_35,3_1244"
+    },
+    "93": {
+      "id": 93,
+      "job": 4,
+      "rank": 15,
+      "quality": 5,
+      "policy": 4015,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_112,2_36,3_1275"
+    },
+    "94": {
+      "id": 94,
+      "job": 4,
+      "rank": 16,
+      "quality": 5,
+      "policy": 4016,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_115,2_37,3_1306"
+    },
+    "95": {
+      "id": 95,
+      "job": 4,
+      "rank": 17,
+      "quality": 6,
+      "policy": 4017,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_185,2_65,3_2223,101_3,102_3,103_3"
+    },
+    "96": {
+      "id": 96,
+      "job": 4,
+      "rank": 18,
+      "quality": 6,
+      "policy": 4018,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_216,2_75,3_2594,101_6,102_6,103_6"
+    },
+    "97": {
+      "id": 97,
+      "job": 4,
+      "rank": 19,
+      "quality": 6,
+      "policy": 4019,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_247,2_86,3_2965,101_9,102_9,103_9"
+    },
+    "98": {
+      "id": 98,
+      "job": 4,
+      "rank": 20,
+      "quality": 6,
+      "policy": 4020,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_278,2_97,3_3335,101_12,102_12,103_12"
+    },
+    "99": {
+      "id": 99,
+      "job": 4,
+      "rank": 21,
+      "quality": 6,
+      "policy": 4021,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_309,2_108,3_3706,101_15,102_15,103_15"
+    },
+    "100": {
+      "id": 100,
+      "job": 4,
+      "rank": 22,
+      "quality": 7,
+      "policy": 4022,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_464,2_161,3_5561,101_19,102_19,103_19"
+    },
+    "101": {
+      "id": 101,
+      "job": 4,
+      "rank": 23,
+      "quality": 7,
+      "policy": 4023,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_541,2_188,3_6488,101_23,102_23,103_23"
+    },
+    "102": {
+      "id": 102,
+      "job": 4,
+      "rank": 24,
+      "quality": 7,
+      "policy": 4024,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_618,2_215,3_7415,101_27,102_27,103_27"
+    },
+    "103": {
+      "id": 103,
+      "job": 4,
+      "rank": 25,
+      "quality": 7,
+      "policy": 4025,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_696,2_242,3_8342,101_31,102_31,103_31"
+    },
+    "104": {
+      "id": 104,
+      "job": 4,
+      "rank": 26,
+      "quality": 7,
+      "policy": 4026,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_773,2_269,3_9269,101_35,102_35,103_35"
+    },
+    "105": {
+      "id": 105,
+      "job": 5,
+      "rank": 1,
+      "quality": 1,
+      "policy": 5001,
+      "hasSkillNum": 1,
+      "QualityAttribute": "1_23,2_13,3_358"
+    },
+    "106": {
+      "id": 106,
+      "job": 5,
+      "rank": 2,
+      "quality": 2,
+      "policy": 5002,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_52,2_28,3_787"
+    },
+    "107": {
+      "id": 107,
+      "job": 5,
+      "rank": 3,
+      "quality": 2,
+      "policy": 5003,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_54,2_30,3_823"
+    },
+    "108": {
+      "id": 108,
+      "job": 5,
+      "rank": 4,
+      "quality": 2,
+      "policy": 5004,
+      "hasSkillNum": 2,
+      "QualityAttribute": "1_56,2_31,3_858"
+    },
+    "109": {
+      "id": 109,
+      "job": 5,
+      "rank": 5,
+      "quality": 3,
+      "policy": 5005,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_63,2_35,3_966"
+    },
+    "110": {
+      "id": 110,
+      "job": 5,
+      "rank": 6,
+      "quality": 3,
+      "policy": 5006,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_66,2_36,3_1002"
+    },
+    "111": {
+      "id": 111,
+      "job": 5,
+      "rank": 7,
+      "quality": 3,
+      "policy": 5007,
+      "hasSkillNum": 3,
+      "QualityAttribute": "1_68,2_37,3_1037"
+    },
+    "112": {
+      "id": 112,
+      "job": 5,
+      "rank": 8,
+      "quality": 4,
+      "policy": 5008,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_75,2_41,3_1145"
+    },
+    "113": {
+      "id": 113,
+      "job": 5,
+      "rank": 9,
+      "quality": 4,
+      "policy": 5009,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_78,2_42,3_1180"
+    },
+    "114": {
+      "id": 114,
+      "job": 5,
+      "rank": 10,
+      "quality": 4,
+      "policy": 5010,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_80,2_44,3_1216"
+    },
+    "115": {
+      "id": 115,
+      "job": 5,
+      "rank": 11,
+      "quality": 4,
+      "policy": 5011,
+      "hasSkillNum": 4,
+      "QualityAttribute": "1_82,2_45,3_1252"
+    },
+    "116": {
+      "id": 116,
+      "job": 5,
+      "rank": 12,
+      "quality": 5,
+      "policy": 5012,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_89,2_49,3_1359"
+    },
+    "117": {
+      "id": 117,
+      "job": 5,
+      "rank": 13,
+      "quality": 5,
+      "policy": 5013,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_92,2_50,3_1395"
+    },
+    "118": {
+      "id": 118,
+      "job": 5,
+      "rank": 14,
+      "quality": 5,
+      "policy": 5014,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_94,2_51,3_1431"
+    },
+    "119": {
+      "id": 119,
+      "job": 5,
+      "rank": 15,
+      "quality": 5,
+      "policy": 5015,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_96,2_53,3_1467"
+    },
+    "120": {
+      "id": 120,
+      "job": 5,
+      "rank": 16,
+      "quality": 5,
+      "policy": 5016,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_99,2_54,3_1502"
+    },
+    "121": {
+      "id": 121,
+      "job": 5,
+      "rank": 17,
+      "quality": 6,
+      "policy": 5017,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_151,2_94,3_2505,101_3,102_3,103_3"
+    },
+    "122": {
+      "id": 122,
+      "job": 5,
+      "rank": 18,
+      "quality": 6,
+      "policy": 5018,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_176,2_110,3_2922,101_6,102_6,103_6"
+    },
+    "123": {
+      "id": 123,
+      "job": 5,
+      "rank": 19,
+      "quality": 6,
+      "policy": 5019,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_201,2_125,3_3340,101_9,102_9,103_9"
+    },
+    "124": {
+      "id": 124,
+      "job": 5,
+      "rank": 20,
+      "quality": 6,
+      "policy": 5020,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_226,2_141,3_3757,101_12,102_12,103_12"
+    },
+    "125": {
+      "id": 125,
+      "job": 5,
+      "rank": 21,
+      "quality": 6,
+      "policy": 5021,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_251,2_157,3_4175,101_15,102_15,103_15"
+    },
+    "126": {
+      "id": 126,
+      "job": 5,
+      "rank": 22,
+      "quality": 7,
+      "policy": 5022,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_377,2_203,3_6264,101_19,102_19,103_19"
+    },
+    "127": {
+      "id": 127,
+      "job": 5,
+      "rank": 23,
+      "quality": 7,
+      "policy": 5023,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_440,2_237,3_7308,101_23,102_23,103_23"
+    },
+    "128": {
+      "id": 128,
+      "job": 5,
+      "rank": 24,
+      "quality": 7,
+      "policy": 5024,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_503,2_271,3_8352,101_27,102_27,103_27"
+    },
+    "129": {
+      "id": 129,
+      "job": 5,
+      "rank": 25,
+      "quality": 7,
+      "policy": 5025,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_566,2_305,3_9396,101_31,102_31,103_31"
+    },
+    "130": {
+      "id": 130,
+      "job": 5,
+      "rank": 26,
+      "quality": 7,
+      "policy": 5026,
+      "hasSkillNum": 5,
+      "QualityAttribute": "1_629,2_339,3_10440,101_35,102_35,103_35"
+    }
+  }
+}

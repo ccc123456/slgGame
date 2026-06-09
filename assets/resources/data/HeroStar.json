@@ -1,0 +1,245 @@
+{
+  "excel": "武将数据.xlsx",
+  "elements": {
+    "1": {
+      "id": 1,
+      "star": 0,
+      "potential": 2,
+      "add1": 1.0,
+      "starAddAttribute": "1_20,2_10,3_300,101_0,102_0,103_0",
+      "consumeSoul": 10
+    },
+    "2": {
+      "id": 2,
+      "star": 1,
+      "potential": 2,
+      "add1": 1.2,
+      "starAddAttribute": "1_44,2_22,3_660,101_1,102_1,103_1",
+      "consumeSoul": 10
+    },
+    "3": {
+      "id": 3,
+      "star": 2,
+      "potential": 2,
+      "add1": 1.4,
+      "starAddAttribute": "1_68,2_34,3_1020,101_2,102_2,103_2",
+      "consumeSoul": 40
+    },
+    "4": {
+      "id": 4,
+      "star": 3,
+      "potential": 2,
+      "add1": 1.6,
+      "starAddAttribute": "1_92,2_46,3_1380,101_3,102_3,103_3",
+      "consumeSoul": 70
+    },
+    "5": {
+      "id": 5,
+      "star": 4,
+      "potential": 2,
+      "add1": 1.8,
+      "starAddAttribute": "1_116,2_58,3_1740,101_4,102_4,103_4",
+      "consumeSoul": 110
+    },
+    "6": {
+      "id": 6,
+      "star": 5,
+      "potential": 2,
+      "add1": 2.0,
+      "starAddAttribute": "1_140,2_70,3_2100,101_5,102_5,103_5",
+      "consumeSoul": 160
+    },
+    "7": {
+      "id": 7,
+      "star": 0,
+      "potential": 3,
+      "add1": 1.0,
+      "starAddAttribute": "1_160,2_80,3_2400,101_0,102_0,103_0",
+      "consumeSoul": 10
+    },
+    "8": {
+      "id": 8,
+      "star": 1,
+      "potential": 3,
+      "add1": 1.35,
+      "starAddAttribute": "1_220,2_110,3_3300,101_2,102_2,103_2",
+      "consumeSoul": 10
+    },
+    "9": {
+      "id": 9,
+      "star": 2,
+      "potential": 3,
+      "add1": 1.7,
+      "starAddAttribute": "1_280,2_140,3_4200,101_4,102_4,103_4",
+      "consumeSoul": 40
+    },
+    "10": {
+      "id": 10,
+      "star": 3,
+      "potential": 3,
+      "add1": 2.05,
+      "starAddAttribute": "1_340,2_170,3_5100,101_6,102_6,103_6",
+      "consumeSoul": 70
+    },
+    "11": {
+      "id": 11,
+      "star": 4,
+      "potential": 3,
+      "add1": 2.4,
+      "starAddAttribute": "1_400,2_200,3_6000,101_8,102_8,103_8",
+      "consumeSoul": 110
+    },
+    "12": {
+      "id": 12,
+      "star": 5,
+      "potential": 3,
+      "add1": 2.75,
+      "starAddAttribute": "1_460,2_230,3_6900,101_10,102_10,103_10",
+      "consumeSoul": 160
+    },
+    "13": {
+      "id": 13,
+      "star": 0,
+      "potential": 4,
+      "add1": 1.0,
+      "starAddAttribute": "1_800,2_400,3_12000,101_0,102_0,103_0",
+      "consumeSoul": 30
+    },
+    "14": {
+      "id": 14,
+      "star": 1,
+      "potential": 4,
+      "add1": 1.5,
+      "starAddAttribute": "1_1040,2_520,3_15600,101_6,102_6,103_6",
+      "consumeSoul": 20
+    },
+    "15": {
+      "id": 15,
+      "star": 2,
+      "potential": 4,
+      "add1": 2.0,
+      "starAddAttribute": "1_1280,2_640,3_19200,101_12,102_12,103_12",
+      "consumeSoul": 50
+    },
+    "16": {
+      "id": 16,
+      "star": 3,
+      "potential": 4,
+      "add1": 2.5,
+      "starAddAttribute": "1_1520,2_760,3_22800,101_18,102_18,103_18",
+      "consumeSoul": 90
+    },
+    "17": {
+      "id": 17,
+      "star": 4,
+      "potential": 4,
+      "add1": 3.0,
+      "starAddAttribute": "1_1760,2_880,3_26400,101_24,102_24,103_24",
+      "consumeSoul": 130
+    },
+    "18": {
+      "id": 18,
+      "star": 5,
+      "potential": 4,
+      "add1": 3.5,
+      "starAddAttribute": "1_2000,2_1000,3_30000,101_30,102_30,103_30",
+      "consumeSoul": 180
+    },
+    "19": {
+      "id": 19,
+      "star": 0,
+      "potential": 5,
+      "add1": 1.0,
+      "starAddAttribute": "1_3500,2_1750,3_52500,101_30,102_30,103_30",
+      "consumeSoul": 80
+    },
+    "20": {
+      "id": 20,
+      "star": 1,
+      "potential": 5,
+      "add1": 1.8,
+      "starAddAttribute": "1_4400,2_2200,3_66000,101_36,102_36,103_36",
+      "consumeSoul": 30
+    },
+    "21": {
+      "id": 21,
+      "star": 2,
+      "potential": 5,
+      "add1": 2.6,
+      "starAddAttribute": "1_5300,2_2650,3_79500,101_42,102_42,103_42",
+      "consumeSoul": 60
+    },
+    "22": {
+      "id": 22,
+      "star": 3,
+      "potential": 5,
+      "add1": 3.4,
+      "starAddAttribute": "1_6200,2_3100,3_93000,101_48,102_48,103_48",
+      "consumeSoul": 100
+    },
+    "23": {
+      "id": 23,
+      "star": 4,
+      "potential": 5,
+      "add1": 4.2,
+      "starAddAttribute": "1_7100,2_3550,3_106500,101_54,102_54,103_54",
+      "consumeSoul": 140
+    },
+    "24": {
+      "id": 24,
+      "star": 5,
+      "potential": 5,
+      "add1": 5.0,
+      "starAddAttribute": "1_8000,2_4000,3_120000,101_60,102_60,103_60",
+      "consumeSoul": 190
+    },
+    "25": {
+      "id": 25,
+      "star": 0,
+      "potential": 6,
+      "add1": 1.0,
+      "starAddAttribute": "1_0,2_0,3_0,101_30,102_30,103_30",
+      "consumeSoul": 100
+    },
+    "26": {
+      "id": 26,
+      "star": 1,
+      "potential": 6,
+      "add1": 2.4,
+      "starAddAttribute": "1_0,2_0,3_0,101_36,102_36,103_36",
+      "consumeSoul": 40
+    },
+    "27": {
+      "id": 27,
+      "star": 2,
+      "potential": 6,
+      "add1": 3.8,
+      "starAddAttribute": "1_0,2_0,3_0,101_42,102_42,103_42",
+      "consumeSoul": 80
+    },
+    "28": {
+      "id": 28,
+      "star": 3,
+      "potential": 6,
+      "add1": 5.2,
+      "starAddAttribute": "1_0,2_0,3_0,101_48,102_48,103_48",
+      "consumeSoul": 120
+    },
+    "29": {
+      "id": 29,
+      "star": 4,
+      "potential": 6,
+      "add1": 6.6,
+      "starAddAttribute": "1_0,2_0,3_0,101_54,102_54,103_54",
+      "consumeSoul": 160
+    },
+    "30": {
+      "id": 30,
+      "star": 5,
+      "potential": 6,
+      "add1": 8.0,
+      "starAddAttribute": "1_0,2_0,3_0,101_60,102_60,103_60",
+      "consumeSoul": 200
+    }
+  }
+}

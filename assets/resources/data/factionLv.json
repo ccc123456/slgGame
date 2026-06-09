@@ -1,0 +1,95 @@
+{
+  "excel": "军团系统.xlsx",
+  "elements": {
+    "1": {
+      "lv": 1,
+      "perNum": 25,
+      "duCityNum": 1,
+      "xianCityNum": 3,
+      "checkpoint": 3,
+      "declareWar": 3,
+      "upCost": 0
+    },
+    "2": {
+      "lv": 2,
+      "perNum": 27,
+      "duCityNum": 2,
+      "xianCityNum": 4,
+      "checkpoint": 4,
+      "declareWar": 3,
+      "upCost": 3000000
+    },
+    "3": {
+      "lv": 3,
+      "perNum": 29,
+      "duCityNum": 3,
+      "xianCityNum": 5,
+      "checkpoint": 5,
+      "declareWar": 3,
+      "upCost": 5400000
+    },
+    "4": {
+      "lv": 4,
+      "perNum": 32,
+      "duCityNum": 4,
+      "xianCityNum": 6,
+      "checkpoint": 6,
+      "declareWar": 3,
+      "upCost": 17000000
+    },
+    "5": {
+      "lv": 5,
+      "perNum": 35,
+      "duCityNum": 5,
+      "xianCityNum": 7,
+      "checkpoint": 7,
+      "declareWar": 3,
+      "upCost": 33000000
+    },
+    "6": {
+      "lv": 6,
+      "perNum": 38,
+      "duCityNum": 6,
+      "xianCityNum": 8,
+      "checkpoint": 8,
+      "declareWar": 3,
+      "upCost": 54000000
+    },
+    "7": {
+      "lv": 7,
+      "perNum": 41,
+      "duCityNum": 7,
+      "xianCityNum": 9,
+      "checkpoint": 9,
+      "declareWar": 3,
+      "upCost": 85000000
+    },
+    "8": {
+      "lv": 8,
+      "perNum": 44,
+      "duCityNum": 8,
+      "xianCityNum": 10,
+      "checkpoint": 10,
+      "declareWar": 3,
+      "upCost": 120000000
+    },
+    "9": {
+      "lv": 9,
+      "perNum": 47,
+      "duCityNum": 9,
+      "xianCityNum": 12,
+      "checkpoint": 12,
+      "declareWar": 3,
+      "upCost": 170000000
+    },
+    "10": {
+      "lv": 10,
+      "perNum": 50,
+      "duCityNum": 10,
+      "xianCityNum": 15,
+      "checkpoint": 15,
+      "declareWar": 3,
+      "upCost": 250000000
+    }
+  }
+}
