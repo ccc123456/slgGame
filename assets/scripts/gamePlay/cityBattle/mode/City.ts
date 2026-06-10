@@ -23,7 +23,8 @@ export const enum cityLockState {
 export interface teamListData {
     atk?: BattleUnit,
     def?: BattleUnit,
-    battle?: boolean
+    battle?: boolean,
+    battleInfo?: BattleInfo
 }
 
 
@@ -47,7 +48,7 @@ export default class City {
     }
 
     getId() {
-        return this.id
+        return this.cityServer ? this.cityServer.cityId : this.id
     }
 
     getName() {
@@ -132,7 +133,18 @@ export default class City {
 
     }
 
-    getCityCount() {
+    //进攻的队伍数量
+    getAttackCount() {
+        return this.cityServer ? this.cityServer.attackCount : 0
+    }
+
+    //防守队伍数量
+    getDefendCount() {
+        return this.cityServer ? this.cityServer.defendCount : 0
+    }
+
+    //城防军数量
+    getCityGarrisonCount() {
         return this.cityServer ? this.cityServer.garrisonCurrentCount : 0
     }
 
@@ -140,7 +152,7 @@ export default class City {
         let cityParConfig = DataReader.requireRecordById("CityParameter", "1")
         let time = cityParConfig.value
         let timeStr = TimeFactory.getTimeMinute(time)
-        let cityCurrentCount = this.getCityCount()
+        let cityCurrentCount = this.getCityGarrisonCount()
 
         return `${cityCurrentCount} (每${timeStr}分钟恢复1支)`
     }

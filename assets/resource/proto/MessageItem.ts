@@ -11,14 +11,14 @@ import { ItemInfo } from "./structure";
 export const protobufPackage = "protobuf";
 
 /**
- * 获取单个武将信息
+ * 获取道具信息
  * @Id(1101)
  */
 export interface CsGetItems {
 }
 
 /**
- * 获取单个武将信息
+ * 获取道具信息
  * @Id(1102)
  */
 export interface ScGetItems {
@@ -26,7 +26,7 @@ export interface ScGetItems {
 }
 
 /**
- * 获取单个武将信息
+ * 推送道具信息
  * @Id(1103)
  */
 export interface ScUpdateItems {

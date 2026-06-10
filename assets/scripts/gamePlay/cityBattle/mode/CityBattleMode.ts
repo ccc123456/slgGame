@@ -1,9 +1,10 @@
-import { _decorator, Component, Node } from 'cc';
-import Model from '../../../frameWork/data/Model';
-import DataReader from '../../../frameWork/data/DataReader';
-import City from './City';
-import { CsGetCityList, csGetCityListId, ScGetCityList } from 'db://assets/resource/proto/MessageCity';
+import { _decorator } from 'cc';
+import { CsGetCityList, csGetCityListId, ScGetCityDetail, scGetCityDetailId, ScGetCityList } from 'db://assets/resource/proto/MessageCity';
 import { CityInfo } from 'db://assets/resource/proto/structure';
+import Model from '../../../frameWork/data/Model';
+import City from './City';
+import EventManager from '../../../frameWork/manager/EventManager';
+import { CITY_UPDATA, SHOWTIPS } from '../../../GameConfig';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleMode')
@@ -15,12 +16,39 @@ export class CityBattleMode extends Model {
         return {}
     }
 
+
+    initPush() {
+        this.addResponeHandler(scGetCityDetailId, (msg: any) => {
+            let data: ScGetCityDetail = ScGetCityDetail.decode(msg.payload)
+            let cityInof = data.cityInfo
+            this.updateCity(cityInof)
+            EventManager.emit(CITY_UPDATA)
+        })
+    }
+
+    getCityById(cityId): City {
+        for (let index = 0; index < this.citys.length; index++) {
+            if (this.citys[index].getId() == cityId) {
+                return this.citys[index]
+            }
+        }
+        return null
+    }
+
+    updateCity(cityInfo: CityInfo) {
+        let cityId = cityInfo.cityId
+        let _city: City = this.getCityById(cityInfo.cityId)
+        if (!_city) {
+            _city = new City(`${cityId}`);
+        }
+        _city.synchronize(cityInfo)
+        return _city
+    }
+
     synchronize(data: CityInfo[]) {
         this.citys = []
         for (let index = 0; index < data.length; index++) {
-            let cityId = data[index].cityId
-            let _city: City = new City(`${cityId}`);
-            _city.synchronize(data[index])
+            let _city: City = this.updateCity(data[index])
             this.citys.push(_city)
         }
     }

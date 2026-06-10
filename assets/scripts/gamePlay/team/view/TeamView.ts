@@ -1,4 +1,4 @@
-import { _decorator, instantiate, Layout, Node, Prefab, ScrollView, size, UITransform, Widget } from 'cc';
+import { _decorator, instantiate, Label, Layout, Node, Prefab, ScrollView, size, UITransform, Widget } from 'cc';
 import UIView from '../../../frameWork/ui/UIView';
 import { TeamViewController } from '../controller/TeamViewController';
 import { TableView } from '../../../frameWork/utils/TableView';
@@ -21,6 +21,7 @@ export class TeamView extends UIView {
     private _team: Node = null
     private _teamItem: Node = null
     private _citySiegeBtn: Node = null
+    private _citySiegeBtnTip: Node = null
 
     private heroListScroll: TableView = null;
     private _row: number = 3;
@@ -32,6 +33,7 @@ export class TeamView extends UIView {
         this._oneKeyTeam = this.node.getChildByName("oneKeyTeam");
         this.registbuttonClick(this._oneKeyTeam, () => {
             this.delegate.oneKeyHandler()
+            this.updateBtnTip()
         })
         this._team = this.node.getChildByName("team")
         this._scrollView = this.node.getChildByName("scrollView")
@@ -39,18 +41,44 @@ export class TeamView extends UIView {
         this._teamItem.active = false
         this._citySiegeBtn = this.node.getChildByName("citySiegeBtn")
         this.registbuttonClick(this._citySiegeBtn, () => {
-
+            this.delegate.siegeHadler()
         })
+        this._citySiegeBtnTip = this._citySiegeBtn.getChildByName("BtnTIp");
     }
 
     updateView() {
         this.updateBtnState()
         this.updateListView()
         this.updateTeam()
+        this.updateBtnTip()
     }
 
     updateBtnState() {
         this._citySiegeBtn.active = this.delegate.teamBtnState == TeamBtnState.citySiege
+
+    }
+
+    updateBtnTip() {
+        switch (this.delegate.teamBtnState) {
+            case TeamBtnState.citySiege:
+                let allCount = this.delegate.playerModel.getProvisions()
+                let costCount = 0;
+                for (let index = 0; index < this.delegate.teamHeroIds.length; index++) {
+                    let heorId = this.delegate.teamHeroIds[index];
+                    let heroVo = this.delegate.heroModel.getHero(heorId);
+                    if (heroVo) {
+                        costCount += heroVo.getCityCost()
+                    }
+                }
+                this.delegate._cityCostEnough = allCount >= costCount
+                this._citySiegeBtnTip.getComponent(Label).string = `${costCount}/${allCount}`
+
+                break;
+
+            default:
+                break;
+        }
+
     }
 
     updateTeam() {
@@ -74,7 +102,7 @@ export class TeamView extends UIView {
             if (heroId) {
                 let _herolistItem = _itemPre.getComponent(HeroListItemView);
                 _herolistItem.initView(this.delegate)
-                _herolistItem.updateView(heroId)
+                _herolistItem.updateView(`${heroId}`)
             }
         }
     }

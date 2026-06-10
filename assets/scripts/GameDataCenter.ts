@@ -3,6 +3,7 @@ import { SingletonFactory } from "./frameWork/utils/SingletonFactory";
 import { BagModel } from "./gamePlay/bag/mode/BagModel";
 import { HeroModel } from "./gamePlay/hero/model/HeroModel";
 import PlayerModel from "./gamePlay/home/mode/PlayerModel";
+import { LegionModel } from "./gamePlay/legion/model/LegionModel";
 
 
 class GameDataCenter {
@@ -30,6 +31,7 @@ class GameDataCenter {
         this.loadModel(PlayerModel)
         this.loadModel(HeroModel)
         this.loadModel(BagModel)
+        this.loadModel(LegionModel)
     }
 
     /**

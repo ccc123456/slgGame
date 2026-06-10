@@ -336,6 +336,16 @@ export default class Hero {
         }
         return items
     }
+
+    //城战消耗粮草 根据战力计算 先写死100
+    public getCityCost() {
+        return 100
+    }
+
+    //武将派遣id
+    public getDispatchToCityId() {
+        return this.heroServer ? this.heroServer.dispatchToCityId : 0
+    }
 }
 
 

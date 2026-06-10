@@ -24,6 +24,8 @@ export class CityTeamDetailView extends UIView {
         this.registbuttonClick(this._close, () => {
             this.delegate.close()
         })
+        this._atk = this.node.getChildByName("atk")
+        this._def = this.node.getChildByName("def")
     }
 
     updateView() {

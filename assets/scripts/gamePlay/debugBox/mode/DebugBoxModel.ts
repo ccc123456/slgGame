@@ -26,17 +26,19 @@ export class DebugBoxModel extends Model {
         super()
 
         // 一级
-        this._pageIds = ["道具", "角色"]
+        this._pageIds = ["道具", "角色", "城战"]
         // 二级
         this._subPageIds = {
             "道具": ['增加道具'],
-            "角色": ["增加角色", "提升角色等级"]
+            "角色": ["增加角色", "提升角色等级"],
+            "城战": ['解锁城池'],
         }
         // 实际发送数据
         this._config = {
             "增加道具": this.getAddItem(),
             "增加角色": this.getAddHero(),
             "提升角色等级": this.getUpHeroLv(),
+            "解锁城池": this.getunLockCity(),
 
         }
     }
@@ -69,7 +71,7 @@ export class DebugBoxModel extends Model {
             cmdname: "ACTIVATE_HERO",
             config: [
                 {
-                    title: "英魂id：",
+                    title: "英魂id：（-1增加所有角色）",
                     default: "1001"
                 },
             ]
@@ -87,6 +89,18 @@ export class DebugBoxModel extends Model {
                 {
                     title: "等级",
                     default: 100
+                },
+            ]
+        }
+    }
+
+     private getunLockCity(): DebugParams {
+        return {
+            cmdname: "UNLOCK_CITY",
+            config: [
+                {
+                    title: "城池id：（id之前的城池都会解锁）",
+                    default: "1"
                 },
             ]
         }

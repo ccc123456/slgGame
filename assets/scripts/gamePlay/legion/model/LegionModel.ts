@@ -1,6 +1,6 @@
 import { _decorator } from 'cc';
-import { CsApplyJoinLegion, csApplyJoinLegionId, CsCreateLegion, csCreateLegionId, CsGetLegionInfo, csGetLegionInfoId, CsGetLegionList, csGetLegionListId, CsUpgradeLegion, csUpgradeLegionId, ScApplyJoinLegion, ScCreateLegion, ScGetLegionInfo, ScGetLegionList, ScUpgradeLegion } from 'db://assets/resource/proto/MessageLegion';
-import { LegionInfo, LegionListInfo } from 'db://assets/resource/proto/structure';
+import { CsApplyJoinLegion, csApplyJoinLegionId, CsCreateLegion, csCreateLegionId, CsGetLegionInfo, csGetLegionInfoId, CsGetLegionList, csGetLegionListId, CsUpgradeLegion, csUpgradeLegionId, ScApplyJoinLegion, ScCreateLegion, ScGetLegionInfo, ScGetLegionList, ScGetPlayerLegionInfo, scGetPlayerLegionInfoId, ScUpgradeLegion } from 'db://assets/resource/proto/MessageLegion';
+import { LegionInfo, LegionListInfo, LegionMemberInfo } from 'db://assets/resource/proto/structure';
 import Model from '../../../frameWork/data/Model';
 import PlayerModel from '../../home/mode/PlayerModel';
 const { ccclass, property } = _decorator;
@@ -11,9 +11,21 @@ export class LegionModel extends Model {
 
     private legionAddList: LegionListInfo[] = []
     private legionInfo: LegionInfo = null
+    private legionMemberInfo: LegionMemberInfo
 
     getMessageListeners() {
         return {}
+    }
+
+    initPush(): void {
+        this.addResponeHandler(scGetPlayerLegionInfoId, (msg: any) => {
+            let data: ScGetPlayerLegionInfo = ScGetPlayerLegionInfo.decode(msg.payload)
+            this.legionMemberInfo = data.legionMemberInfo
+        })
+    }
+
+    getLegionMemberInfo(){
+        return this.legionMemberInfo
     }
 
     getOwnLegionInfo() {

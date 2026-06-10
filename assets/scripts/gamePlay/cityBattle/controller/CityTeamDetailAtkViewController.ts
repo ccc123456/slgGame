@@ -12,9 +12,11 @@ export class CityTeamDetailAtkViewController extends ViewController {
     viewMode = viewMode.PANEL
 
     battleUnit: BattleUnit = null
+    titleStr: string = ''
 
     viewDidLoad(): void {
         this.battleUnit = this.args.battleUnit
+        this.titleStr = this.args.titleStr
     }
 
     viewDidShow(rag?: any): void {

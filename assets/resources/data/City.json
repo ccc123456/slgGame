@@ -4,7 +4,7 @@
     "1": {
       "id": 1,
       "name": "荥阳",
-      "cityType": 3,
+      "cityType": 1,
       "cityPosition": "100,100",
       "canLeadTo": "2,5",
       "frontCityId": -1,
@@ -20,7 +20,7 @@
     "2": {
       "id": 2,
       "name": "弘农",
-      "cityType": 2,
+      "cityType": 1,
       "cityPosition": "200,200",
       "canLeadTo": "1,3",
       "frontCityId": 1,

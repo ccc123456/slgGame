@@ -71,21 +71,49 @@ export class CityTeamListView extends UIView {
         //battle
         let _battle = cell.getChildByName("battle");
         _battle.active = teamList.battle;
+        this.registbuttonClick(_battle, () => {
+            this.delegate.openTeamDetailHandler(index)
+        })
         //atk
         let _atk = cell.getChildByName("atk");
-        this.updateInfoItem(_atk, teamList.atk)
+        this.registbuttonClick(_atk, () => {
+            this.delegate.openTeamDetailAtk(index)
+        })
+        this.updateInfoItem(_atk, teamList.atk, teamList.battle)
         //def
         let _def = cell.getChildByName("def");
-        this.updateInfoItem(_def, teamList.def)
+        this.registbuttonClick(_def, () => {
+            this.delegate.openTeamDetailDef(index)
+        })
+        this.updateInfoItem(_def, teamList.def, teamList.battle)
+        //开始计时器 根据剩余时间请求下一次
+        Tween.stopAllByTarget(cell)
+        if (teamList.battle) {
+            let lastTime = Number(this.delegate.cityVo.getLastBattleTime())
+            tween(cell) // 绑定在节点上，节点销毁时 tween 自动停止
+                .delay(lastTime)   // 等待 1 秒
+                .call(() => {
+                    this.delegate.cityBattleInfoHandler()
+                })
+                .union()      // 将前面的 action 封装成一个整体
+                // .repeatForever()   // repeatForever 永久执行
+                .start();     // 启动
+        }
 
         return cell
     }
 
-    updateInfoItem(cell: Node, battleUnit: BattleUnit) {
-        cell.destroyAllChildren();
-        let _item = instantiate(this._infoItem);
-        _item.active = true;
-        cell.addChild(_item);
+    updateInfoItem(cell: Node, battleUnit: BattleUnit, isBattle: boolean) {
+        let _item = cell.getChildByName(`item`);
+        if (!_item) {
+            _item = instantiate(this._infoItem);
+            _item.name = `item`
+            cell.addChild(_item);
+        }
+        _item.active = battleUnit ? true : false;
+        if (!battleUnit) {
+            return
+        }
         //icon
         let _icon = _item.getChildByName("icon");
         let isGarrison = battleUnit.isGarrison;
@@ -103,44 +131,59 @@ export class CityTeamListView extends UIView {
         IconFactory.decorateNodeWithSpriteFrame(iconPath, _icon, this.delegate, false, Sprite.SizeMode.CUSTOM)
         //hp
         let _hp = _item.getChildByName("Hp");
+        Tween.stopAllByTarget(_hp)
         let _hpLab = _item.getChildByName("proLab")
         let maxAllHp = 0;
-        let curAllHp = 0
+        let lastBatleHp = 0
+        let curAllHp = 0;
         for (let hpIndex = 0; hpIndex < heros.length; hpIndex++) {
             maxAllHp += Number(heros[hpIndex].maxHp)
+            lastBatleHp += Number(heros[hpIndex].lastBattleHp)
             curAllHp += Number(heros[hpIndex].currentHp)
         }
-        let poorHp = maxAllHp - curAllHp
+        let poorHp = lastBatleHp - curAllHp
         let lastTime = Number(this.delegate.cityVo.getLastBattleTime())
+        // console.log("maxAllHp...." + maxAllHp);
+        // console.log("lastBatleHp...." + lastBatleHp);
+        // console.log("curAllHp...." + curAllHp);
+        // console.log("lastTime...." + lastTime);
+        // console.log(".............");
         //每次减
         let onceReduce = poorHp / lastTime
         let setHp = () => {
-            let pro = curAllHp / maxAllHp
-            _hp.getComponent(ProgressBar).progress = curAllHp / maxAllHp
-            _hpLab.getComponent(Label).string = `${pro * 100}%`
+            let pro = lastBatleHp / maxAllHp
+            _hp.getComponent(ProgressBar).progress = pro
+            let proB = Math.floor(pro * 100)
+            _hpLab.getComponent(Label).string = `${proB}%`
         }
         setHp()
-        tween(_hp) // 绑定在节点上，节点销毁时 tween 自动停止
-            .delay(1.0)   // 等待 1 秒
-            .call(() => {
-                curAllHp -= onceReduce;
-                curAllHp = curAllHp <= 0 ? 0 : curAllHp
+        if (isBattle) {
+            let reduceHpHandler = () => {
+                lastBatleHp -= onceReduce;
+                lastBatleHp = lastBatleHp <= curAllHp ? curAllHp : lastBatleHp
                 setHp();
-                if (curAllHp == 0) {
+                if (lastBatleHp <= curAllHp) {
                     Tween.stopAllByTarget(_hp)
                 }
-            })
-            .union()      // 将前面的 action 封装成一个整体
-            .repeatForever()   // repeatForever 永久执行
-            .start();     // 启动
-
+            }
+            //先减一次 在循环减
+            reduceHpHandler()
+            tween(_hp) // 绑定在节点上，节点销毁时 tween 自动停止
+                .delay(1.0)   // 等待 1 秒
+                .call(() => {
+                    reduceHpHandler()
+                })
+                .union()      // 将前面的 action 封装成一个整体
+                .repeatForever()   // repeatForever 永久执行
+                .start();     // 启动
+        }
 
         //clubName
-        let _cuubName = cell.getChildByName("clubName")
+        let _cuubName = _item.getChildByName("clubName")
         _cuubName.getComponent(Label).string = battleUnit.legionName
         //name
-        let _name = cell.getChildByName("name")
-        _name.getComponent(Label).string = battleUnit.playerName
+        let _name = _item.getChildByName("name")
+        _name.getComponent(Label).string = battleUnit.isGarrison ? "城防军" : battleUnit.playerName
     }
 }
 

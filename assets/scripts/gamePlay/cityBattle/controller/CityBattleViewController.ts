@@ -3,12 +3,13 @@ import ViewController, { viewMode } from '../../../frameWork/controller/ViewCont
 import UIView from '../../../frameWork/ui/UIView';
 import { CityBattleView } from '../view/CityBattleView';
 import { CityBattleMode } from '../mode/CityBattleMode';
-import { CsGetCityDetail, csGetCityDetailId, ScGetCityDetail } from 'db://assets/resource/proto/MessageCity';
+import { CsCityBattleDetail, csCityBattleDetailId, CsGetCityDetail, csGetCityDetailId, CsHeroDeadList, csHeroDeadListId, ScCityBattleDetail, ScGetCityDetail, ScHeroDeadList } from 'db://assets/resource/proto/MessageCity';
 import { CityInfo } from 'db://assets/resource/proto/structure';
 import { CityInfoViewController } from './CityInfoViewController';
 import City from '../mode/City';
 import { TeamViewController } from '../../team/controller/TeamViewController';
 import { TeamBtnState } from '../../team/model/TeamModel';
+import { CityTeamListViewController } from './CityTeamListViewController';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleViewController')
@@ -18,14 +19,23 @@ export class CityBattleViewController extends ViewController {
     viewMode = viewMode.SCENE
 
     ciryBattleModel: CityBattleMode = <CityBattleMode>CityBattleMode.getInstance()
+    checkCity: City = null
+
+    getMessageListeners(): {} {
+        return {
+            CITY_UPDATA: () => {
+                this.viewDoAction("updateView")
+            }
+        }
+    }
 
     viewDidShow(rag?: any): void {
         this.viewDoAction("updateView")
     }
 
-    openInfoHandler(_cityId: number) {
+    openInfoHandler() {
         let getCityDetail: CsGetCityDetail = {
-            cityId: _cityId
+            cityId: Number(this.checkCity.getId())
         }
         let cityDetailCreate = CsGetCityDetail.create(getCityDetail)
         let cityDetailbuffer = CsGetCityDetail.encode(cityDetailCreate).finish()
@@ -43,8 +53,47 @@ export class CityBattleViewController extends ViewController {
         })
     }
 
+    governmentHandler() {
+
+    }
+
+    cityBattleInfoHandler(_cityVo: City) {
+        let cityBattleDetail: CsCityBattleDetail = {
+            cityId: Number(_cityVo.getId())
+        }
+        let cityBattleDetailCreate = CsCityBattleDetail.create(cityBattleDetail)
+        let cityBattleDetailbuffer = CsCityBattleDetail.encode(cityBattleDetailCreate).finish()
+
+        this.ciryBattleModel.request(cityBattleDetailbuffer, csCityBattleDetailId, (msg) => {
+            console.log("收到服务器响应", msg)
+            let plater: ScCityBattleDetail = ScCityBattleDetail.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
+            console.log(plater);
+            this.pushController(CityTeamListViewController, {
+                cityBattleDetail: plater.detail,
+                cityVo: _cityVo
+            })
+        })
+    }
+
     siegeHandler() {
-        this.pushController(TeamViewController, { btnState: TeamBtnState.citySiege })
+        let heroDeadList: CsHeroDeadList = {
+            cityId: Number(this.checkCity.getId())
+        }
+        let heroDeadListCreate = CsHeroDeadList.create(heroDeadList)
+        let heroDeadListBuffer = CsHeroDeadList.encode(heroDeadListCreate).finish()
+
+        this.ciryBattleModel.request(heroDeadListBuffer, csHeroDeadListId, (msg) => {
+            console.log("收到服务器响应", msg)
+            let plater: ScHeroDeadList = ScHeroDeadList.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
+            console.log(plater);
+            this.pushController(TeamViewController, {
+                btnState: TeamBtnState.citySiege,
+                cityId: Number(this.checkCity.getId()),
+                heroDeadList: plater.heroTableId
+            })
+        })
+
+        CsHeroDeadList
     }
 }
 

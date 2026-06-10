@@ -21,6 +21,12 @@ export const jobs = {
     5: { name: "枪", icon: "qiang" }
 }
 
+//获取所有武将数据的类型    控制排序
+export const enum HerosState {
+    teamCity = 1,   //城战编队
+}
+
+
 export const HeroCultivateShowAtt = [803, 804, 805]
 @ccclass('HeroModel')
 export class HeroModel extends Model {
@@ -115,15 +121,33 @@ export class HeroModel extends Model {
         })
     }
 
-    public getHeros(): Hero[] {
+    public getHeros(state: HerosState): Hero[] {
         let heros: Hero[] = [];
         for (const key in this._heroes) {
             heros.push(this._heroes[key])
         }
-        heros.sort((a: Hero, b: Hero) => {
-            return a.getPower() - b.getPower()
-        })
+        switch (state) {
+            case HerosState.teamCity:
+                this.cityHeroSort(heros)
+                break;
+
+            default:
+                break;
+        }
         return heros
+    }
+
+    cityHeroSort(heros: Hero[]) {
+        heros.sort((a: Hero, b: Hero) => {
+            //战力
+            if (a.getPower() != b.getPower()) {
+                return a.getPower() - b.getPower()
+            }
+            //派遣城池
+            if (a.getDispatchToCityId() != b.getDispatchToCityId()) {
+                return a.getDispatchToCityId() - b.getDispatchToCityId()
+            }
+        })
     }
 
     public getHero(heroId): Hero {

@@ -48,6 +48,21 @@ export interface ScPlayerLogin {
   playerInfo?: PlayerInfo | undefined;
 }
 
+/**
+ * 推送货币变化信息
+ * @Id(102)
+ */
+export interface ScUpdateCurrency {
+  /** 元宝 */
+  ingot: number;
+  /** 铜币 */
+  copperCoin: number;
+  /** 粮草 */
+  provisions: number;
+  /** 功勋 */
+  exploit: number;
+}
+
 function createBasePlayerInfo(): PlayerInfo {
   return {
     playerId: "",
@@ -431,6 +446,114 @@ export const ScPlayerLogin: MessageFns<ScPlayerLogin> = {
   },
 };
 
+function createBaseScUpdateCurrency(): ScUpdateCurrency {
+  return { ingot: 0, copperCoin: 0, provisions: 0, exploit: 0 };
+}
+
+export const ScUpdateCurrency: MessageFns<ScUpdateCurrency> = {
+  encode(message: ScUpdateCurrency, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.ingot !== 0) {
+      writer.uint32(8).int32(message.ingot);
+    }
+    if (message.copperCoin !== 0) {
+      writer.uint32(16).int32(message.copperCoin);
+    }
+    if (message.provisions !== 0) {
+      writer.uint32(24).int32(message.provisions);
+    }
+    if (message.exploit !== 0) {
+      writer.uint32(32).int32(message.exploit);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScUpdateCurrency {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScUpdateCurrency();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.ingot = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.copperCoin = reader.int32();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.provisions = reader.int32();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.exploit = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ScUpdateCurrency {
+    return {
+      ingot: isSet(object.ingot) ? globalThis.Number(object.ingot) : 0,
+      copperCoin: isSet(object.copperCoin) ? globalThis.Number(object.copperCoin) : 0,
+      provisions: isSet(object.provisions) ? globalThis.Number(object.provisions) : 0,
+      exploit: isSet(object.exploit) ? globalThis.Number(object.exploit) : 0,
+    };
+  },
+
+  toJSON(message: ScUpdateCurrency): unknown {
+    const obj: any = {};
+    if (message.ingot !== 0) {
+      obj.ingot = Math.round(message.ingot);
+    }
+    if (message.copperCoin !== 0) {
+      obj.copperCoin = Math.round(message.copperCoin);
+    }
+    if (message.provisions !== 0) {
+      obj.provisions = Math.round(message.provisions);
+    }
+    if (message.exploit !== 0) {
+      obj.exploit = Math.round(message.exploit);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScUpdateCurrency>, I>>(base?: I): ScUpdateCurrency {
+    return ScUpdateCurrency.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScUpdateCurrency>, I>>(object: I): ScUpdateCurrency {
+    const message = createBaseScUpdateCurrency();
+    message.ingot = object.ingot ?? 0;
+    message.copperCoin = object.copperCoin ?? 0;
+    message.provisions = object.provisions ?? 0;
+    message.exploit = object.exploit ?? 0;
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -458,3 +581,4 @@ export interface MessageFns<T> {
 
 export const csPlayerLoginId: number = 100;
 export const scPlayerLoginId: number = 101;
+export const scUpdateCurrencyId: number = 102;

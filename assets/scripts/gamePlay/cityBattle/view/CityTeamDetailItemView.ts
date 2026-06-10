@@ -23,10 +23,6 @@ export class CityTeamDetailItemView extends BaseUI {
     team: Node = null;
     @property(Node)
     teamItem: Node = null;
-    @property(Node)
-    debuff: Node = null;
-    @property(Node)
-    debuffItem: Node = null;
 
     updateView(titleStr: string, battleUnit: BattleUnit) {
         this.title.getComponent(Label).string = titleStr
@@ -46,7 +42,7 @@ export class CityTeamDetailItemView extends BaseUI {
         let curAllHp = 0
         for (let hpIndex = 0; hpIndex < heros.length; hpIndex++) {
             maxAllHp += Number(heros[hpIndex].maxHp)
-            curAllHp += Number(heros[hpIndex].currentHp)
+            curAllHp += Number(heros[hpIndex].lastBattleHp)
         }
         let pro = curAllHp / maxAllHp
         this.hp.getComponent(ProgressBar).progress = curAllHp / maxAllHp
@@ -67,11 +63,8 @@ export class CityTeamDetailItemView extends BaseUI {
                 let iconName = `heroList${_config.sex}`
                 iconPath = `hero/${iconName}`
             }
-            IconFactory.decorateNodeWithSpriteFrame(iconPath, teamItem, this.delegate, false, Sprite.SizeMode.CUSTOM)
+            IconFactory.decorateNodeWithSpriteFrame(iconPath, teamItem, this, false, Sprite.SizeMode.CUSTOM)
         }
-        //debuff
-        this.debuff.destroyAllChildren()
-
     }
 }
 

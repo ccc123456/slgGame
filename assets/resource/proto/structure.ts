@@ -94,7 +94,10 @@ export interface LegionDetailInfo {
 
 export interface CityInfo {
   cityId: number;
-  ownerLegionInfo?: LegionBaseInfo | undefined;
+  ownerLegionInfo?:
+    | LegionBaseInfo
+    | undefined;
+  /** 0-和平 1-战斗中 2-免战 3-宣战 */
   cityStatus: number;
   garrisonCurrentCount: number;
   lastAddGarrisonTime: string;
@@ -103,6 +106,8 @@ export interface CityInfo {
   isUnlock: boolean;
   battleInfo: BattleInfo[];
   battleRemainingTime: number;
+  attackCount: number;
+  defendCount: number;
 }
 
 export interface BattleInfo {
@@ -115,6 +120,7 @@ export interface HeroState {
   heroId: number;
   maxHp: string;
   currentHp: string;
+  lastBattleHp: string;
   debuffStacks: number;
   garrisonType: number;
 }
@@ -128,6 +134,8 @@ export interface BattleUnit {
   totalPower: string;
   isGarrison: boolean;
   dispatchId: string;
+  /** 击杀数量 */
+  killQuantity: number;
 }
 
 export interface CityBattleDetail {
@@ -1481,6 +1489,8 @@ function createBaseCityInfo(): CityInfo {
     isUnlock: false,
     battleInfo: [],
     battleRemainingTime: 0,
+    attackCount: 0,
+    defendCount: 0,
   };
 }
 
@@ -1515,6 +1525,12 @@ export const CityInfo: MessageFns<CityInfo> = {
     }
     if (message.battleRemainingTime !== 0) {
       writer.uint32(80).int32(message.battleRemainingTime);
+    }
+    if (message.attackCount !== 0) {
+      writer.uint32(88).int32(message.attackCount);
+    }
+    if (message.defendCount !== 0) {
+      writer.uint32(96).int32(message.defendCount);
     }
     return writer;
   },
@@ -1606,6 +1622,22 @@ export const CityInfo: MessageFns<CityInfo> = {
           message.battleRemainingTime = reader.int32();
           continue;
         }
+        case 11: {
+          if (tag !== 88) {
+            break;
+          }
+
+          message.attackCount = reader.int32();
+          continue;
+        }
+        case 12: {
+          if (tag !== 96) {
+            break;
+          }
+
+          message.defendCount = reader.int32();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -1631,6 +1663,8 @@ export const CityInfo: MessageFns<CityInfo> = {
         ? object.battleInfo.map((e: any) => BattleInfo.fromJSON(e))
         : [],
       battleRemainingTime: isSet(object.battleRemainingTime) ? globalThis.Number(object.battleRemainingTime) : 0,
+      attackCount: isSet(object.attackCount) ? globalThis.Number(object.attackCount) : 0,
+      defendCount: isSet(object.defendCount) ? globalThis.Number(object.defendCount) : 0,
     };
   },
 
@@ -1666,6 +1700,12 @@ export const CityInfo: MessageFns<CityInfo> = {
     if (message.battleRemainingTime !== 0) {
       obj.battleRemainingTime = Math.round(message.battleRemainingTime);
     }
+    if (message.attackCount !== 0) {
+      obj.attackCount = Math.round(message.attackCount);
+    }
+    if (message.defendCount !== 0) {
+      obj.defendCount = Math.round(message.defendCount);
+    }
     return obj;
   },
 
@@ -1688,6 +1728,8 @@ export const CityInfo: MessageFns<CityInfo> = {
     message.isUnlock = object.isUnlock ?? false;
     message.battleInfo = object.battleInfo?.map((e) => BattleInfo.fromPartial(e)) || [];
     message.battleRemainingTime = object.battleRemainingTime ?? 0;
+    message.attackCount = object.attackCount ?? 0;
+    message.defendCount = object.defendCount ?? 0;
     return message;
   },
 };
@@ -1789,7 +1831,7 @@ export const BattleInfo: MessageFns<BattleInfo> = {
 };
 
 function createBaseHeroState(): HeroState {
-  return { heroId: 0, maxHp: "", currentHp: "", debuffStacks: 0, garrisonType: 0 };
+  return { heroId: 0, maxHp: "", currentHp: "", lastBattleHp: "", debuffStacks: 0, garrisonType: 0 };
 }
 
 export const HeroState: MessageFns<HeroState> = {
@@ -1803,11 +1845,14 @@ export const HeroState: MessageFns<HeroState> = {
     if (message.currentHp !== "") {
       writer.uint32(26).string(message.currentHp);
     }
+    if (message.lastBattleHp !== "") {
+      writer.uint32(34).string(message.lastBattleHp);
+    }
     if (message.debuffStacks !== 0) {
-      writer.uint32(32).int32(message.debuffStacks);
+      writer.uint32(40).int32(message.debuffStacks);
     }
     if (message.garrisonType !== 0) {
-      writer.uint32(40).int32(message.garrisonType);
+      writer.uint32(48).int32(message.garrisonType);
     }
     return writer;
   },
@@ -1844,15 +1889,23 @@ export const HeroState: MessageFns<HeroState> = {
           continue;
         }
         case 4: {
-          if (tag !== 32) {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.lastBattleHp = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
             break;
           }
 
           message.debuffStacks = reader.int32();
           continue;
         }
-        case 5: {
-          if (tag !== 40) {
+        case 6: {
+          if (tag !== 48) {
             break;
           }
 
@@ -1873,6 +1926,7 @@ export const HeroState: MessageFns<HeroState> = {
       heroId: isSet(object.heroId) ? globalThis.Number(object.heroId) : 0,
       maxHp: isSet(object.maxHp) ? globalThis.String(object.maxHp) : "",
       currentHp: isSet(object.currentHp) ? globalThis.String(object.currentHp) : "",
+      lastBattleHp: isSet(object.lastBattleHp) ? globalThis.String(object.lastBattleHp) : "",
       debuffStacks: isSet(object.debuffStacks) ? globalThis.Number(object.debuffStacks) : 0,
       garrisonType: isSet(object.garrisonType) ? globalThis.Number(object.garrisonType) : 0,
     };
@@ -1888,6 +1942,9 @@ export const HeroState: MessageFns<HeroState> = {
     }
     if (message.currentHp !== "") {
       obj.currentHp = message.currentHp;
+    }
+    if (message.lastBattleHp !== "") {
+      obj.lastBattleHp = message.lastBattleHp;
     }
     if (message.debuffStacks !== 0) {
       obj.debuffStacks = Math.round(message.debuffStacks);
@@ -1906,6 +1963,7 @@ export const HeroState: MessageFns<HeroState> = {
     message.heroId = object.heroId ?? 0;
     message.maxHp = object.maxHp ?? "";
     message.currentHp = object.currentHp ?? "";
+    message.lastBattleHp = object.lastBattleHp ?? "";
     message.debuffStacks = object.debuffStacks ?? 0;
     message.garrisonType = object.garrisonType ?? 0;
     return message;
@@ -1922,6 +1980,7 @@ function createBaseBattleUnit(): BattleUnit {
     totalPower: "",
     isGarrison: false,
     dispatchId: "",
+    killQuantity: 0,
   };
 }
 
@@ -1950,6 +2009,9 @@ export const BattleUnit: MessageFns<BattleUnit> = {
     }
     if (message.dispatchId !== "") {
       writer.uint32(66).string(message.dispatchId);
+    }
+    if (message.killQuantity !== 0) {
+      writer.uint32(72).int32(message.killQuantity);
     }
     return writer;
   },
@@ -2025,6 +2087,14 @@ export const BattleUnit: MessageFns<BattleUnit> = {
           message.dispatchId = reader.string();
           continue;
         }
+        case 9: {
+          if (tag !== 72) {
+            break;
+          }
+
+          message.killQuantity = reader.int32();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -2044,6 +2114,7 @@ export const BattleUnit: MessageFns<BattleUnit> = {
       totalPower: isSet(object.totalPower) ? globalThis.String(object.totalPower) : "",
       isGarrison: isSet(object.isGarrison) ? globalThis.Boolean(object.isGarrison) : false,
       dispatchId: isSet(object.dispatchId) ? globalThis.String(object.dispatchId) : "",
+      killQuantity: isSet(object.killQuantity) ? globalThis.Number(object.killQuantity) : 0,
     };
   },
 
@@ -2073,6 +2144,9 @@ export const BattleUnit: MessageFns<BattleUnit> = {
     if (message.dispatchId !== "") {
       obj.dispatchId = message.dispatchId;
     }
+    if (message.killQuantity !== 0) {
+      obj.killQuantity = Math.round(message.killQuantity);
+    }
     return obj;
   },
 
@@ -2089,6 +2163,7 @@ export const BattleUnit: MessageFns<BattleUnit> = {
     message.totalPower = object.totalPower ?? "";
     message.isGarrison = object.isGarrison ?? false;
     message.dispatchId = object.dispatchId ?? "";
+    message.killQuantity = object.killQuantity ?? 0;
     return message;
   },
 };

@@ -54,7 +54,7 @@ export class CityInfoView extends UIView {
         this._cityName.getComponent(Label).string = _name
         //icon
         let iconPath = this.delegate.cityVo.getCityIcon()
-        IconFactory.decorateNodeWithSpriteFrame(iconPath, this._cityIcon, this)
+        IconFactory.decorateNodeWithSpriteFrame(iconPath, this._cityIcon, this.delegate)
         //type
         let typeStr = this.delegate.cityVo.getTypeName()
         this._cityType.getComponent(Label).string = typeStr

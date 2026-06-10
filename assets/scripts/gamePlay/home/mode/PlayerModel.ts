@@ -9,7 +9,7 @@
 
 import { _decorator, Component, Node } from 'cc';
 import Model from '../../../frameWork/data/Model';
-import { PlayerInfo, ScPlayerLogin, scPlayerLoginId } from 'db://assets/resource/proto/MessagePlayer';
+import { PlayerInfo, ScPlayerLogin, scPlayerLoginId, ScUpdateCurrency, scUpdateCurrencyId } from 'db://assets/resource/proto/MessagePlayer';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlaerModel')
@@ -28,6 +28,23 @@ export default class PlayerModel extends Model {
             let data: ScPlayerLogin = ScPlayerLogin.decode(msg.payload)
             this.synchronize(data)
         })
+        this.addResponeHandler(scUpdateCurrencyId, (msg: any) => {
+            let data: ScUpdateCurrency = ScUpdateCurrency.decode(msg.payload)
+            //更新货币
+            if (data.ingot) {
+                this.playerInfo && (this.playerInfo.ingot = data.ingot)
+            }
+            if (data.copperCoin) {
+                this.playerInfo && (this.playerInfo.ingot = data.copperCoin)
+            }
+            if (data.provisions) {
+                this.playerInfo && (this.playerInfo.ingot = data.provisions)
+            }
+            if (data.exploit) {
+                this.playerInfo && (this.playerInfo.ingot = data.exploit)
+            }
+        })
+
     }
 
     public synchronize(data: ScPlayerLogin) {
@@ -48,6 +65,10 @@ export default class PlayerModel extends Model {
 
     getWorldLevel() {
         return this.playerInfo ? this.playerInfo.worldLv : 1
+    }
+
+    getProvisions() {
+        return this.playerInfo ? this.playerInfo.provisions : 0
     }
 }
 

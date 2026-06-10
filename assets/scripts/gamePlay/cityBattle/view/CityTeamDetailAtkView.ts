@@ -17,10 +17,15 @@ export class CityTeamDetailAtkView extends UIView {
     private _atk: Node;
 
     onLoad(): void {
+        let _bg = this.node.getChildByName("bg");
+        this.registbuttonClick(_bg, () => {
+            this.delegate.close()
+        })
         this._close = this.node.getChildByName("close")
         this.registbuttonClick(this._close, () => {
             this.delegate.close()
         })
+        this._atk = this.node.getChildByName("atk")
     }
 
     updateView() {
@@ -29,7 +34,7 @@ export class CityTeamDetailAtkView extends UIView {
         _atkItem.active = true;
         this._atk.addChild(_atkItem)
         let _atkItemSc: CityTeamDetailItemView = _atkItem.getComponent(CityTeamDetailItemView)
-        _atkItemSc.updateView("进攻队伍", this.delegate.battleUnit)
+        _atkItemSc.updateView(this.delegate.titleStr, this.delegate.battleUnit)
     }
 
 }

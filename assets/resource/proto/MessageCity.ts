@@ -96,6 +96,7 @@ export interface ScDeclareCapital {
  */
 export interface CsDispatchTroops {
   cityId: number;
+  /** 1-进攻 2-防御 */
   side: number;
   heroIds: number[];
 }
@@ -113,7 +114,7 @@ export interface ScDispatchTroops {
  */
 export interface CsWithdrawDefendingTroops {
   cityId: number;
-  dispatchId: number;
+  dispatchId: string;
 }
 
 /**
@@ -137,6 +138,22 @@ export interface CsHealInjuredHeroes {
  * @Id(1516)
  */
 export interface ScHealInjuredHeroes {
+}
+
+/**
+ * 阵亡武将的信息
+ * @Id(1517)
+ */
+export interface CsHeroDeadList {
+  cityId: number;
+}
+
+/**
+ * 阵亡武将的信息
+ * @Id(1518)
+ */
+export interface ScHeroDeadList {
+  heroTableId: number[];
 }
 
 function createBaseCsGetCityList(): CsGetCityList {
@@ -862,7 +879,7 @@ export const ScDispatchTroops: MessageFns<ScDispatchTroops> = {
 };
 
 function createBaseCsWithdrawDefendingTroops(): CsWithdrawDefendingTroops {
-  return { cityId: 0, dispatchId: 0 };
+  return { cityId: 0, dispatchId: "" };
 }
 
 export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = {
@@ -870,8 +887,8 @@ export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = 
     if (message.cityId !== 0) {
       writer.uint32(8).int32(message.cityId);
     }
-    if (message.dispatchId !== 0) {
-      writer.uint32(16).int32(message.dispatchId);
+    if (message.dispatchId !== "") {
+      writer.uint32(18).string(message.dispatchId);
     }
     return writer;
   },
@@ -892,11 +909,11 @@ export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = 
           continue;
         }
         case 2: {
-          if (tag !== 16) {
+          if (tag !== 18) {
             break;
           }
 
-          message.dispatchId = reader.int32();
+          message.dispatchId = reader.string();
           continue;
         }
       }
@@ -911,7 +928,7 @@ export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = 
   fromJSON(object: any): CsWithdrawDefendingTroops {
     return {
       cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0,
-      dispatchId: isSet(object.dispatchId) ? globalThis.Number(object.dispatchId) : 0,
+      dispatchId: isSet(object.dispatchId) ? globalThis.String(object.dispatchId) : "",
     };
   },
 
@@ -920,8 +937,8 @@ export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = 
     if (message.cityId !== 0) {
       obj.cityId = Math.round(message.cityId);
     }
-    if (message.dispatchId !== 0) {
-      obj.dispatchId = Math.round(message.dispatchId);
+    if (message.dispatchId !== "") {
+      obj.dispatchId = message.dispatchId;
     }
     return obj;
   },
@@ -932,7 +949,7 @@ export const CsWithdrawDefendingTroops: MessageFns<CsWithdrawDefendingTroops> = 
   fromPartial<I extends Exact<DeepPartial<CsWithdrawDefendingTroops>, I>>(object: I): CsWithdrawDefendingTroops {
     const message = createBaseCsWithdrawDefendingTroops();
     message.cityId = object.cityId ?? 0;
-    message.dispatchId = object.dispatchId ?? 0;
+    message.dispatchId = object.dispatchId ?? "";
     return message;
   },
 };
@@ -1111,6 +1128,138 @@ export const ScHealInjuredHeroes: MessageFns<ScHealInjuredHeroes> = {
   },
 };
 
+function createBaseCsHeroDeadList(): CsHeroDeadList {
+  return { cityId: 0 };
+}
+
+export const CsHeroDeadList: MessageFns<CsHeroDeadList> = {
+  encode(message: CsHeroDeadList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityId !== 0) {
+      writer.uint32(8).int32(message.cityId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsHeroDeadList {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsHeroDeadList();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.cityId = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CsHeroDeadList {
+    return { cityId: isSet(object.cityId) ? globalThis.Number(object.cityId) : 0 };
+  },
+
+  toJSON(message: CsHeroDeadList): unknown {
+    const obj: any = {};
+    if (message.cityId !== 0) {
+      obj.cityId = Math.round(message.cityId);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsHeroDeadList>, I>>(base?: I): CsHeroDeadList {
+    return CsHeroDeadList.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsHeroDeadList>, I>>(object: I): CsHeroDeadList {
+    const message = createBaseCsHeroDeadList();
+    message.cityId = object.cityId ?? 0;
+    return message;
+  },
+};
+
+function createBaseScHeroDeadList(): ScHeroDeadList {
+  return { heroTableId: [] };
+}
+
+export const ScHeroDeadList: MessageFns<ScHeroDeadList> = {
+  encode(message: ScHeroDeadList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    writer.uint32(10).fork();
+    for (const v of message.heroTableId) {
+      writer.int32(v);
+    }
+    writer.join();
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScHeroDeadList {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScHeroDeadList();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag === 8) {
+            message.heroTableId.push(reader.int32());
+
+            continue;
+          }
+
+          if (tag === 10) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.heroTableId.push(reader.int32());
+            }
+
+            continue;
+          }
+
+          break;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ScHeroDeadList {
+    return {
+      heroTableId: globalThis.Array.isArray(object?.heroTableId)
+        ? object.heroTableId.map((e: any) => globalThis.Number(e))
+        : [],
+    };
+  },
+
+  toJSON(message: ScHeroDeadList): unknown {
+    const obj: any = {};
+    if (message.heroTableId?.length) {
+      obj.heroTableId = message.heroTableId.map((e) => Math.round(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScHeroDeadList>, I>>(base?: I): ScHeroDeadList {
+    return ScHeroDeadList.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScHeroDeadList>, I>>(object: I): ScHeroDeadList {
+    const message = createBaseScHeroDeadList();
+    message.heroTableId = object.heroTableId?.map((e) => e) || [];
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1152,3 +1301,5 @@ export const csWithdrawDefendingTroopsId: number = 1513;
 export const scWithdrawDefendingTroopsId: number = 1514;
 export const csHealInjuredHeroesId: number = 1515;
 export const scHealInjuredHeroesId: number = 1516;
+export const csHeroDeadListId: number = 1517;
+export const scHeroDeadListId: number = 1518;
