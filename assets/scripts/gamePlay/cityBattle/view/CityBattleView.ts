@@ -5,8 +5,9 @@ import DataReader from '../../../frameWork/data/DataReader';
 import City, { cityLockState, cityState } from '../mode/City';
 import EventManager from '../../../frameWork/manager/EventManager';
 import { SHOWTIPS } from '../../../GameConfig';
-import { BattleInfo, BattleUnit } from 'db://assets/resource/proto/structure';
+import { BattleInfo, BattleUnit, LegionMemberInfo } from 'db://assets/resource/proto/structure';
 import IconFactory from '../../base/IconFactory';
+import { LegionPermissions } from '../../legion/model/LegionModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleView')
@@ -76,7 +77,17 @@ export class CityBattleView extends UIView {
 
         //宣战
         let _declarationWar = _unlock.getChildByName("declarationWar");
-        _declarationWar.active = false
+        let legionMemberInfo: LegionMemberInfo = this.delegate.legionModel.getLegionMemberInfo()
+        let isDeclar: boolean = false;
+        if (legionMemberInfo && legionMemberInfo.legionId) {
+            let posId = legionMemberInfo.position
+            let factionConfig = DataReader.requireRecordById("factionPermission", `${posId}`)
+            let permissions = factionConfig.Permissions;
+            let permisArr: string[] = permissions.split(",");
+            let poIndex = permisArr.indexOf(`${LegionPermissions.declarationWar}`)
+            isDeclar = poIndex != -1
+        }
+        _declarationWar.active = isDeclar
         this.registbuttonClick(_declarationWar, () => {
 
         })

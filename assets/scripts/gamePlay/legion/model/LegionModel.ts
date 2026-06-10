@@ -5,6 +5,25 @@ import Model from '../../../frameWork/data/Model';
 import PlayerModel from '../../home/mode/PlayerModel';
 const { ccclass, property } = _decorator;
 
+
+//权限
+export const enum LegionPermissions {
+    dissolve = 1,   //解散军团
+    change = 2,   //修改军团名称/军旗/军号
+    recruitment = 3,   //世界招募
+    announcement = 4,   //修改军团公告
+    mail = 5,   //群发军团邮件
+    condition = 6,   //修改入团条件
+    apply = 7,   //入团申请批准
+    dismiss = 8,   //开除团员
+    upgrade = 9,   //升级军团
+    declarationWar = 10,   //宣战
+    mobilizeTroops = 11,   //大营调兵
+    giveUp = 12,   //放弃军团城池
+    position = 13,   //设置军团职位
+}
+
+
 @ccclass('LegionModel')
 export class LegionModel extends Model {
     static modelName: string = "LegionModel";
@@ -24,7 +43,7 @@ export class LegionModel extends Model {
         })
     }
 
-    getLegionMemberInfo(){
+    getLegionMemberInfo() {
         return this.legionMemberInfo
     }
 

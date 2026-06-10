@@ -10,6 +10,7 @@ import City from '../mode/City';
 import { TeamViewController } from '../../team/controller/TeamViewController';
 import { TeamBtnState } from '../../team/model/TeamModel';
 import { CityTeamListViewController } from './CityTeamListViewController';
+import { LegionModel } from '../../legion/model/LegionModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleViewController')
@@ -19,6 +20,7 @@ export class CityBattleViewController extends ViewController {
     viewMode = viewMode.SCENE
 
     ciryBattleModel: CityBattleMode = <CityBattleMode>CityBattleMode.getInstance()
+    legionModel: LegionModel = <LegionModel>LegionModel.getInstance()
     checkCity: City = null
 
     getMessageListeners(): {} {
