@@ -5,6 +5,7 @@ import { LegionView } from '../view/LegionView';
 import { LegionModel } from '../model/LegionModel';
 import { LegionInfo } from 'db://assets/resource/proto/structure';
 import { LegionLevelViewController } from './LegionLevelViewController';
+import { LegionMemberListViewController } from './LegionMemberListViewController';
 const { ccclass, property } = _decorator;
 
 @ccclass('LegionViewController')
@@ -32,6 +33,10 @@ export class LegionViewController extends ViewController {
 
     levelHandler() {
         this.pushController(LegionLevelViewController)
+    }
+
+    memberHandler() {
+        this.pushController(LegionMemberListViewController)
     }
 }
 

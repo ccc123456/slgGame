@@ -6,6 +6,7 @@
       "job": 1,
       "rank": 1,
       "quality": 1,
+      "color": 1,
       "policy": 1001,
       "hasSkillNum": 1,
       "QualityAttribute": "1_19,2_13,3_416"
@@ -15,6 +16,7 @@
       "job": 1,
       "rank": 2,
       "quality": 2,
+      "color": 2,
       "policy": 1002,
       "hasSkillNum": 2,
       "QualityAttribute": "1_42,2_29,3_915"
@@ -24,6 +26,7 @@
       "job": 1,
       "rank": 3,
       "quality": 2,
+      "color": 2,
       "policy": 1003,
       "hasSkillNum": 2,
       "QualityAttribute": "1_44,2_30,3_957"
@@ -33,6 +36,7 @@
       "job": 1,
       "rank": 4,
       "quality": 2,
+      "color": 2,
       "policy": 1004,
       "hasSkillNum": 2,
       "QualityAttribute": "1_46,2_32,3_999"
@@ -42,6 +46,7 @@
       "job": 1,
       "rank": 5,
       "quality": 3,
+      "color": 3,
       "policy": 1005,
       "hasSkillNum": 3,
       "QualityAttribute": "1_52,2_36,3_1124"
@@ -51,6 +56,7 @@
       "job": 1,
       "rank": 6,
       "quality": 3,
+      "color": 3,
       "policy": 1006,
       "hasSkillNum": 3,
       "QualityAttribute": "1_54,2_37,3_1165"
@@ -60,6 +66,7 @@
       "job": 1,
       "rank": 7,
       "quality": 3,
+      "color": 3,
       "policy": 1007,
       "hasSkillNum": 3,
       "QualityAttribute": "1_56,2_38,3_1207"
@@ -69,6 +76,7 @@
       "job": 1,
       "rank": 8,
       "quality": 4,
+      "color": 4,
       "policy": 1008,
       "hasSkillNum": 4,
       "QualityAttribute": "1_62,2_42,3_1332"
@@ -78,6 +86,7 @@
       "job": 1,
       "rank": 9,
       "quality": 4,
+      "color": 4,
       "policy": 1009,
       "hasSkillNum": 4,
       "QualityAttribute": "1_64,2_44,3_1373"
@@ -87,6 +96,7 @@
       "job": 1,
       "rank": 10,
       "quality": 4,
+      "color": 4,
       "policy": 1010,
       "hasSkillNum": 4,
       "QualityAttribute": "1_66,2_45,3_1415"
@@ -96,6 +106,7 @@
       "job": 1,
       "rank": 11,
       "quality": 4,
+      "color": 4,
       "policy": 1011,
       "hasSkillNum": 4,
       "QualityAttribute": "1_67,2_46,3_1456"
@@ -105,6 +116,7 @@
       "job": 1,
       "rank": 12,
       "quality": 5,
+      "color": 5,
       "policy": 1012,
       "hasSkillNum": 5,
       "QualityAttribute": "1_73,2_50,3_1581"
@@ -114,6 +126,7 @@
       "job": 1,
       "rank": 13,
       "quality": 5,
+      "color": 5,
       "policy": 1013,
       "hasSkillNum": 5,
       "QualityAttribute": "1_75,2_52,3_1623"
@@ -123,6 +136,7 @@
       "job": 1,
       "rank": 14,
       "quality": 5,
+      "color": 5,
       "policy": 1014,
       "hasSkillNum": 5,
       "QualityAttribute": "1_77,2_53,3_1664"
@@ -132,6 +146,7 @@
       "job": 1,
       "rank": 15,
       "quality": 5,
+      "color": 5,
       "policy": 1015,
       "hasSkillNum": 5,
       "QualityAttribute": "1_79,2_54,3_1706"
@@ -141,6 +156,7 @@
       "job": 1,
       "rank": 16,
       "quality": 5,
+      "color": 5,
       "policy": 1016,
       "hasSkillNum": 5,
       "QualityAttribute": "1_81,2_56,3_1748"
@@ -150,6 +166,7 @@
       "job": 1,
       "rank": 17,
       "quality": 6,
+      "color": 6,
       "policy": 1017,
       "hasSkillNum": 5,
       "QualityAttribute": "1_129,2_99,3_2736,101_3,102_3,103_3"
@@ -159,6 +176,7 @@
       "job": 1,
       "rank": 18,
       "quality": 6,
+      "color": 6,
       "policy": 1018,
       "hasSkillNum": 5,
       "QualityAttribute": "1_151,2_115,3_3191,101_6,102_6,103_6"
@@ -168,6 +186,7 @@
       "job": 1,
       "rank": 19,
       "quality": 6,
+      "color": 6,
       "policy": 1019,
       "hasSkillNum": 5,
       "QualityAttribute": "1_172,2_132,3_3647,101_9,102_9,103_9"
@@ -177,6 +196,7 @@
       "job": 1,
       "rank": 20,
       "quality": 6,
+      "color": 6,
       "policy": 1020,
       "hasSkillNum": 5,
       "QualityAttribute": "1_194,2_148,3_4103,101_12,102_12,103_12"
@@ -186,6 +206,7 @@
       "job": 1,
       "rank": 21,
       "quality": 6,
+      "color": 6,
       "policy": 1021,
       "hasSkillNum": 5,
       "QualityAttribute": "1_215,2_165,3_4559,101_15,102_15,103_15"
@@ -195,6 +216,7 @@
       "job": 1,
       "rank": 22,
       "quality": 7,
+      "color": 7,
       "policy": 1022,
       "hasSkillNum": 5,
       "QualityAttribute": "1_323,2_231,3_6525,101_19,102_19,103_19"
@@ -204,6 +226,7 @@
       "job": 1,
       "rank": 23,
       "quality": 7,
+      "color": 7,
       "policy": 1023,
       "hasSkillNum": 5,
       "QualityAttribute": "1_377,2_270,3_7613,101_23,102_23,103_23"
@@ -213,6 +236,7 @@
       "job": 1,
       "rank": 24,
       "quality": 7,
+      "color": 7,
       "policy": 1024,
       "hasSkillNum": 5,
       "QualityAttribute": "1_430,2_308,3_8700,101_27,102_27,103_27"
@@ -222,6 +246,7 @@
       "job": 1,
       "rank": 25,
       "quality": 7,
+      "color": 7,
       "policy": 1025,
       "hasSkillNum": 5,
       "QualityAttribute": "1_484,2_347,3_9788,101_31,102_31,103_31"
@@ -231,6 +256,7 @@
       "job": 1,
       "rank": 26,
       "quality": 7,
+      "color": 7,
       "policy": 1026,
       "hasSkillNum": 5,
       "QualityAttribute": "1_538,2_385,3_10875,101_35,102_35,103_35"
@@ -240,6 +266,7 @@
       "job": 2,
       "rank": 1,
       "quality": 1,
+      "color": 1,
       "policy": 2001,
       "hasSkillNum": 1,
       "QualityAttribute": "1_27,2_11,3_281"
@@ -249,6 +276,7 @@
       "job": 2,
       "rank": 2,
       "quality": 2,
+      "color": 2,
       "policy": 2002,
       "hasSkillNum": 2,
       "QualityAttribute": "1_59,2_23,3_617"
@@ -258,6 +286,7 @@
       "job": 2,
       "rank": 3,
       "quality": 2,
+      "color": 2,
       "policy": 2003,
       "hasSkillNum": 2,
       "QualityAttribute": "1_62,2_24,3_645"
@@ -267,6 +296,7 @@
       "job": 2,
       "rank": 4,
       "quality": 2,
+      "color": 2,
       "policy": 2004,
       "hasSkillNum": 2,
       "QualityAttribute": "1_65,2_25,3_674"
@@ -276,6 +306,7 @@
       "job": 2,
       "rank": 5,
       "quality": 3,
+      "color": 3,
       "policy": 2005,
       "hasSkillNum": 3,
       "QualityAttribute": "1_73,2_28,3_758"
@@ -285,6 +316,7 @@
       "job": 2,
       "rank": 6,
       "quality": 3,
+      "color": 3,
       "policy": 2006,
       "hasSkillNum": 3,
       "QualityAttribute": "1_76,2_29,3_786"
@@ -294,6 +326,7 @@
       "job": 2,
       "rank": 7,
       "quality": 3,
+      "color": 3,
       "policy": 2007,
       "hasSkillNum": 3,
       "QualityAttribute": "1_78,2_31,3_814"
@@ -303,6 +336,7 @@
       "job": 2,
       "rank": 8,
       "quality": 4,
+      "color": 4,
       "policy": 2008,
       "hasSkillNum": 4,
       "QualityAttribute": "1_86,2_34,3_898"
@@ -312,6 +346,7 @@
       "job": 2,
       "rank": 9,
       "quality": 4,
+      "color": 4,
       "policy": 2009,
       "hasSkillNum": 4,
       "QualityAttribute": "1_89,2_35,3_926"
@@ -321,6 +356,7 @@
       "job": 2,
       "rank": 10,
       "quality": 4,
+      "color": 4,
       "policy": 2010,
       "hasSkillNum": 4,
       "QualityAttribute": "1_92,2_36,3_954"
@@ -330,6 +366,7 @@
       "job": 2,
       "rank": 11,
       "quality": 4,
+      "color": 4,
       "policy": 2011,
       "hasSkillNum": 4,
       "QualityAttribute": "1_94,2_37,3_982"
@@ -339,6 +376,7 @@
       "job": 2,
       "rank": 12,
       "quality": 5,
+      "color": 5,
       "policy": 2012,
       "hasSkillNum": 5,
       "QualityAttribute": "1_103,2_40,3_1066"
@@ -348,6 +386,7 @@
       "job": 2,
       "rank": 13,
       "quality": 5,
+      "color": 5,
       "policy": 2013,
       "hasSkillNum": 5,
       "QualityAttribute": "1_105,2_41,3_1095"
@@ -357,6 +396,7 @@
       "job": 2,
       "rank": 14,
       "quality": 5,
+      "color": 5,
       "policy": 2014,
       "hasSkillNum": 5,
       "QualityAttribute": "1_108,2_42,3_1123"
@@ -366,6 +406,7 @@
       "job": 2,
       "rank": 15,
       "quality": 5,
+      "color": 5,
       "policy": 2015,
       "hasSkillNum": 5,
       "QualityAttribute": "1_111,2_43,3_1151"
@@ -375,6 +416,7 @@
       "job": 2,
       "rank": 16,
       "quality": 5,
+      "color": 5,
       "policy": 2016,
       "hasSkillNum": 5,
       "QualityAttribute": "1_113,2_44,3_1179"
@@ -384,6 +426,7 @@
       "job": 2,
       "rank": 17,
       "quality": 6,
+      "color": 6,
       "policy": 2017,
       "hasSkillNum": 5,
       "QualityAttribute": "1_185,2_76,3_1993,101_3,102_3,103_3"
@@ -393,6 +436,7 @@
       "job": 2,
       "rank": 18,
       "quality": 6,
+      "color": 6,
       "policy": 2018,
       "hasSkillNum": 5,
       "QualityAttribute": "1_216,2_88,3_2325,101_6,102_6,103_6"
@@ -402,6 +446,7 @@
       "job": 2,
       "rank": 19,
       "quality": 6,
+      "color": 6,
       "policy": 2019,
       "hasSkillNum": 5,
       "QualityAttribute": "1_247,2_101,3_2657,101_9,102_9,103_9"
@@ -411,6 +456,7 @@
       "job": 2,
       "rank": 20,
       "quality": 6,
+      "color": 6,
       "policy": 2020,
       "hasSkillNum": 5,
       "QualityAttribute": "1_278,2_113,3_2989,101_12,102_12,103_12"
@@ -420,6 +466,7 @@
       "job": 2,
       "rank": 21,
       "quality": 6,
+      "color": 6,
       "policy": 2021,
       "hasSkillNum": 5,
       "QualityAttribute": "1_309,2_126,3_3321,101_15,102_15,103_15"
@@ -429,6 +476,7 @@
       "job": 2,
       "rank": 22,
       "quality": 7,
+      "color": 7,
       "policy": 2022,
       "hasSkillNum": 5,
       "QualityAttribute": "1_464,2_189,3_4990,101_19,102_19,103_19"
@@ -438,6 +486,7 @@
       "job": 2,
       "rank": 23,
       "quality": 7,
+      "color": 7,
       "policy": 2023,
       "hasSkillNum": 5,
       "QualityAttribute": "1_541,2_221,3_5821,101_23,102_23,103_23"
@@ -447,6 +496,7 @@
       "job": 2,
       "rank": 24,
       "quality": 7,
+      "color": 7,
       "policy": 2024,
       "hasSkillNum": 5,
       "QualityAttribute": "1_618,2_252,3_6653,101_27,102_27,103_27"
@@ -456,6 +506,7 @@
       "job": 2,
       "rank": 25,
       "quality": 7,
+      "color": 7,
       "policy": 2025,
       "hasSkillNum": 5,
       "QualityAttribute": "1_696,2_284,3_7485,101_31,102_31,103_31"
@@ -465,6 +516,7 @@
       "job": 2,
       "rank": 26,
       "quality": 7,
+      "color": 7,
       "policy": 2026,
       "hasSkillNum": 5,
       "QualityAttribute": "1_773,2_316,3_8316,101_35,102_35,103_35"
@@ -474,6 +526,7 @@
       "job": 3,
       "rank": 1,
       "quality": 1,
+      "color": 1,
       "policy": 3001,
       "hasSkillNum": 1,
       "QualityAttribute": "1_26,2_12,3_330"
@@ -483,6 +536,7 @@
       "job": 3,
       "rank": 2,
       "quality": 2,
+      "color": 2,
       "policy": 3002,
       "hasSkillNum": 2,
       "QualityAttribute": "1_56,2_26,3_727"
@@ -492,6 +546,7 @@
       "job": 3,
       "rank": 3,
       "quality": 2,
+      "color": 2,
       "policy": 3003,
       "hasSkillNum": 2,
       "QualityAttribute": "1_59,2_27,3_760"
@@ -501,6 +556,7 @@
       "job": 3,
       "rank": 4,
       "quality": 2,
+      "color": 2,
       "policy": 3004,
       "hasSkillNum": 2,
       "QualityAttribute": "1_62,2_28,3_793"
@@ -510,6 +566,7 @@
       "job": 3,
       "rank": 5,
       "quality": 3,
+      "color": 3,
       "policy": 3005,
       "hasSkillNum": 3,
       "QualityAttribute": "1_69,2_32,3_892"
@@ -519,6 +576,7 @@
       "job": 3,
       "rank": 6,
       "quality": 3,
+      "color": 3,
       "policy": 3006,
       "hasSkillNum": 3,
       "QualityAttribute": "1_72,2_33,3_925"
@@ -528,6 +586,7 @@
       "job": 3,
       "rank": 7,
       "quality": 3,
+      "color": 3,
       "policy": 3007,
       "hasSkillNum": 3,
       "QualityAttribute": "1_74,2_34,3_958"
@@ -537,6 +596,7 @@
       "job": 3,
       "rank": 8,
       "quality": 4,
+      "color": 4,
       "policy": 3008,
       "hasSkillNum": 4,
       "QualityAttribute": "1_82,2_38,3_1057"
@@ -546,6 +606,7 @@
       "job": 3,
       "rank": 9,
       "quality": 4,
+      "color": 4,
       "policy": 3009,
       "hasSkillNum": 4,
       "QualityAttribute": "1_85,2_39,3_1090"
@@ -555,6 +616,7 @@
       "job": 3,
       "rank": 10,
       "quality": 4,
+      "color": 4,
       "policy": 3010,
       "hasSkillNum": 4,
       "QualityAttribute": "1_87,2_40,3_1124"
@@ -564,6 +626,7 @@
       "job": 3,
       "rank": 11,
       "quality": 4,
+      "color": 4,
       "policy": 3011,
       "hasSkillNum": 4,
       "QualityAttribute": "1_90,2_41,3_1157"
@@ -573,6 +636,7 @@
       "job": 3,
       "rank": 12,
       "quality": 5,
+      "color": 5,
       "policy": 3012,
       "hasSkillNum": 5,
       "QualityAttribute": "1_97,2_45,3_1256"
@@ -582,6 +646,7 @@
       "job": 3,
       "rank": 13,
       "quality": 5,
+      "color": 5,
       "policy": 3013,
       "hasSkillNum": 5,
       "QualityAttribute": "1_100,2_46,3_1289"
@@ -591,6 +656,7 @@
       "job": 3,
       "rank": 14,
       "quality": 5,
+      "color": 5,
       "policy": 3014,
       "hasSkillNum": 5,
       "QualityAttribute": "1_103,2_47,3_1322"
@@ -600,6 +666,7 @@
       "job": 3,
       "rank": 15,
       "quality": 5,
+      "color": 5,
       "policy": 3015,
       "hasSkillNum": 5,
       "QualityAttribute": "1_105,2_48,3_1355"
@@ -609,6 +676,7 @@
       "job": 3,
       "rank": 16,
       "quality": 5,
+      "color": 5,
       "policy": 3016,
       "hasSkillNum": 5,
       "QualityAttribute": "1_108,2_50,3_1388"
@@ -618,6 +686,7 @@
       "job": 3,
       "rank": 17,
       "quality": 6,
+      "color": 6,
       "policy": 3017,
       "hasSkillNum": 5,
       "QualityAttribute": "1_160,2_81,3_2274,101_3,102_3,103_3"
@@ -627,6 +696,7 @@
       "job": 3,
       "rank": 18,
       "quality": 6,
+      "color": 6,
       "policy": 3018,
       "hasSkillNum": 5,
       "QualityAttribute": "1_186,2_95,3_2653,101_6,102_6,103_6"
@@ -636,6 +706,7 @@
       "job": 3,
       "rank": 19,
       "quality": 6,
+      "color": 6,
       "policy": 3019,
       "hasSkillNum": 5,
       "QualityAttribute": "1_213,2_108,3_3032,101_9,102_9,103_9"
@@ -645,6 +716,7 @@
       "job": 3,
       "rank": 20,
       "quality": 6,
+      "color": 6,
       "policy": 3020,
       "hasSkillNum": 5,
       "QualityAttribute": "1_240,2_122,3_3411,101_12,102_12,103_12"
@@ -654,6 +726,7 @@
       "job": 3,
       "rank": 21,
       "quality": 6,
+      "color": 6,
       "policy": 3021,
       "hasSkillNum": 5,
       "QualityAttribute": "1_266,2_135,3_3790,101_15,102_15,103_15"
@@ -663,6 +736,7 @@
       "job": 3,
       "rank": 22,
       "quality": 7,
+      "color": 7,
       "policy": 3022,
       "hasSkillNum": 5,
       "QualityAttribute": "1_400,2_188,3_5692,101_19,102_19,103_19"
@@ -672,6 +746,7 @@
       "job": 3,
       "rank": 23,
       "quality": 7,
+      "color": 7,
       "policy": 3023,
       "hasSkillNum": 5,
       "QualityAttribute": "1_467,2_219,3_6641,101_23,102_23,103_23"
@@ -681,6 +756,7 @@
       "job": 3,
       "rank": 24,
       "quality": 7,
+      "color": 7,
       "policy": 3024,
       "hasSkillNum": 5,
       "QualityAttribute": "1_534,2_250,3_7589,101_27,102_27,103_27"
@@ -690,6 +766,7 @@
       "job": 3,
       "rank": 25,
       "quality": 7,
+      "color": 7,
       "policy": 3025,
       "hasSkillNum": 5,
       "QualityAttribute": "1_600,2_282,3_8538,101_31,102_31,103_31"
@@ -699,6 +776,7 @@
       "job": 3,
       "rank": 26,
       "quality": 7,
+      "color": 7,
       "policy": 3026,
       "hasSkillNum": 5,
       "QualityAttribute": "1_667,2_313,3_9487,101_35,102_35,103_35"
@@ -708,6 +786,7 @@
       "job": 4,
       "rank": 1,
       "quality": 1,
+      "color": 1,
       "policy": 4001,
       "hasSkillNum": 1,
       "QualityAttribute": "1_27,2_9,3_311"
@@ -717,6 +796,7 @@
       "job": 4,
       "rank": 2,
       "quality": 2,
+      "color": 2,
       "policy": 4002,
       "hasSkillNum": 2,
       "QualityAttribute": "1_60,2_19,3_684"
@@ -726,6 +806,7 @@
       "job": 4,
       "rank": 3,
       "quality": 2,
+      "color": 2,
       "policy": 4003,
       "hasSkillNum": 2,
       "QualityAttribute": "1_63,2_20,3_715"
@@ -735,6 +816,7 @@
       "job": 4,
       "rank": 4,
       "quality": 2,
+      "color": 2,
       "policy": 4004,
       "hasSkillNum": 2,
       "QualityAttribute": "1_66,2_21,3_746"
@@ -744,6 +826,7 @@
       "job": 4,
       "rank": 5,
       "quality": 3,
+      "color": 3,
       "policy": 4005,
       "hasSkillNum": 3,
       "QualityAttribute": "1_74,2_24,3_840"
@@ -753,6 +836,7 @@
       "job": 4,
       "rank": 6,
       "quality": 3,
+      "color": 3,
       "policy": 4006,
       "hasSkillNum": 3,
       "QualityAttribute": "1_77,2_24,3_871"
@@ -762,6 +846,7 @@
       "job": 4,
       "rank": 7,
       "quality": 3,
+      "color": 3,
       "policy": 4007,
       "hasSkillNum": 3,
       "QualityAttribute": "1_79,2_25,3_902"
@@ -771,6 +856,7 @@
       "job": 4,
       "rank": 8,
       "quality": 4,
+      "color": 4,
       "policy": 4008,
       "hasSkillNum": 4,
       "QualityAttribute": "1_88,2_28,3_995"
@@ -780,6 +866,7 @@
       "job": 4,
       "rank": 9,
       "quality": 4,
+      "color": 4,
       "policy": 4009,
       "hasSkillNum": 4,
       "QualityAttribute": "1_90,2_29,3_1026"
@@ -789,6 +876,7 @@
       "job": 4,
       "rank": 10,
       "quality": 4,
+      "color": 4,
       "policy": 4010,
       "hasSkillNum": 4,
       "QualityAttribute": "1_93,2_30,3_1057"
@@ -798,6 +886,7 @@
       "job": 4,
       "rank": 11,
       "quality": 4,
+      "color": 4,
       "policy": 4011,
       "hasSkillNum": 4,
       "QualityAttribute": "1_96,2_30,3_1089"
@@ -807,6 +896,7 @@
       "job": 4,
       "rank": 12,
       "quality": 5,
+      "color": 5,
       "policy": 4012,
       "hasSkillNum": 5,
       "QualityAttribute": "1_104,2_33,3_1182"
@@ -816,6 +906,7 @@
       "job": 4,
       "rank": 13,
       "quality": 5,
+      "color": 5,
       "policy": 4013,
       "hasSkillNum": 5,
       "QualityAttribute": "1_107,2_34,3_1213"
@@ -825,6 +916,7 @@
       "job": 4,
       "rank": 14,
       "quality": 5,
+      "color": 5,
       "policy": 4014,
       "hasSkillNum": 5,
       "QualityAttribute": "1_110,2_35,3_1244"
@@ -834,6 +926,7 @@
       "job": 4,
       "rank": 15,
       "quality": 5,
+      "color": 5,
       "policy": 4015,
       "hasSkillNum": 5,
       "QualityAttribute": "1_112,2_36,3_1275"
@@ -843,6 +936,7 @@
       "job": 4,
       "rank": 16,
       "quality": 5,
+      "color": 5,
       "policy": 4016,
       "hasSkillNum": 5,
       "QualityAttribute": "1_115,2_37,3_1306"
@@ -852,6 +946,7 @@
       "job": 4,
       "rank": 17,
       "quality": 6,
+      "color": 6,
       "policy": 4017,
       "hasSkillNum": 5,
       "QualityAttribute": "1_185,2_65,3_2223,101_3,102_3,103_3"
@@ -861,6 +956,7 @@
       "job": 4,
       "rank": 18,
       "quality": 6,
+      "color": 6,
       "policy": 4018,
       "hasSkillNum": 5,
       "QualityAttribute": "1_216,2_75,3_2594,101_6,102_6,103_6"
@@ -870,6 +966,7 @@
       "job": 4,
       "rank": 19,
       "quality": 6,
+      "color": 6,
       "policy": 4019,
       "hasSkillNum": 5,
       "QualityAttribute": "1_247,2_86,3_2965,101_9,102_9,103_9"
@@ -879,6 +976,7 @@
       "job": 4,
       "rank": 20,
       "quality": 6,
+      "color": 6,
       "policy": 4020,
       "hasSkillNum": 5,
       "QualityAttribute": "1_278,2_97,3_3335,101_12,102_12,103_12"
@@ -888,6 +986,7 @@
       "job": 4,
       "rank": 21,
       "quality": 6,
+      "color": 6,
       "policy": 4021,
       "hasSkillNum": 5,
       "QualityAttribute": "1_309,2_108,3_3706,101_15,102_15,103_15"
@@ -897,6 +996,7 @@
       "job": 4,
       "rank": 22,
       "quality": 7,
+      "color": 7,
       "policy": 4022,
       "hasSkillNum": 5,
       "QualityAttribute": "1_464,2_161,3_5561,101_19,102_19,103_19"
@@ -906,6 +1006,7 @@
       "job": 4,
       "rank": 23,
       "quality": 7,
+      "color": 7,
       "policy": 4023,
       "hasSkillNum": 5,
       "QualityAttribute": "1_541,2_188,3_6488,101_23,102_23,103_23"
@@ -915,6 +1016,7 @@
       "job": 4,
       "rank": 24,
       "quality": 7,
+      "color": 7,
       "policy": 4024,
       "hasSkillNum": 5,
       "QualityAttribute": "1_618,2_215,3_7415,101_27,102_27,103_27"
@@ -924,6 +1026,7 @@
       "job": 4,
       "rank": 25,
       "quality": 7,
+      "color": 7,
       "policy": 4025,
       "hasSkillNum": 5,
       "QualityAttribute": "1_696,2_242,3_8342,101_31,102_31,103_31"
@@ -933,6 +1036,7 @@
       "job": 4,
       "rank": 26,
       "quality": 7,
+      "color": 7,
       "policy": 4026,
       "hasSkillNum": 5,
       "QualityAttribute": "1_773,2_269,3_9269,101_35,102_35,103_35"
@@ -942,6 +1046,7 @@
       "job": 5,
       "rank": 1,
       "quality": 1,
+      "color": 1,
       "policy": 5001,
       "hasSkillNum": 1,
       "QualityAttribute": "1_23,2_13,3_358"
@@ -951,6 +1056,7 @@
       "job": 5,
       "rank": 2,
       "quality": 2,
+      "color": 2,
       "policy": 5002,
       "hasSkillNum": 2,
       "QualityAttribute": "1_52,2_28,3_787"
@@ -960,6 +1066,7 @@
       "job": 5,
       "rank": 3,
       "quality": 2,
+      "color": 2,
       "policy": 5003,
       "hasSkillNum": 2,
       "QualityAttribute": "1_54,2_30,3_823"
@@ -969,6 +1076,7 @@
       "job": 5,
       "rank": 4,
       "quality": 2,
+      "color": 2,
       "policy": 5004,
       "hasSkillNum": 2,
       "QualityAttribute": "1_56,2_31,3_858"
@@ -978,6 +1086,7 @@
       "job": 5,
       "rank": 5,
       "quality": 3,
+      "color": 3,
       "policy": 5005,
       "hasSkillNum": 3,
       "QualityAttribute": "1_63,2_35,3_966"
@@ -987,6 +1096,7 @@
       "job": 5,
       "rank": 6,
       "quality": 3,
+      "color": 3,
       "policy": 5006,
       "hasSkillNum": 3,
       "QualityAttribute": "1_66,2_36,3_1002"
@@ -996,6 +1106,7 @@
       "job": 5,
       "rank": 7,
       "quality": 3,
+      "color": 3,
       "policy": 5007,
       "hasSkillNum": 3,
       "QualityAttribute": "1_68,2_37,3_1037"
@@ -1005,6 +1116,7 @@
       "job": 5,
       "rank": 8,
       "quality": 4,
+      "color": 4,
       "policy": 5008,
       "hasSkillNum": 4,
       "QualityAttribute": "1_75,2_41,3_1145"
@@ -1014,6 +1126,7 @@
       "job": 5,
       "rank": 9,
       "quality": 4,
+      "color": 4,
       "policy": 5009,
       "hasSkillNum": 4,
       "QualityAttribute": "1_78,2_42,3_1180"
@@ -1023,6 +1136,7 @@
       "job": 5,
       "rank": 10,
       "quality": 4,
+      "color": 4,
       "policy": 5010,
       "hasSkillNum": 4,
       "QualityAttribute": "1_80,2_44,3_1216"
@@ -1032,6 +1146,7 @@
       "job": 5,
       "rank": 11,
       "quality": 4,
+      "color": 4,
       "policy": 5011,
       "hasSkillNum": 4,
       "QualityAttribute": "1_82,2_45,3_1252"
@@ -1041,6 +1156,7 @@
       "job": 5,
       "rank": 12,
       "quality": 5,
+      "color": 5,
       "policy": 5012,
       "hasSkillNum": 5,
       "QualityAttribute": "1_89,2_49,3_1359"
@@ -1050,6 +1166,7 @@
       "job": 5,
       "rank": 13,
       "quality": 5,
+      "color": 5,
       "policy": 5013,
       "hasSkillNum": 5,
       "QualityAttribute": "1_92,2_50,3_1395"
@@ -1059,6 +1176,7 @@
       "job": 5,
       "rank": 14,
       "quality": 5,
+      "color": 5,
       "policy": 5014,
       "hasSkillNum": 5,
       "QualityAttribute": "1_94,2_51,3_1431"
@@ -1068,6 +1186,7 @@
       "job": 5,
       "rank": 15,
       "quality": 5,
+      "color": 5,
       "policy": 5015,
       "hasSkillNum": 5,
       "QualityAttribute": "1_96,2_53,3_1467"
@@ -1077,6 +1196,7 @@
       "job": 5,
       "rank": 16,
       "quality": 5,
+      "color": 5,
       "policy": 5016,
       "hasSkillNum": 5,
       "QualityAttribute": "1_99,2_54,3_1502"
@@ -1086,6 +1206,7 @@
       "job": 5,
       "rank": 17,
       "quality": 6,
+      "color": 6,
       "policy": 5017,
       "hasSkillNum": 5,
       "QualityAttribute": "1_151,2_94,3_2505,101_3,102_3,103_3"
@@ -1095,6 +1216,7 @@
       "job": 5,
       "rank": 18,
       "quality": 6,
+      "color": 6,
       "policy": 5018,
       "hasSkillNum": 5,
       "QualityAttribute": "1_176,2_110,3_2922,101_6,102_6,103_6"
@@ -1104,6 +1226,7 @@
       "job": 5,
       "rank": 19,
       "quality": 6,
+      "color": 6,
       "policy": 5019,
       "hasSkillNum": 5,
       "QualityAttribute": "1_201,2_125,3_3340,101_9,102_9,103_9"
@@ -1113,6 +1236,7 @@
       "job": 5,
       "rank": 20,
       "quality": 6,
+      "color": 6,
       "policy": 5020,
       "hasSkillNum": 5,
       "QualityAttribute": "1_226,2_141,3_3757,101_12,102_12,103_12"
@@ -1122,6 +1246,7 @@
       "job": 5,
       "rank": 21,
       "quality": 6,
+      "color": 6,
       "policy": 5021,
       "hasSkillNum": 5,
       "QualityAttribute": "1_251,2_157,3_4175,101_15,102_15,103_15"
@@ -1131,6 +1256,7 @@
       "job": 5,
       "rank": 22,
       "quality": 7,
+      "color": 7,
       "policy": 5022,
       "hasSkillNum": 5,
       "QualityAttribute": "1_377,2_203,3_6264,101_19,102_19,103_19"
@@ -1140,6 +1266,7 @@
       "job": 5,
       "rank": 23,
       "quality": 7,
+      "color": 7,
       "policy": 5023,
       "hasSkillNum": 5,
       "QualityAttribute": "1_440,2_237,3_7308,101_23,102_23,103_23"
@@ -1149,6 +1276,7 @@
       "job": 5,
       "rank": 24,
       "quality": 7,
+      "color": 7,
       "policy": 5024,
       "hasSkillNum": 5,
       "QualityAttribute": "1_503,2_271,3_8352,101_27,102_27,103_27"
@@ -1158,6 +1286,7 @@
       "job": 5,
       "rank": 25,
       "quality": 7,
+      "color": 7,
       "policy": 5025,
       "hasSkillNum": 5,
       "QualityAttribute": "1_566,2_305,3_9396,101_31,102_31,103_31"
@@ -1167,6 +1296,7 @@
       "job": 5,
       "rank": 26,
       "quality": 7,
+      "color": 7,
       "policy": 5026,
       "hasSkillNum": 5,
       "QualityAttribute": "1_629,2_339,3_10440,101_35,102_35,103_35"

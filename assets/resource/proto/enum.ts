@@ -40,3 +40,45 @@ export function crossTypeToJSON(object: CrossType): string {
       return "UNRECOGNIZED";
   }
 }
+
+export enum BattleSide {
+  /** watch - 观战 */
+  watch = 0,
+  /** attack - 进攻 */
+  attack = 1,
+  /** defend - 防守 */
+  defend = 2,
+  UNRECOGNIZED = -1,
+}
+
+export function battleSideFromJSON(object: any): BattleSide {
+  switch (object) {
+    case 0:
+    case "watch":
+      return BattleSide.watch;
+    case 1:
+    case "attack":
+      return BattleSide.attack;
+    case 2:
+    case "defend":
+      return BattleSide.defend;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return BattleSide.UNRECOGNIZED;
+  }
+}
+
+export function battleSideToJSON(object: BattleSide): string {
+  switch (object) {
+    case BattleSide.watch:
+      return "watch";
+    case BattleSide.attack:
+      return "attack";
+    case BattleSide.defend:
+      return "defend";
+    case BattleSide.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}

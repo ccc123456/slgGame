@@ -3,6 +3,7 @@ import ViewController, { viewMode } from '../../../frameWork/controller/ViewCont
 import UIView from '../../../frameWork/ui/UIView';
 import { LegionCreateView } from '../view/LegionCreateView';
 import { LegionModel } from '../model/LegionModel';
+import PlayerModel from '../../home/mode/PlayerModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('LegionCreateViewController')
@@ -12,6 +13,7 @@ export class LegionCreateViewController extends ViewController {
     viewMode = viewMode.PANEL
 
     legionModel: LegionModel = <LegionModel>LegionModel.getInstance()
+    playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance()
     flagIndex: number = 1
     createCallBack: Function = null
 

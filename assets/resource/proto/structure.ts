@@ -9,6 +9,13 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
 export const protobufPackage = "protobuf";
 
+export interface PlayerBaseInfo {
+  playerId: string;
+  name: string;
+  lv: number;
+  power: string;
+}
+
 export interface HeroInfo {
   heroTableId: number;
   star: number;
@@ -77,6 +84,13 @@ export interface LegionInfo {
   transferCooldown: string;
 }
 
+export interface LegionMemberList {
+  playerInfo?: PlayerBaseInfo | undefined;
+  legionId: string;
+  position: number;
+  totalContribution: number;
+}
+
 export interface LegionMemberInfo {
   playerId: string;
   legionId: string;
@@ -106,6 +120,7 @@ export interface CityInfo {
   isUnlock: boolean;
   battleInfo: BattleInfo[];
   battleRemainingTime: number;
+  attackEmptyCountdown: number;
   attackCount: number;
   defendCount: number;
 }
@@ -146,6 +161,114 @@ export interface CityBattleDetail {
   battleRemainingTime: number;
   cityId: number;
 }
+
+function createBasePlayerBaseInfo(): PlayerBaseInfo {
+  return { playerId: "", name: "", lv: 0, power: "" };
+}
+
+export const PlayerBaseInfo: MessageFns<PlayerBaseInfo> = {
+  encode(message: PlayerBaseInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.playerId !== "") {
+      writer.uint32(10).string(message.playerId);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.lv !== 0) {
+      writer.uint32(24).int32(message.lv);
+    }
+    if (message.power !== "") {
+      writer.uint32(34).string(message.power);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): PlayerBaseInfo {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePlayerBaseInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.playerId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.lv = reader.int32();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.power = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PlayerBaseInfo {
+    return {
+      playerId: isSet(object.playerId) ? globalThis.String(object.playerId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      lv: isSet(object.lv) ? globalThis.Number(object.lv) : 0,
+      power: isSet(object.power) ? globalThis.String(object.power) : "",
+    };
+  },
+
+  toJSON(message: PlayerBaseInfo): unknown {
+    const obj: any = {};
+    if (message.playerId !== "") {
+      obj.playerId = message.playerId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.lv !== 0) {
+      obj.lv = Math.round(message.lv);
+    }
+    if (message.power !== "") {
+      obj.power = message.power;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PlayerBaseInfo>, I>>(base?: I): PlayerBaseInfo {
+    return PlayerBaseInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<PlayerBaseInfo>, I>>(object: I): PlayerBaseInfo {
+    const message = createBasePlayerBaseInfo();
+    message.playerId = object.playerId ?? "";
+    message.name = object.name ?? "";
+    message.lv = object.lv ?? 0;
+    message.power = object.power ?? "";
+    return message;
+  },
+};
 
 function createBaseHeroInfo(): HeroInfo {
   return {
@@ -1233,6 +1356,116 @@ export const LegionInfo: MessageFns<LegionInfo> = {
   },
 };
 
+function createBaseLegionMemberList(): LegionMemberList {
+  return { playerInfo: undefined, legionId: "", position: 0, totalContribution: 0 };
+}
+
+export const LegionMemberList: MessageFns<LegionMemberList> = {
+  encode(message: LegionMemberList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.playerInfo !== undefined) {
+      PlayerBaseInfo.encode(message.playerInfo, writer.uint32(10).fork()).join();
+    }
+    if (message.legionId !== "") {
+      writer.uint32(18).string(message.legionId);
+    }
+    if (message.position !== 0) {
+      writer.uint32(24).int32(message.position);
+    }
+    if (message.totalContribution !== 0) {
+      writer.uint32(32).int32(message.totalContribution);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): LegionMemberList {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLegionMemberList();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.playerInfo = PlayerBaseInfo.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.legionId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.position = reader.int32();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.totalContribution = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LegionMemberList {
+    return {
+      playerInfo: isSet(object.playerInfo) ? PlayerBaseInfo.fromJSON(object.playerInfo) : undefined,
+      legionId: isSet(object.legionId) ? globalThis.String(object.legionId) : "",
+      position: isSet(object.position) ? globalThis.Number(object.position) : 0,
+      totalContribution: isSet(object.totalContribution) ? globalThis.Number(object.totalContribution) : 0,
+    };
+  },
+
+  toJSON(message: LegionMemberList): unknown {
+    const obj: any = {};
+    if (message.playerInfo !== undefined) {
+      obj.playerInfo = PlayerBaseInfo.toJSON(message.playerInfo);
+    }
+    if (message.legionId !== "") {
+      obj.legionId = message.legionId;
+    }
+    if (message.position !== 0) {
+      obj.position = Math.round(message.position);
+    }
+    if (message.totalContribution !== 0) {
+      obj.totalContribution = Math.round(message.totalContribution);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<LegionMemberList>, I>>(base?: I): LegionMemberList {
+    return LegionMemberList.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<LegionMemberList>, I>>(object: I): LegionMemberList {
+    const message = createBaseLegionMemberList();
+    message.playerInfo = (object.playerInfo !== undefined && object.playerInfo !== null)
+      ? PlayerBaseInfo.fromPartial(object.playerInfo)
+      : undefined;
+    message.legionId = object.legionId ?? "";
+    message.position = object.position ?? 0;
+    message.totalContribution = object.totalContribution ?? 0;
+    return message;
+  },
+};
+
 function createBaseLegionMemberInfo(): LegionMemberInfo {
   return {
     playerId: "",
@@ -1489,6 +1722,7 @@ function createBaseCityInfo(): CityInfo {
     isUnlock: false,
     battleInfo: [],
     battleRemainingTime: 0,
+    attackEmptyCountdown: 0,
     attackCount: 0,
     defendCount: 0,
   };
@@ -1526,11 +1760,14 @@ export const CityInfo: MessageFns<CityInfo> = {
     if (message.battleRemainingTime !== 0) {
       writer.uint32(80).int32(message.battleRemainingTime);
     }
+    if (message.attackEmptyCountdown !== 0) {
+      writer.uint32(88).int32(message.attackEmptyCountdown);
+    }
     if (message.attackCount !== 0) {
-      writer.uint32(88).int32(message.attackCount);
+      writer.uint32(96).int32(message.attackCount);
     }
     if (message.defendCount !== 0) {
-      writer.uint32(96).int32(message.defendCount);
+      writer.uint32(104).int32(message.defendCount);
     }
     return writer;
   },
@@ -1627,11 +1864,19 @@ export const CityInfo: MessageFns<CityInfo> = {
             break;
           }
 
-          message.attackCount = reader.int32();
+          message.attackEmptyCountdown = reader.int32();
           continue;
         }
         case 12: {
           if (tag !== 96) {
+            break;
+          }
+
+          message.attackCount = reader.int32();
+          continue;
+        }
+        case 13: {
+          if (tag !== 104) {
             break;
           }
 
@@ -1663,6 +1908,7 @@ export const CityInfo: MessageFns<CityInfo> = {
         ? object.battleInfo.map((e: any) => BattleInfo.fromJSON(e))
         : [],
       battleRemainingTime: isSet(object.battleRemainingTime) ? globalThis.Number(object.battleRemainingTime) : 0,
+      attackEmptyCountdown: isSet(object.attackEmptyCountdown) ? globalThis.Number(object.attackEmptyCountdown) : 0,
       attackCount: isSet(object.attackCount) ? globalThis.Number(object.attackCount) : 0,
       defendCount: isSet(object.defendCount) ? globalThis.Number(object.defendCount) : 0,
     };
@@ -1700,6 +1946,9 @@ export const CityInfo: MessageFns<CityInfo> = {
     if (message.battleRemainingTime !== 0) {
       obj.battleRemainingTime = Math.round(message.battleRemainingTime);
     }
+    if (message.attackEmptyCountdown !== 0) {
+      obj.attackEmptyCountdown = Math.round(message.attackEmptyCountdown);
+    }
     if (message.attackCount !== 0) {
       obj.attackCount = Math.round(message.attackCount);
     }
@@ -1728,6 +1977,7 @@ export const CityInfo: MessageFns<CityInfo> = {
     message.isUnlock = object.isUnlock ?? false;
     message.battleInfo = object.battleInfo?.map((e) => BattleInfo.fromPartial(e)) || [];
     message.battleRemainingTime = object.battleRemainingTime ?? 0;
+    message.attackEmptyCountdown = object.attackEmptyCountdown ?? 0;
     message.attackCount = object.attackCount ?? 0;
     message.defendCount = object.defendCount ?? 0;
     return message;

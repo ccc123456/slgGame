@@ -35,13 +35,13 @@ export default class PlayerModel extends Model {
                 this.playerInfo && (this.playerInfo.ingot = data.ingot)
             }
             if (data.copperCoin) {
-                this.playerInfo && (this.playerInfo.ingot = data.copperCoin)
+                this.playerInfo && (this.playerInfo.copperCoin = data.copperCoin)
             }
             if (data.provisions) {
-                this.playerInfo && (this.playerInfo.ingot = data.provisions)
+                this.playerInfo && (this.playerInfo.provisions = data.provisions)
             }
             if (data.exploit) {
-                this.playerInfo && (this.playerInfo.ingot = data.exploit)
+                this.playerInfo && (this.playerInfo.exploit = data.exploit)
             }
         })
 
@@ -55,10 +55,6 @@ export default class PlayerModel extends Model {
         return this.playerInfo ? this.playerInfo.playerName : ""
     }
 
-    getLegionId() {
-        return this.playerInfo ? this.playerInfo.legionId : ''
-    }
-
     getLevel() {
         return this.playerInfo ? this.playerInfo.lv : 1
     }
@@ -69,6 +65,10 @@ export default class PlayerModel extends Model {
 
     getProvisions() {
         return this.playerInfo ? this.playerInfo.provisions : 0
+    }
+
+    getIngot() {
+        return this.playerInfo ? this.playerInfo.ingot : 0
     }
 }
 

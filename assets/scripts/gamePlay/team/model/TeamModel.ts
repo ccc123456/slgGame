@@ -5,6 +5,7 @@ const { ccclass, property } = _decorator;
 
 export const enum TeamBtnState {
     citySiege = 1,   //城战攻城
+    cityDefence = 2,   //城战防守
 }
 
 @ccclass('TeamMode')

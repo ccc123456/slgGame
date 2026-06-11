@@ -9,8 +9,8 @@ const { ccclass, property } = _decorator;
 export const enum cityState {
     peace = 0,   //和平
     fighting = 1, //争夺
-    immune = 3, //免战
-    declaring = 2, //宣战
+    immune = 2, //免战
+    declaring = 3, //宣战
 }
 
 
@@ -85,8 +85,19 @@ export default class City {
         return ""
     }
 
+    //判断城池类型是不是都城
+    getTypeIsCapital() {
+        let cityType = this.getCityType();
+        return cityType == 3
+    }
+
     getLegionBaseInfo(): LegionBaseInfo {
         return this.cityServer ? this.cityServer.ownerLegionInfo : null
+    }
+
+    //宣战联盟信息
+    getDeclaringLegionInfo() {
+        return this.cityServer ? this.cityServer.declaringLegionInfo : null
     }
 
     getCityWordLv() {
@@ -130,7 +141,6 @@ export default class City {
 
     getCityState() {
         return this.cityServer ? this.cityServer.cityStatus : cityState.peace
-
     }
 
     //进攻的队伍数量
@@ -172,6 +182,15 @@ export default class City {
     getLastBattleTime() {
         return this.cityServer ? this.cityServer.battleRemainingTime : 10
     }
+
+    getAttackEmptyCountdown() {
+        return this.cityServer ? this.cityServer.attackEmptyCountdown : 0
+    }
+    
+    getStatusChangeTime() {
+        return this.cityServer ? this.cityServer.statusChangeTime : 0
+    }
+
 }
 
 

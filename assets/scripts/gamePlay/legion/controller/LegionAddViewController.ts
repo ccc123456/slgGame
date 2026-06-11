@@ -37,8 +37,8 @@ export class LegionAddViewController extends ViewController {
 
     applyHandler(legionId: string, callBack: Function) {
         this.legionModel.applyLegion(legionId, () => {
-            let playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance();
-            let legionId = playerModel.getLegionId();
+            let legionModel: LegionModel = <LegionModel>LegionModel.getInstance();
+            let legionId = legionModel.getLegionMemberId();
             if (legionId) {
                 this.pushController(LegionViewController)
             } else {

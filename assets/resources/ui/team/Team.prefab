@@ -2750,7 +2750,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "lvTtp",
+    "_name": "tip",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -2909,7 +2909,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "BtnTIp",
+    "_name": "BtnCost",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {

@@ -47,6 +47,10 @@ export class LegionModel extends Model {
         return this.legionMemberInfo
     }
 
+    getLegionMemberId() {
+        return this.legionMemberInfo ? this.legionMemberInfo.legionId : ''
+    }
+
     getOwnLegionInfo() {
         return this.legionInfo
     }
@@ -70,8 +74,7 @@ export class LegionModel extends Model {
         this.request(csGetLegioninfobuff, csGetLegionInfoId, (msg) => {
             console.log("收到服务器响应", msg)
             let plater: ScGetLegionInfo = ScGetLegionInfo.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
-            let playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance()
-            if (playerModel.getLegionId() == legionId) {
+            if (this.getLegionMemberId() == legionId) {
                 this.synchronize(plater.legionInfo)   //数据同步
             }
             console.log("解包后的数据", plater)
@@ -131,8 +134,7 @@ export class LegionModel extends Model {
         this.request(csUpgradeUpbuff, csUpgradeLegionId, (msg) => {
             console.log("收到服务器响应", msg)
             let plater: ScUpgradeLegion = ScUpgradeLegion.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
-            let playerModel: PlayerModel = <PlayerModel>PlayerModel.getInstance()
-            if (playerModel.getLegionId() == legionId) {
+            if (this.getLegionMemberId() == legionId) {
                 this.synchronize(plater.legionInfo)   //数据同步
             }
             console.log("解包后的数据", plater)

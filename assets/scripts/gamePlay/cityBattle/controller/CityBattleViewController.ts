@@ -3,7 +3,7 @@ import ViewController, { viewMode } from '../../../frameWork/controller/ViewCont
 import UIView from '../../../frameWork/ui/UIView';
 import { CityBattleView } from '../view/CityBattleView';
 import { CityBattleMode } from '../mode/CityBattleMode';
-import { CsCityBattleDetail, csCityBattleDetailId, CsGetCityDetail, csGetCityDetailId, CsHeroDeadList, csHeroDeadListId, ScCityBattleDetail, ScGetCityDetail, ScHeroDeadList } from 'db://assets/resource/proto/MessageCity';
+import { CsCityBattleDetail, csCityBattleDetailId, CsDeclareCapital, csDeclareCapitalId, CsGetCityDetail, csGetCityDetailId, CsHeroDeadList, csHeroDeadListId, ScCityBattleDetail, ScCityBattleResult, ScDeclareCapital, ScGetCityDetail, ScHeroDeadList } from 'db://assets/resource/proto/MessageCity';
 import { CityInfo } from 'db://assets/resource/proto/structure';
 import { CityInfoViewController } from './CityInfoViewController';
 import City from '../mode/City';
@@ -22,11 +22,20 @@ export class CityBattleViewController extends ViewController {
     ciryBattleModel: CityBattleMode = <CityBattleMode>CityBattleMode.getInstance()
     legionModel: LegionModel = <LegionModel>LegionModel.getInstance()
     checkCity: City = null
+    battleResult: ScCityBattleResult = null
 
     getMessageListeners(): {} {
         return {
             CITY_UPDATA: () => {
                 this.viewDoAction("updateView")
+                if (this.checkCity) {
+                    this.checkCity = this.ciryBattleModel.getCityById(this.checkCity.getId())
+                    this.viewDoAction("updateCheckNode")
+                }
+            },
+            CITY_RESULT: (_battleResult: ScCityBattleResult) => {
+                this.battleResult = _battleResult
+                this.viewDoAction("updateResult")
             }
         }
     }
@@ -55,10 +64,12 @@ export class CityBattleViewController extends ViewController {
         })
     }
 
+    //政务
     governmentHandler() {
 
     }
 
+    //城池信息
     cityBattleInfoHandler(_cityVo: City) {
         let cityBattleDetail: CsCityBattleDetail = {
             cityId: Number(_cityVo.getId())
@@ -77,7 +88,8 @@ export class CityBattleViewController extends ViewController {
         })
     }
 
-    siegeHandler() {
+    //进攻防守
+    siegeHandler(btnState: TeamBtnState) {
         let heroDeadList: CsHeroDeadList = {
             cityId: Number(this.checkCity.getId())
         }
@@ -89,13 +101,26 @@ export class CityBattleViewController extends ViewController {
             let plater: ScHeroDeadList = ScHeroDeadList.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
             console.log(plater);
             this.pushController(TeamViewController, {
-                btnState: TeamBtnState.citySiege,
+                btnState: btnState,
                 cityId: Number(this.checkCity.getId()),
                 heroDeadList: plater.heroTableId
             })
         })
+    }
 
-        CsHeroDeadList
+    //宣战
+    declaraHandler() {
+        let declareCapital: CsDeclareCapital = {
+            cityId: Number(this.checkCity.getId())
+        }
+        let declareCapitalCreate = CsHeroDeadList.create(declareCapital)
+        let declareCapitalBuffer = CsHeroDeadList.encode(declareCapitalCreate).finish()
+
+        this.ciryBattleModel.request(declareCapitalBuffer, csDeclareCapitalId, (msg) => {
+            console.log("收到服务器响应", msg)
+            let plater: ScDeclareCapital = ScDeclareCapital.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
+            console.log(plater);
+        })
     }
 }
 

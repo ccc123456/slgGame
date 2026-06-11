@@ -143,11 +143,11 @@ export class CityTeamListView extends UIView {
         }
         let poorHp = lastBatleHp - curAllHp
         let lastTime = Number(this.delegate.cityVo.getLastBattleTime())
-        // console.log("maxAllHp...." + maxAllHp);
-        // console.log("lastBatleHp...." + lastBatleHp);
-        // console.log("curAllHp...." + curAllHp);
-        // console.log("lastTime...." + lastTime);
-        // console.log(".............");
+        console.log("maxAllHp...." + maxAllHp);
+        console.log("lastBatleHp...." + lastBatleHp);
+        console.log("curAllHp...." + curAllHp);
+        console.log("lastTime...." + lastTime);
+        console.log(".............");
         //每次减
         let onceReduce = poorHp / lastTime
         let setHp = () => {

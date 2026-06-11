@@ -58,7 +58,7 @@ export class HomeViewController extends ViewController {
 
     }
     clickClubHandler() {
-        let legionId = this.playerModel.getLegionId();
+        let legionId = this.legionModel.getLegionMemberId();
         if (legionId) {
             this.legionModel.getLegionInfo(legionId, () => {
                 this.pushController(LegionViewController)

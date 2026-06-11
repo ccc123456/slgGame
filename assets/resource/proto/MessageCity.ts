@@ -6,6 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import { BattleSide, battleSideFromJSON, battleSideToJSON } from "./enum";
 import { CityBattleDetail, CityInfo } from "./structure";
 
 export const protobufPackage = "protobuf";
@@ -154,6 +155,19 @@ export interface CsHeroDeadList {
  */
 export interface ScHeroDeadList {
   heroTableId: number[];
+}
+
+/**
+ * 城池战斗的结果
+ * @Id(1519)
+ */
+export interface ScCityBattleResult {
+  cityInfo?:
+    | CityInfo
+    | undefined;
+  /** 胜利方 1-进攻胜利 2-防守胜利 */
+  winnerSize: number;
+  battleSide: BattleSide;
 }
 
 function createBaseCsGetCityList(): CsGetCityList {
@@ -1260,6 +1274,100 @@ export const ScHeroDeadList: MessageFns<ScHeroDeadList> = {
   },
 };
 
+function createBaseScCityBattleResult(): ScCityBattleResult {
+  return { cityInfo: undefined, winnerSize: 0, battleSide: 0 };
+}
+
+export const ScCityBattleResult: MessageFns<ScCityBattleResult> = {
+  encode(message: ScCityBattleResult, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.cityInfo !== undefined) {
+      CityInfo.encode(message.cityInfo, writer.uint32(10).fork()).join();
+    }
+    if (message.winnerSize !== 0) {
+      writer.uint32(16).int32(message.winnerSize);
+    }
+    if (message.battleSide !== 0) {
+      writer.uint32(24).int32(message.battleSide);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScCityBattleResult {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScCityBattleResult();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.cityInfo = CityInfo.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.winnerSize = reader.int32();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.battleSide = reader.int32() as any;
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ScCityBattleResult {
+    return {
+      cityInfo: isSet(object.cityInfo) ? CityInfo.fromJSON(object.cityInfo) : undefined,
+      winnerSize: isSet(object.winnerSize) ? globalThis.Number(object.winnerSize) : 0,
+      battleSide: isSet(object.battleSide) ? battleSideFromJSON(object.battleSide) : 0,
+    };
+  },
+
+  toJSON(message: ScCityBattleResult): unknown {
+    const obj: any = {};
+    if (message.cityInfo !== undefined) {
+      obj.cityInfo = CityInfo.toJSON(message.cityInfo);
+    }
+    if (message.winnerSize !== 0) {
+      obj.winnerSize = Math.round(message.winnerSize);
+    }
+    if (message.battleSide !== 0) {
+      obj.battleSide = battleSideToJSON(message.battleSide);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScCityBattleResult>, I>>(base?: I): ScCityBattleResult {
+    return ScCityBattleResult.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScCityBattleResult>, I>>(object: I): ScCityBattleResult {
+    const message = createBaseScCityBattleResult();
+    message.cityInfo = (object.cityInfo !== undefined && object.cityInfo !== null)
+      ? CityInfo.fromPartial(object.cityInfo)
+      : undefined;
+    message.winnerSize = object.winnerSize ?? 0;
+    message.battleSide = object.battleSide ?? 0;
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1303,3 +1411,4 @@ export const csHealInjuredHeroesId: number = 1515;
 export const scHealInjuredHeroesId: number = 1516;
 export const csHeroDeadListId: number = 1517;
 export const scHeroDeadListId: number = 1518;
+export const scCityBattleResultId: number = 1519;

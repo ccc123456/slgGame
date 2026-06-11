@@ -6,7 +6,7 @@
  date: Wed May 27 2026 16:32:28 GMT+0800 (中国标准时间) 
  **********************************************/
 
-import { assert, Asset, assetManager, AssetManager, cclegacy, Color, director, Graphics, native, Node, RenderTexture, resources, Sprite, SpriteFrame, Texture2D, UITransform } from "cc"
+import { assert, Asset, assetManager, AssetManager, cclegacy, Color, director, Graphics, native, Node, RenderTexture, resources, Sprite, SpriteFrame, Texture2D, tween, Tween, UITransform } from "cc"
 const { fileUtils } = native;
 //获取某个节点的UITransform组件，如果没有则添加一个
 export function getNodeUITransform(node: Node) {
@@ -40,6 +40,35 @@ export function loadResByPromise(url: string | string[], type: typeof Asset = As
     })
     return ret
 }
+
+
+//创建倒计时 适用每次减少的一样的情况
+//twernNode 绑定的node
+//tweeTime 时间
+//timeCallBack 回调
+//allCount 一共多少
+//reduceCount 每次减多少
+//endCallBack 结束回调
+export function nodeCreateTween(twernNode: Node, tweeTime: number, timeCallBack: Function,
+    allCount: number, reduceCount: number, endCallBack?: Function) {
+    Tween.stopAllByTarget(twernNode)
+    timeCallBack(allCount)
+    tween(twernNode) // 绑定在节点上，节点销毁时 tween 自动停止
+        .delay(tweeTime)   // 等待 1 秒
+        .call(() => {
+            allCount = allCount - reduceCount
+            allCount = allCount < 0 ? 0 : allCount
+            timeCallBack(allCount)
+            if (allCount <= 0) {
+                Tween.stopAllByTarget(twernNode)
+                endCallBack && endCallBack()
+            }
+        })
+        .union()      // 将前面的 action 封装成一个整体
+        .repeatForever()
+        .start();     // 启动
+}
+
 
 export function getResPathAfterBuild(path: string, isJson: boolean, extStr?: string, bundle: AssetManager.Bundle = resources) {
     let info = bundle.getInfoWithPath(path, Asset)

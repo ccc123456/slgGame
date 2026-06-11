@@ -28,8 +28,18 @@ export class TeamViewController extends ViewController {
     _cityCostEnough: boolean = false    //城战消耗是否足够
     viewDidLoad(): void {
         this.heros = this.heroModel.getHeros(HerosState.teamCity)
-        this.cityId = this.args.cityId || 0
         this.heroDeadList = this.args.heroDeadList || []
+        if (this.heroDeadList.length > 0) {
+            //死亡的放到最前面
+            this.heros.sort((a: Hero, b: Hero) => {
+                let aHeroid = a.getId()
+                let bHeroid = b.getId()
+                let aisDead = this.heroDeadList.indexOf(Number(aHeroid)) != -1 ? 0 : 1
+                let bisDead = this.heroDeadList.indexOf(Number(bHeroid)) != -1 ? 0 : 1
+                return aisDead - bisDead
+            })
+        }
+        this.cityId = this.args.cityId || 0
     }
 
     viewDidShow(rag?: any): void {
@@ -64,7 +74,7 @@ export class TeamViewController extends ViewController {
         }
         let troops: CsDispatchTroops = {
             cityId: this.cityId,
-            side: 1,
+            side: this.teamBtnState,
             heroIds: this.teamHeroIds
         }
 

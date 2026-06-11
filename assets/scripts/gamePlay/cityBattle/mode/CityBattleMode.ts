@@ -1,10 +1,10 @@
 import { _decorator } from 'cc';
-import { CsGetCityList, csGetCityListId, ScGetCityDetail, scGetCityDetailId, ScGetCityList } from 'db://assets/resource/proto/MessageCity';
+import { CsGetCityList, csGetCityListId, ScCityBattleResult, scCityBattleResultId, ScGetCityDetail, scGetCityDetailId, ScGetCityList } from 'db://assets/resource/proto/MessageCity';
 import { CityInfo } from 'db://assets/resource/proto/structure';
 import Model from '../../../frameWork/data/Model';
 import City from './City';
 import EventManager from '../../../frameWork/manager/EventManager';
-import { CITY_UPDATA, SHOWTIPS } from '../../../GameConfig';
+import { CITY_RESULT, CITY_UPDATA, SHOWTIPS } from '../../../GameConfig';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleMode')
@@ -24,6 +24,12 @@ export class CityBattleMode extends Model {
             this.updateCity(cityInof)
             EventManager.emit(CITY_UPDATA)
         })
+        this.addResponeHandler(scCityBattleResultId, (msg: any) => {
+            let data: ScCityBattleResult = ScCityBattleResult.decode(msg.payload)
+            EventManager.emit(CITY_RESULT,data)  
+        })
+        
+        
     }
 
     getCityById(cityId): City {

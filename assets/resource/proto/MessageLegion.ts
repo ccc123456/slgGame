@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { LegionInfo, LegionListInfo, LegionMemberInfo } from "./structure";
+import { LegionInfo, LegionListInfo, LegionMemberInfo, LegionMemberList, PlayerBaseInfo } from "./structure";
 
 export const protobufPackage = "protobuf";
 
@@ -239,7 +239,7 @@ export interface CsGetLegionMemberList {
  * @Id(1328)
  */
 export interface ScGetLegionMemberList {
-  legionMemberInfos: LegionMemberInfo[];
+  memberList: LegionMemberList[];
 }
 
 /**
@@ -258,7 +258,7 @@ export interface ScGetPlayerLegionInfo {
 }
 
 /**
- * 获取玩家军团信息
+ * 批准军团的申请
  * @Id(1331)
  */
 export interface CsApproveApplication {
@@ -268,10 +268,25 @@ export interface CsApproveApplication {
 }
 
 /**
- * 获取玩家军团信息
+ * 批准军团的申请
  * @Id(1332)
  */
 export interface ScApproveApplication {
+}
+
+/**
+ * 获取军团的申请
+ * @Id(1333)
+ */
+export interface CsLegionApplications {
+}
+
+/**
+ * 获取军团的申请
+ * @Id(1334)
+ */
+export interface ScLegionApplications {
+  playerInfo: PlayerBaseInfo[];
 }
 
 function createBaseCsCreateLegion(): CsCreateLegion {
@@ -2013,13 +2028,13 @@ export const CsGetLegionMemberList: MessageFns<CsGetLegionMemberList> = {
 };
 
 function createBaseScGetLegionMemberList(): ScGetLegionMemberList {
-  return { legionMemberInfos: [] };
+  return { memberList: [] };
 }
 
 export const ScGetLegionMemberList: MessageFns<ScGetLegionMemberList> = {
   encode(message: ScGetLegionMemberList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    for (const v of message.legionMemberInfos) {
-      LegionMemberInfo.encode(v!, writer.uint32(10).fork()).join();
+    for (const v of message.memberList) {
+      LegionMemberList.encode(v!, writer.uint32(10).fork()).join();
     }
     return writer;
   },
@@ -2036,7 +2051,7 @@ export const ScGetLegionMemberList: MessageFns<ScGetLegionMemberList> = {
             break;
           }
 
-          message.legionMemberInfos.push(LegionMemberInfo.decode(reader, reader.uint32()));
+          message.memberList.push(LegionMemberList.decode(reader, reader.uint32()));
           continue;
         }
       }
@@ -2050,16 +2065,16 @@ export const ScGetLegionMemberList: MessageFns<ScGetLegionMemberList> = {
 
   fromJSON(object: any): ScGetLegionMemberList {
     return {
-      legionMemberInfos: globalThis.Array.isArray(object?.legionMemberInfos)
-        ? object.legionMemberInfos.map((e: any) => LegionMemberInfo.fromJSON(e))
+      memberList: globalThis.Array.isArray(object?.memberList)
+        ? object.memberList.map((e: any) => LegionMemberList.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: ScGetLegionMemberList): unknown {
     const obj: any = {};
-    if (message.legionMemberInfos?.length) {
-      obj.legionMemberInfos = message.legionMemberInfos.map((e) => LegionMemberInfo.toJSON(e));
+    if (message.memberList?.length) {
+      obj.memberList = message.memberList.map((e) => LegionMemberList.toJSON(e));
     }
     return obj;
   },
@@ -2069,7 +2084,7 @@ export const ScGetLegionMemberList: MessageFns<ScGetLegionMemberList> = {
   },
   fromPartial<I extends Exact<DeepPartial<ScGetLegionMemberList>, I>>(object: I): ScGetLegionMemberList {
     const message = createBaseScGetLegionMemberList();
-    message.legionMemberInfos = object.legionMemberInfos?.map((e) => LegionMemberInfo.fromPartial(e)) || [];
+    message.memberList = object.memberList?.map((e) => LegionMemberList.fromPartial(e)) || [];
     return message;
   },
 };
@@ -2314,6 +2329,111 @@ export const ScApproveApplication: MessageFns<ScApproveApplication> = {
   },
 };
 
+function createBaseCsLegionApplications(): CsLegionApplications {
+  return {};
+}
+
+export const CsLegionApplications: MessageFns<CsLegionApplications> = {
+  encode(_: CsLegionApplications, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CsLegionApplications {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCsLegionApplications();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): CsLegionApplications {
+    return {};
+  },
+
+  toJSON(_: CsLegionApplications): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CsLegionApplications>, I>>(base?: I): CsLegionApplications {
+    return CsLegionApplications.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CsLegionApplications>, I>>(_: I): CsLegionApplications {
+    const message = createBaseCsLegionApplications();
+    return message;
+  },
+};
+
+function createBaseScLegionApplications(): ScLegionApplications {
+  return { playerInfo: [] };
+}
+
+export const ScLegionApplications: MessageFns<ScLegionApplications> = {
+  encode(message: ScLegionApplications, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    for (const v of message.playerInfo) {
+      PlayerBaseInfo.encode(v!, writer.uint32(10).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ScLegionApplications {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseScLegionApplications();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.playerInfo.push(PlayerBaseInfo.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ScLegionApplications {
+    return {
+      playerInfo: globalThis.Array.isArray(object?.playerInfo)
+        ? object.playerInfo.map((e: any) => PlayerBaseInfo.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: ScLegionApplications): unknown {
+    const obj: any = {};
+    if (message.playerInfo?.length) {
+      obj.playerInfo = message.playerInfo.map((e) => PlayerBaseInfo.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ScLegionApplications>, I>>(base?: I): ScLegionApplications {
+    return ScLegionApplications.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ScLegionApplications>, I>>(object: I): ScLegionApplications {
+    const message = createBaseScLegionApplications();
+    message.playerInfo = object.playerInfo?.map((e) => PlayerBaseInfo.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2371,3 +2491,5 @@ export const csGetPlayerLegionInfoId: number = 1329;
 export const scGetPlayerLegionInfoId: number = 1330;
 export const csApproveApplicationId: number = 1331;
 export const scApproveApplicationId: number = 1332;
+export const csLegionApplicationsId: number = 1333;
+export const scLegionApplicationsId: number = 1334;

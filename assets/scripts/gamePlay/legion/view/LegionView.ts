@@ -21,7 +21,7 @@ export class LegionView extends UIView {
     private _levelPro: Node = null
     private _levelCost: Node = null
     private _upNode: Node = null
-
+    private _member: Node = null;
 
     onLoad() {
         this._close = find('close/close', this.node);
@@ -39,6 +39,10 @@ export class LegionView extends UIView {
         this.registbuttonClick(this._upNode, () => {
             this.delegate.levelHandler()
         })
+        this._member = this.node.getChildByName("member");
+        this.registbuttonClick(this._member, () => {
+            this.delegate.memberHandler()
+        })
     }
 
     updateView() {
@@ -51,7 +55,7 @@ export class LegionView extends UIView {
         this._legionName.getComponent(Label).string = this.delegate.legionInfo.name
         this.updateLevel()
     }
-    
+
     updateLevel() {
         //level
         let legionLv = this.delegate.legionInfo.level

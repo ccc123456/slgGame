@@ -1,4 +1,4 @@
-import { _decorator, Component, find, instantiate, Label, Node, UITransform, Vec3 } from 'cc';
+import { _decorator, Component, find, instantiate, Label, Node, Tween, tween, UITransform, Vec3 } from 'cc';
 import UIView from '../../../frameWork/ui/UIView';
 import { CityBattleViewController } from '../controller/CityBattleViewController';
 import DataReader from '../../../frameWork/data/DataReader';
@@ -8,6 +8,10 @@ import { SHOWTIPS } from '../../../GameConfig';
 import { BattleInfo, BattleUnit, LegionMemberInfo } from 'db://assets/resource/proto/structure';
 import IconFactory from '../../base/IconFactory';
 import { LegionPermissions } from '../../legion/model/LegionModel';
+import { TeamBtnState } from '../../team/model/TeamModel';
+import { BattleSide } from 'db://assets/resource/proto/enum';
+import TimeFactory from '../../base/TimeFactory';
+import { nodeCreateTween } from '../../../frameWork/utils/CommonUtils';
 const { ccclass, property } = _decorator;
 
 @ccclass('CityBattleView')
@@ -33,6 +37,7 @@ export class CityBattleView extends UIView {
         this._mapDi.on(Node.EventType.TOUCH_START, () => {
             if (this._checkNode.isValid && this._checkNode.active) {
                 this._checkNode.active = false
+                this.delegate.checkCity = null
             }
         }, this._mapDi)
         this._cityItem = this.node.getChildByName("cityItem");
@@ -54,29 +59,68 @@ export class CityBattleView extends UIView {
         this.registbuttonClick(_unlockableCheck, () => {
             this.delegate.openInfoHandler()
         })
+        let isCaptial = this.delegate.checkCity.getTypeIsCapital()
+
         //解锁查看
         let _unlockCheck = _unlock.getChildByName("check");
         this.registbuttonClick(_unlockCheck, () => {
             this.delegate.openInfoHandler()
         })
-        //攻城
+        //攻城 不是都城并且不是自己联盟下的城池显示攻城
+        //城池所属联盟
+        let ownerLegionInfo = this.delegate.checkCity.getLegionBaseInfo();
+        //城池宣战联盟
+        let declaringLegionInfo = this.delegate.checkCity.getDeclaringLegionInfo()
+        //当前城池状态
+        let _cityState = this.delegate.checkCity.getCityState()
+        //自己所在联盟id
+        let curLegionId = this.delegate.legionModel.getLegionMemberId()
+        //城池类型
+        let cityType = this.delegate.checkCity.getCityType()
+        let hideAtkAll = cityType == 4  //皇宫不显示进攻防守等按钮 只显示查看
+
+        //进攻
+        let isShowAtk = !hideAtkAll;
+        if (isCaptial) {
+            //都城进攻按钮 在和平和免战状态下不显示
+            if (_cityState == cityState.peace || _cityState == cityState.immune) {
+                isShowAtk = false
+            }
+        } else {
+            //自己的联盟的城池 不显示进攻按钮
+            if (ownerLegionInfo && ownerLegionInfo.legionId == curLegionId) {
+                isShowAtk = false
+            }
+        }
         let _unlocksiege = _unlock.getChildByName("siege");
+        _unlocksiege.active = isShowAtk
         this.registbuttonClick(_unlocksiege, () => {
-            this.delegate.siegeHandler()
+            this.delegate.siegeHandler(TeamBtnState.citySiege)
         })
         //政务
+        let isShowGovernment = !hideAtkAll;
         let _unlockGovernment = _unlock.getChildByName("government");
+        _unlockGovernment.active = isShowGovernment
         this.registbuttonClick(_unlockGovernment, () => {
             this.delegate.governmentHandler()
         })
-        //防守
+        //防守 所有城池都有防守
+        let isShowDefense = !hideAtkAll;
+        if (isCaptial) {
+            //都城防守按钮 在和平和免战状态下不显示
+            if (_cityState == cityState.peace || _cityState == cityState.immune) {
+                isShowDefense = false
+            }
+        }
         let _unlockDefense = _unlock.getChildByName("defense");
+        _unlockDefense.active = isShowDefense
         this.registbuttonClick(_unlockDefense, () => {
-
+            this.delegate.siegeHandler(TeamBtnState.cityDefence)
         })
 
-        //宣战
-        let _declarationWar = _unlock.getChildByName("declarationWar");
+        //宣战  都城&联盟权限有宣战&城池状态和平
+        let isShowDeclar = false;
+        //权限
         let legionMemberInfo: LegionMemberInfo = this.delegate.legionModel.getLegionMemberInfo()
         let isDeclar: boolean = false;
         if (legionMemberInfo && legionMemberInfo.legionId) {
@@ -87,20 +131,19 @@ export class CityBattleView extends UIView {
             let poIndex = permisArr.indexOf(`${LegionPermissions.declarationWar}`)
             isDeclar = poIndex != -1
         }
-        _declarationWar.active = isDeclar
+        isShowDeclar = isCaptial && isDeclar && _cityState == cityState.peace
+        let _declarationWar = _unlock.getChildByName("declarationWar");
+        _declarationWar.active = isShowDeclar
         this.registbuttonClick(_declarationWar, () => {
-
+            this.delegate.declaraHandler()
         })
-
-
-
     }
 
     updateView() {
         let citys: City[] = this.delegate.ciryBattleModel.getAllCitys()
         for (let index = 0; index < citys.length; index++) {
             let _city: City = citys[index]
-            let _item = this._map.getChildByName(`item${index}`);
+            let _item = this._map.getChildByName(`item${_city.getId()}`);
             if (!_item) {
                 _item = instantiate(this._cityItem);
                 _item.name = `item${index}`
@@ -152,9 +195,44 @@ export class CityBattleView extends UIView {
             let _battleResult = _item.getChildByName("battleResult");
             _battleResult.active = false
 
+            //endTip
+            let _endTIp = _item.getChildByName("endTip");
+            let atkEmCount = _city.getAttackEmptyCountdown()
+            _endTIp.active = atkEmCount > 0
+            Tween.stopAllByTarget(_endTIp)
+            if (atkEmCount > 0) {
+                let setTipCout = (_count) => {
+                    _endTIp.getComponent(Label).string = `${_count}秒内无人进攻，则防守方胜利`
+                }
+                nodeCreateTween(_endTIp, 1, setTipCout, atkEmCount, 1, () => {
+                    _endTIp.active = false
+                })
+            }
+
+            //免战
+            let _state = _city.getCityState()
+            let _freeWar = _item.getChildByName("freeWar");
+            _freeWar.active = _state == cityState.immune
+            Tween.stopAllByTarget(_freeWar)
+            if (_state == cityState.immune) {
+                let statusChangeTime = _city.getStatusChangeTime()
+                let curTime = Date.now()
+                let chagneTime = curTime - Number(statusChangeTime)
+                let allSecondConfig = DataReader.requireRecordById("CityParameter", "2")
+                let allSecond = allSecondConfig.value
+                let costSecond = TimeFactory.getSecondStr(chagneTime)
+                let changeSecond = allSecond - costSecond
+                let setChangeTime = (_count) => {
+                    let timeStr = TimeFactory.getTimeStrSecond(Number(_count))
+                    _freeWar.getComponent(Label).string = `免战中${timeStr}`
+                }
+                nodeCreateTween(_freeWar, 1, setChangeTime, changeSecond, 1, () => {
+                    _freeWar.active = false
+                })
+            }
+
             //vs
             let _vs = _item.getChildByName("vs")
-            let _state = _city.getCityState()
             let vsState = _state == cityState.fighting || _state == cityState.declaring
             _vs.active = vsState
             if (vsState) {
@@ -182,8 +260,10 @@ export class CityBattleView extends UIView {
                     let battleInfo: BattleInfo = battleInfos[index]
                     let addHeroid = (battleUn: BattleUnit) => {
                         let heroState = battleUn.hero
-                        let heroId = heroState[0].heroId;
-                        heroIds.push(`${heroId}`)
+                        if (heroState[0]) {
+                            let heroId = heroState[0].heroId;
+                            heroIds.push(`${heroId}`)
+                        }
                     }
                     if (battleInfo.attack) {
                         addHeroid(battleInfo.attack)
@@ -205,6 +285,47 @@ export class CityBattleView extends UIView {
                     }
                 }
             }
+        }
+    }
+
+    updateResult() {
+        if (this.delegate.battleResult) {
+            let _city = this.delegate.battleResult.cityInfo
+            this.delegate.battleResult = null
+            let _cityId = _city && _city.cityId;
+            if (_cityId) {
+                let _item = this._map.getChildByName(`item${_cityId}`);
+                if (_item && _item.isValid) {
+                    let battleRes = _item.getChildByName("battleResult");
+                    battleRes.active = true
+                    //更新胜利显示文字
+                    let showText: string = ''
+                    let battleSide: BattleSide = this.delegate.battleResult.battleSide
+                    //1 进攻胜利 2 防守胜利
+                    let winnerSize = this.delegate.battleResult.winnerSize
+                    switch (battleSide) {
+                        case BattleSide.attack:
+                            showText = winnerSize == 1 ? "进攻胜利" : "进攻失败"
+                            break;
+                        case BattleSide.defend:
+                            showText = winnerSize == 2 ? "防守胜利" : "防守失败"
+                            break;
+                        case BattleSide.watch:
+                            showText = winnerSize == 1 ? "胜利" : "失败"
+                            break;
+                    }
+                    let _state = battleRes.getChildByName("state");
+                    _state.getComponent(Label).string = showText
+                    tween(battleRes) // 绑定在节点上，节点销毁时 tween 自动停止
+                        .delay(10.0)   // 等待 1 秒
+                        .call(() => {
+                            battleRes.active = false
+                        })
+                        .union()      // 将前面的 action 封装成一个整体
+                        .start();     // 启动
+                }
+            }
+
         }
     }
 }

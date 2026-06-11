@@ -21,7 +21,8 @@ export class TeamView extends UIView {
     private _team: Node = null
     private _teamItem: Node = null
     private _citySiegeBtn: Node = null
-    private _citySiegeBtnTip: Node = null
+    private _citySiegeBtnLab: Node = null
+    private _citySiegeBtnCost: Node = null
 
     private heroListScroll: TableView = null;
     private _row: number = 3;
@@ -43,7 +44,8 @@ export class TeamView extends UIView {
         this.registbuttonClick(this._citySiegeBtn, () => {
             this.delegate.siegeHadler()
         })
-        this._citySiegeBtnTip = this._citySiegeBtn.getChildByName("BtnTIp");
+        this._citySiegeBtnLab = this._citySiegeBtn.getChildByName("tip")
+        this._citySiegeBtnCost = this._citySiegeBtn.getChildByName("BtnCost");
     }
 
     updateView() {
@@ -54,13 +56,25 @@ export class TeamView extends UIView {
     }
 
     updateBtnState() {
-        this._citySiegeBtn.active = this.delegate.teamBtnState == TeamBtnState.citySiege
+        this._citySiegeBtn.active = this.delegate.teamBtnState == TeamBtnState.citySiege ||
+            this.delegate.teamBtnState == TeamBtnState.cityDefence
+        let btnLab: string = '';
+        switch (this.delegate.teamBtnState) {
+            case TeamBtnState.citySiege:
+                btnLab = '进攻'
+                break;
+            case TeamBtnState.cityDefence:
+                btnLab = '防守'
+                break;
+        }
+        this._citySiegeBtnLab.getComponent(Label).string = btnLab
 
     }
 
     updateBtnTip() {
         switch (this.delegate.teamBtnState) {
             case TeamBtnState.citySiege:
+            case TeamBtnState.cityDefence:
                 let allCount = this.delegate.playerModel.getProvisions()
                 let costCount = 0;
                 for (let index = 0; index < this.delegate.teamHeroIds.length; index++) {
@@ -71,7 +85,7 @@ export class TeamView extends UIView {
                     }
                 }
                 this.delegate._cityCostEnough = allCount >= costCount
-                this._citySiegeBtnTip.getComponent(Label).string = `${costCount}/${allCount}`
+                this._citySiegeBtnCost.getComponent(Label).string = `${costCount}/${allCount}`
 
                 break;
 

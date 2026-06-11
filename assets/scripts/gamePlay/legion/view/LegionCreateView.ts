@@ -1,7 +1,8 @@
-import { _decorator, Asset, EditBox, instantiate, Node, resources, Sprite } from 'cc';
+import { _decorator, Asset, EditBox, instantiate, Label, Node, resources, Sprite } from 'cc';
 import UIView from '../../../frameWork/ui/UIView';
 import { LegionCreateViewController } from '../controller/LegionCreateViewController';
 import IconFactory from '../../base/IconFactory';
+import DataReader from '../../../frameWork/data/DataReader';
 const { ccclass, property } = _decorator;
 
 @ccclass('LegionCreateView')
@@ -16,6 +17,8 @@ export class LegionCreateView extends UIView {
     private _flag: Node = null;
     private _flagItem: Node = null
     private _create: Node = null;
+    private _createVipLv: Node = null;
+    private _createNameCost: Node = null;
 
     onLoad() {
         let _bg = this.node.getChildByName("bg");
@@ -40,6 +43,8 @@ export class LegionCreateView extends UIView {
             let flagStr = flagEditBox.string || flagEditBox.placeholder
             this.delegate.createHandler(nameStr, flagStr)
         })
+        this._createVipLv = this._create.getChildByName("vipLv")
+        this._createNameCost = this._create.getChildByName("nameCost")
     }
 
     updateView() {
@@ -66,6 +71,14 @@ export class LegionCreateView extends UIView {
             })
             this.updateFlagChose()
         });
+        //需要的vip等级
+        let facCfig = DataReader.requireRecordById("factionParameter", "2")
+        this._createVipLv.getComponent(Label).string = facCfig.value
+        //需要的元宝数量
+        let curCount = this.delegate.playerModel.getIngot();
+        let facIngotCfig = DataReader.requireRecordById("factionParameter", "1")
+        let needCount = facIngotCfig.value
+        this._createNameCost.getComponent(Label).string = `${needCount}/${curCount}`
     }
 
     updateFlagChose() {

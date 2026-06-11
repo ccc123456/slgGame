@@ -5,6 +5,11 @@
       "id": 1,
       "key": "OneCityDefenseArmyTime",
       "value": "60"
+    },
+    "2": {
+      "id": 2,
+      "key": "ExemptFighting",
+      "value": "60"
     }
   }
 }
