@@ -14,6 +14,7 @@ import GameDataCenter from '../../GameDataCenter';
 import LoginViewController from '../login/controller/LoginViewController';
 import { TipViewController } from '../tip/controller/TipViewController';
 import { DebugBoxViewController } from '../debugBox/controller/DebugBoxViewController';
+import { LoadingViewController } from '../loading/controller/LoadingViewController';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -23,10 +24,13 @@ export class Game extends Component {
         ControllerManager.getInstance().pushViewByController(LoginViewController)
 
         GameDataCenter.initModels()
-        
+
         ControllerManager.getInstance().pushViewByController(DebugBoxViewController, { noBlock: true, bgStyle: null, isGlobal: true })
         //EventManager.emit(SHOWTIPS, { tip: 123 })
         ControllerManager.getInstance().pushViewByController(TipViewController, { noBlock: true, bgStyle: null, isGlobal: true })
+        //EventManager.emit(SHOW_LOADING, { data: LoadInterface })
+        ControllerManager.getInstance().pushViewByController(LoadingViewController, { noBlock: true, bgStyle: null, isGlobal: true })
+
     }
 }
 

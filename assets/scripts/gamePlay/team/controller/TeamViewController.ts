@@ -5,7 +5,7 @@ import Hero from '../../hero/model/Hero';
 import { HeroModel, HerosState } from '../../hero/model/HeroModel';
 import { TeamBtnState } from '../model/TeamModel';
 import { TeamView } from '../view/TeamView';
-import { CsDispatchTroops, csDispatchTroopsId, ScDispatchTroops } from 'db://assets/resource/proto/MessageCity';
+import { CsDispatchTroops, csDispatchTroopsId, CsHealInjuredHeroes, csHealInjuredHeroesId, HeroDeadInfo, ScDispatchTroops, ScHealInjuredHeroes } from 'db://assets/resource/proto/MessageCity';
 import EventManager from '../../../frameWork/manager/EventManager';
 import { SHOWTIPS } from '../../../GameConfig';
 import PlayerModel from '../../home/mode/PlayerModel';
@@ -23,7 +23,7 @@ export class TeamViewController extends ViewController {
     teamHeroIds: number[] = []
     teamBtnState: TeamBtnState = TeamBtnState.citySiege
     cityId: number = 0
-    heroDeadList: number[] = []  //阵亡武将
+    heroDeadList: HeroDeadInfo[] = []  //阵亡武将
 
     _cityCostEnough: boolean = false    //城战消耗是否足够
     viewDidLoad(): void {
@@ -34,12 +34,21 @@ export class TeamViewController extends ViewController {
             this.heros.sort((a: Hero, b: Hero) => {
                 let aHeroid = a.getId()
                 let bHeroid = b.getId()
-                let aisDead = this.heroDeadList.indexOf(Number(aHeroid)) != -1 ? 0 : 1
-                let bisDead = this.heroDeadList.indexOf(Number(bHeroid)) != -1 ? 0 : 1
+                let aisDead = this.getHeroIsDead(Number(aHeroid)) ? 0 : 1
+                let bisDead = this.getHeroIsDead(Number(bHeroid)) ? 0 : 1
                 return aisDead - bisDead
             })
         }
         this.cityId = this.args.cityId || 0
+    }
+
+    getHeroIsDead(heroid: number) {
+        for (let index = 0; index < this.heroDeadList.length; index++) {
+            if (this.heroDeadList[index].heroTableId == heroid) {
+                return true
+            }
+        }
+        return false
     }
 
     viewDidShow(rag?: any): void {
@@ -86,6 +95,34 @@ export class TeamViewController extends ViewController {
             console.log("收到服务器响应", msg)
             let plater: ScDispatchTroops = ScDispatchTroops.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
             this.close()
+        })
+    }
+
+    //复活
+    HealinjuredHandler(heroIds: number[], callBack?: Function) {
+        let healinjured: CsHealInjuredHeroes = {
+            cityId: this.cityId,
+            heroIds: heroIds
+        }
+        let healinjuredCreate = CsDispatchTroops.create(healinjured)
+        let healinjuredbuffer = CsDispatchTroops.encode(healinjuredCreate).finish()
+
+        this.heroModel.request(healinjuredbuffer, csHealInjuredHeroesId, (msg) => {
+            console.log("收到服务器响应", msg)
+            let plater: ScHealInjuredHeroes = ScHealInjuredHeroes.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
+            for (let index = 0; index < heroIds.length; index++) {
+                let heroId = heroIds[index];
+                let _heroIndex = -1
+                for (let heroIndex = 0; heroIndex < this.heroDeadList.length; heroIndex++) {
+                    if (this.heroDeadList[heroIndex].heroTableId == heroId) {
+                        _heroIndex = heroIndex
+                    }
+                }
+                if (_heroIndex != -1) {
+                    this.heroDeadList.splice(_heroIndex, 1)
+                }
+            }
+            callBack && callBack()
         })
     }
 }

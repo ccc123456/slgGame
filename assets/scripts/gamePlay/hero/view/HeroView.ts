@@ -111,7 +111,7 @@ export class HeroView extends UIView {
                 _item.active = true
                 let _herolistItem = _item.getComponent(HeroListItemView);
                 _herolistItem.initView(this.delegate)
-                _herolistItem.updateView(_heroId)
+                _herolistItem.updateView({ heroId: _heroId })
             }
         }
         return cell;

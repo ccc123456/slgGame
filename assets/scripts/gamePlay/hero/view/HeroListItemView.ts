@@ -6,6 +6,10 @@ import IconFactory from '../../base/IconFactory';
 import Hero, { heroActivateItem } from '../model/Hero';
 import { HeroModel } from '../model/HeroModel';
 import { HeroViewController } from '../controller/HeroViewController';
+import { HeroDeadInfo } from 'db://assets/resource/proto/MessageCity';
+import DataReader from '../../../frameWork/data/DataReader';
+import { getItemConfigCount } from '../../../frameWork/utils/CommonUtils';
+import { TeamViewController } from '../../team/controller/TeamViewController';
 const { ccclass, property } = _decorator;
 
 @ccclass('HeroListItem')
@@ -42,11 +46,21 @@ export class HeroListItemView extends BaseUI {
     @property(Node)
     activateBtn: Node = null;
 
+    @property(Node)
+    dispatchCity: Node = null;
+
+    @property(Node)
+    healInjured: Node = null;
+
+    @property(Node)
+    healInjuredBtn: Node = null;
+
     initView(_delegate: ViewController) {
         this.delegate = _delegate
     }
 
-    updateView(heroId: string) {
+    updateView(viewData: { heroId: string, team?: boolean, deadHeroId?: HeroDeadInfo[] }) {
+        let heroId = viewData.heroId
         let heroModel: HeroModel = <HeroModel>HeroModel.getInstance()
         let bagModel: BagModel = <BagModel>BagModel.getInstance()
         let heroVo: Hero = heroModel.getHero(heroId)
@@ -95,6 +109,54 @@ export class HeroListItemView extends BaseUI {
             let heroDe: HeroViewController = <HeroViewController>this.delegate
             heroDe.activateHandler(heroId)
         })
+        this.dispatchCity.active = false
+        this.healInjured.active = false
+        if (viewData.team) {
+            this.dispatchCity.active = heroVo.getDispatchToCityId() ? true : false
+            //复活
+            this.updateHealinjured(viewData, heroId)
+        }
+        this.registbuttonClick(this.healInjuredBtn, () => {
+            let teamDe: TeamViewController = <TeamViewController>this.delegate
+            let heroIds: number[] = [];
+            heroIds.push(Number(heroId))
+            teamDe.HealinjuredHandler(heroIds, () => {
+                this.healInjured.active = false
+            })
+        })
+    }
+
+    updateHealinjured(viewData, heroId) {
+        let isDead = false;
+        let healCount = 0;
+        if (viewData.deadHeroId) {
+            for (let index = 0; index < viewData.deadHeroId.length; index++) {
+                if (viewData.deadHeroId[index].heroTableId == Number(heroId)) {
+                    isDead = true
+                    healCount = viewData.deadHeroId[index].healTimes
+                }
+            }
+        }
+        this.healInjured.active = isDead
+        if (isDead) {
+            let allSecondConfig = DataReader.requireRecordById("CityParameter", "4")
+            let costStr = allSecondConfig.value
+            let costConfigC = getItemConfigCount(costStr);
+            //name
+            let _name = this.healInjured.getChildByName("itemName");
+            _name.getComponent(Label).string = costConfigC.config.name
+            //coun
+            let bagModel: BagModel = BagModel.getInstance() as BagModel
+            let _curCount = bagModel.getCountByConfigId(costConfigC.configId)
+            let needCont = costConfigC.count
+            let _count = this.healInjured.getChildByName("itemCount");
+            _count.getComponent(Label).string = `${_curCount}/${needCont}`
+            //复活次数
+            let healInjuredCount = this.healInjured.getChildByName("healInjuredCount")
+            let allSecondConfigf = DataReader.requireRecordById("CityParameter", "3")
+            let allHeaCount = allSecondConfigf.value
+            healInjuredCount.getComponent(Label).string = `${healCount}/${allHeaCount}`
+        }
     }
 }
 

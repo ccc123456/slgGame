@@ -29,7 +29,7 @@ export default class LoginView extends UIView {
 
     onLoad() {
         super.onLoad()
-        this.userEdit.string = "test1"
+        this.userEdit.string = "test3"
         this.registbuttonClick(this.loginBtn, () => {
             let userName = this.userEdit.string
             userName = userName ? userName : "123"

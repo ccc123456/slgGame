@@ -116,7 +116,7 @@ export class TeamView extends UIView {
             if (heroId) {
                 let _herolistItem = _itemPre.getComponent(HeroListItemView);
                 _herolistItem.initView(this.delegate)
-                _herolistItem.updateView(`${heroId}`)
+                _herolistItem.updateView({ heroId: `${heroId}` })
             }
         }
     }
@@ -182,7 +182,7 @@ export class TeamView extends UIView {
                 _item.active = true
                 let _herolistItem = _item.getComponent(HeroListItemView);
                 _herolistItem.initView(this.delegate)
-                _herolistItem.updateView(_heroVo.getId())
+                _herolistItem.updateView({ heroId: _heroVo.getId(), team: true, deadHeroId: this.delegate.heroDeadList })
             }
         }
         return cell

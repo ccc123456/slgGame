@@ -123,6 +123,10 @@ export class CityTeamListView extends UIView {
             let iconName = `heroList${1}`
             iconPath = `hero/${iconName}`
         } else {
+            if (!heros[0]) {
+                console.log("11");
+                
+            }
             let heroId = heros[0].heroId;
             let _config = DataReader.requireRecordById("Hero", `${heroId}`)
             let iconName = `heroList${_config.sex}`

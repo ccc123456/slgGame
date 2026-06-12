@@ -69,7 +69,7 @@ export class CityBattleViewController extends ViewController {
 
     }
 
-    //城池信息
+    //战斗信息
     cityBattleInfoHandler(_cityVo: City) {
         let cityBattleDetail: CsCityBattleDetail = {
             cityId: Number(_cityVo.getId())
@@ -97,13 +97,13 @@ export class CityBattleViewController extends ViewController {
         let heroDeadListBuffer = CsHeroDeadList.encode(heroDeadListCreate).finish()
 
         this.ciryBattleModel.request(heroDeadListBuffer, csHeroDeadListId, (msg) => {
-            console.log("收到服务器响应", msg)
             let plater: ScHeroDeadList = ScHeroDeadList.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
+            console.log("收到服务器响应 1517..", plater)
             console.log(plater);
             this.pushController(TeamViewController, {
                 btnState: btnState,
                 cityId: Number(this.checkCity.getId()),
-                heroDeadList: plater.heroTableId
+                heroDeadList: plater.deadInfo
             })
         })
     }

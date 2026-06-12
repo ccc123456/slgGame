@@ -30,15 +30,18 @@ export class CityTeamListViewController extends ViewController {
         this.teamListVo = []
         //添加战斗信息
         let _battleInfo = cityBattleDetail.battleInfo;
+        //如果战力序列没有角色 战斗已结束 关闭界面
         for (let index = 0; index < _battleInfo.length; index++) {
             let _info: BattleInfo = _battleInfo[index]
-            let _teamVo: teamListData = {
-                atk: _info.attack,
-                def: _info.defend,
-                battle: true,
-                battleInfo: _info
+            if (_info.attack.hero.length > 0) {
+                let _teamVo: teamListData = {
+                    atk: _info.attack,
+                    def: _info.defend,
+                    battle: true,
+                    battleInfo: _info
+                }
+                this.teamListVo.push(_teamVo)
             }
-            this.teamListVo.push(_teamVo)
         }
         //添加等待
         let atkQueue = cityBattleDetail.attackQueue
@@ -95,7 +98,11 @@ export class CityTeamListViewController extends ViewController {
             let plater: ScCityBattleDetail = ScCityBattleDetail.decode(msg.payload) //decodeScPlayerLogin(msg.payload)    //用proto 二进制消息转换成对象
             console.log(plater);
             this.updateTeamList(plater.detail)
-            this.viewDoAction("updateView")
+            if (plater.detail && plater.detail.battleInfo[0] && plater.detail.battleInfo[0].attack.hero.length > 0) {
+                this.viewDoAction("updateView")
+            } else {
+                this.close()
+            }
         })
     }
 }

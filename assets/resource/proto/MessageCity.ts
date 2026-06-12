@@ -154,7 +154,12 @@ export interface CsHeroDeadList {
  * @Id(1518)
  */
 export interface ScHeroDeadList {
-  heroTableId: number[];
+  deadInfo: HeroDeadInfo[];
+}
+
+export interface HeroDeadInfo {
+  heroTableId: number;
+  healTimes: number;
 }
 
 /**
@@ -1201,16 +1206,14 @@ export const CsHeroDeadList: MessageFns<CsHeroDeadList> = {
 };
 
 function createBaseScHeroDeadList(): ScHeroDeadList {
-  return { heroTableId: [] };
+  return { deadInfo: [] };
 }
 
 export const ScHeroDeadList: MessageFns<ScHeroDeadList> = {
   encode(message: ScHeroDeadList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    writer.uint32(10).fork();
-    for (const v of message.heroTableId) {
-      writer.int32(v);
+    for (const v of message.deadInfo) {
+      HeroDeadInfo.encode(v!, writer.uint32(18).fork()).join();
     }
-    writer.join();
     return writer;
   },
 
@@ -1221,23 +1224,13 @@ export const ScHeroDeadList: MessageFns<ScHeroDeadList> = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1: {
-          if (tag === 8) {
-            message.heroTableId.push(reader.int32());
-
-            continue;
+        case 2: {
+          if (tag !== 18) {
+            break;
           }
 
-          if (tag === 10) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.heroTableId.push(reader.int32());
-            }
-
-            continue;
-          }
-
-          break;
+          message.deadInfo.push(HeroDeadInfo.decode(reader, reader.uint32()));
+          continue;
         }
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1250,16 +1243,16 @@ export const ScHeroDeadList: MessageFns<ScHeroDeadList> = {
 
   fromJSON(object: any): ScHeroDeadList {
     return {
-      heroTableId: globalThis.Array.isArray(object?.heroTableId)
-        ? object.heroTableId.map((e: any) => globalThis.Number(e))
+      deadInfo: globalThis.Array.isArray(object?.deadInfo)
+        ? object.deadInfo.map((e: any) => HeroDeadInfo.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: ScHeroDeadList): unknown {
     const obj: any = {};
-    if (message.heroTableId?.length) {
-      obj.heroTableId = message.heroTableId.map((e) => Math.round(e));
+    if (message.deadInfo?.length) {
+      obj.deadInfo = message.deadInfo.map((e) => HeroDeadInfo.toJSON(e));
     }
     return obj;
   },
@@ -1269,7 +1262,83 @@ export const ScHeroDeadList: MessageFns<ScHeroDeadList> = {
   },
   fromPartial<I extends Exact<DeepPartial<ScHeroDeadList>, I>>(object: I): ScHeroDeadList {
     const message = createBaseScHeroDeadList();
-    message.heroTableId = object.heroTableId?.map((e) => e) || [];
+    message.deadInfo = object.deadInfo?.map((e) => HeroDeadInfo.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseHeroDeadInfo(): HeroDeadInfo {
+  return { heroTableId: 0, healTimes: 0 };
+}
+
+export const HeroDeadInfo: MessageFns<HeroDeadInfo> = {
+  encode(message: HeroDeadInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.heroTableId !== 0) {
+      writer.uint32(8).int32(message.heroTableId);
+    }
+    if (message.healTimes !== 0) {
+      writer.uint32(16).int32(message.healTimes);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): HeroDeadInfo {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseHeroDeadInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.heroTableId = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.healTimes = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): HeroDeadInfo {
+    return {
+      heroTableId: isSet(object.heroTableId) ? globalThis.Number(object.heroTableId) : 0,
+      healTimes: isSet(object.healTimes) ? globalThis.Number(object.healTimes) : 0,
+    };
+  },
+
+  toJSON(message: HeroDeadInfo): unknown {
+    const obj: any = {};
+    if (message.heroTableId !== 0) {
+      obj.heroTableId = Math.round(message.heroTableId);
+    }
+    if (message.healTimes !== 0) {
+      obj.healTimes = Math.round(message.healTimes);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<HeroDeadInfo>, I>>(base?: I): HeroDeadInfo {
+    return HeroDeadInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<HeroDeadInfo>, I>>(object: I): HeroDeadInfo {
+    const message = createBaseHeroDeadInfo();
+    message.heroTableId = object.heroTableId ?? 0;
+    message.healTimes = object.healTimes ?? 0;
     return message;
   },
 };

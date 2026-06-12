@@ -6,7 +6,8 @@
  date: Wed May 27 2026 16:32:28 GMT+0800 (中国标准时间) 
  **********************************************/
 
-import { assert, Asset, assetManager, AssetManager, cclegacy, Color, director, Graphics, native, Node, RenderTexture, resources, Sprite, SpriteFrame, Texture2D, tween, Tween, UITransform } from "cc"
+import { assert, Asset, assetManager, AssetManager, cclegacy, Color, director, Graphics, native, Node, Prefab, RenderTexture, resources, Sprite, SpriteFrame, Texture2D, tween, Tween, UITransform } from "cc"
+import DataReader from "../data/DataReader";
 const { fileUtils } = native;
 //获取某个节点的UITransform组件，如果没有则添加一个
 export function getNodeUITransform(node: Node) {
@@ -119,6 +120,65 @@ export async function loadResByTypeMap(typeMap: any) {
         });
     }, 0);
     return assetRet
+}
+
+export function preloadFolder(path: string, proCallBack?: Function, endCallBack?: Function) {
+    resources.preloadDir(
+        path,
+        SpriteFrame,
+        (finished: number, total: number) => {
+            const progress = total > 0 ? Math.floor((finished / total) * 100) : 0;
+            proCallBack(finished, total)
+            console.log(`预加载进度: ${finished}/${total} (${progress}%)`);
+        },
+        (err: Error | null, items) => {
+            if (err) {
+                console.error('预加载失败:', err);
+                return;
+            }
+            endCallBack && endCallBack()
+
+            console.log('预加载完成，资源数量:', items.length);
+        }
+    )
+}
+
+export function preloadPrefab(path: string, proCallBack?: Function, endCallBack?: Function) {
+    resources.preload(
+        path,
+        Prefab,
+        (finished: number, total: number, item) => {
+            const progress = total > 0 ? Math.floor((finished / total) * 100) : 0;
+            proCallBack(finished, total)
+            console.log(`预加载进度: ${finished}/${total} (${progress}%)`, item);
+        },
+        (err, data) => {
+            if (err) {
+                console.error('预加载 Prefab 失败:', err);
+                return;
+            }
+            endCallBack && endCallBack()
+            console.log('预加载 Prefab 完成:', data);
+        }
+    );
+}
+
+//通过消耗道具字符串获取config 和 count 3_30007_1
+export function getItemConfigCount(itemStr: string) {
+    let itemStrArr = ExcelStrToArr(itemStr)
+    let itemType = itemStrArr[0];
+    let itemId = itemStrArr[1];
+    let itemCont = itemStrArr[2];
+    let itemConfig = null
+    switch (Number(itemType)) {
+        case 3:
+            itemConfig = DataReader.requireRecordById("Item", itemId)
+            break;
+
+        default:
+            break;
+    }
+    return { config: itemConfig, configId: itemId, count: itemCont }
 }
 
 

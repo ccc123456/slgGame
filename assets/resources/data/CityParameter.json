@@ -10,6 +10,16 @@
       "id": 2,
       "key": "ExemptFighting",
       "value": "60"
+    },
+    "3": {
+      "id": 3,
+      "key": "ResurrectionNum",
+      "value": "5"
+    },
+    "4": {
+      "id": 4,
+      "key": "ResurrectionItem",
+      "value": "3_30007_1"
     }
   }
 }

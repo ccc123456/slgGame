@@ -26,6 +26,7 @@ export class CityBattleView extends UIView {
     private _cityItem: Node = null
     private _teamItem: Node = null
     private _checkNode: Node = null
+    private _battleResult: Node = null
     onLoad() {
         this._close = find("close/close", this.node)
         this.registbuttonClick(this._close, () => {
@@ -46,6 +47,8 @@ export class CityBattleView extends UIView {
         this._teamItem.active = false
         this._checkNode = this.node.getChildByName("checkNode")
         this._checkNode.active = false
+        this._battleResult = this.node.getChildByName("battleResult")
+        this._battleResult.active = false
     }
 
     updateCheckNode() {
@@ -191,10 +194,6 @@ export class CityBattleView extends UIView {
                 this.updateCheckNode()
             })
 
-            //battleResult
-            let _battleResult = _item.getChildByName("battleResult");
-            _battleResult.active = false
-
             //endTip
             let _endTIp = _item.getChildByName("endTip");
             let atkEmCount = _city.getAttackEmptyCountdown()
@@ -291,13 +290,18 @@ export class CityBattleView extends UIView {
     updateResult() {
         if (this.delegate.battleResult) {
             let _city = this.delegate.battleResult.cityInfo
-            this.delegate.battleResult = null
             let _cityId = _city && _city.cityId;
             if (_cityId) {
                 let _item = this._map.getChildByName(`item${_cityId}`);
                 if (_item && _item.isValid) {
-                    let battleRes = _item.getChildByName("battleResult");
-                    battleRes.active = true
+                    let _itemResult = _item.getChildByName("result");
+                    if (!_itemResult) {
+                        _itemResult = instantiate(this._battleResult)
+                        _itemResult.name = "result";
+                        _item.addChild(_itemResult)
+                    }
+                    _itemResult.active = true
+                    _itemResult.y = -_item.getComponent(UITransform).height / 2
                     //更新胜利显示文字
                     let showText: string = ''
                     let battleSide: BattleSide = this.delegate.battleResult.battleSide
@@ -314,15 +318,16 @@ export class CityBattleView extends UIView {
                             showText = winnerSize == 1 ? "胜利" : "失败"
                             break;
                     }
-                    let _state = battleRes.getChildByName("state");
+                    let _state = _itemResult.getChildByName("state");
                     _state.getComponent(Label).string = showText
-                    tween(battleRes) // 绑定在节点上，节点销毁时 tween 自动停止
-                        .delay(10.0)   // 等待 1 秒
-                        .call(() => {
-                            battleRes.active = false
-                        })
-                        .union()      // 将前面的 action 封装成一个整体
-                        .start();     // 启动
+
+                    let setChangeTime = (_count) => {
+                    }
+                    nodeCreateTween(_itemResult, 1, setChangeTime, 10, 1, () => {
+                        if (_itemResult && _itemResult.isValid) {
+                            _itemResult.active = false
+                        }
+                    })
                 }
             }
 

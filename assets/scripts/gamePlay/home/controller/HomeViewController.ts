@@ -11,7 +11,7 @@ import { _decorator } from 'cc';
 import ViewController, { viewMode } from '../../../frameWork/controller/ViewController';
 import EventManager from '../../../frameWork/manager/EventManager';
 import UIView from '../../../frameWork/ui/UIView';
-import { SHOWTIPS } from '../../../GameConfig';
+import { SHOW_LOADING, SHOWTIPS } from '../../../GameConfig';
 import { BagViewController } from '../../bag/controller/BagViewController';
 import { CityBattleViewController } from '../../cityBattle/controller/CityBattleViewController';
 import { CityBattleMode } from '../../cityBattle/mode/CityBattleMode';
@@ -21,6 +21,8 @@ import { LegionViewController } from '../../legion/controller/LegionViewControll
 import { LegionModel } from '../../legion/model/LegionModel';
 import PlayerModel from '../mode/PlayerModel';
 import { HomeView } from '../view/HomeView';
+import { preloadFolder, preloadPrefab } from '../../../frameWork/utils/CommonUtils';
+import { LoadInterface, LoadState } from '../../loading/controller/LoadingViewController';
 const { ccclass, property } = _decorator;
 
 @ccclass('HomeViewController')
@@ -71,8 +73,18 @@ export class HomeViewController extends ViewController {
     }
     clickCityHandler() {
         this.cityBattleModel.getCityList(() => {
-            this.pushController(CityBattleViewController)
+            // preloadPrefab("ui/cityBattle/CityBattle")
+            let loadVo: LoadInterface = {
+                path: "ui/cityBattle/CityBattle",
+                loadType: LoadState.Prefab,
+                title: "正在加载地图资源",
+                endCallBack: () => {
+                    this.pushController(CityBattleViewController)
+                }
+            }
+            EventManager.emit(SHOW_LOADING, loadVo)
         })
+
     }
 
 }

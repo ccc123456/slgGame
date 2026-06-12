@@ -2,6 +2,7 @@ export const SHOWTIPS: string = "SHOWTIPS"
 export const LEGIN_UP_SUCCESS: string = "LEGIN_UP_SUCCESS"
 export const CITY_UPDATA: string = "CITY_UPDATA"
 export const CITY_RESULT: string = "CITY_RESULT"
+export const SHOW_LOADING: string = "SHOW_LOADING"
 
 export enum GLOBALZINDEX {
     inviteTip = 900,
